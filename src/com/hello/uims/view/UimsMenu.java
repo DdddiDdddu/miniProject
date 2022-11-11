@@ -9,7 +9,7 @@ public class UimsMenu {
 	public void loginMenu() {
 
 		do {
-			
+
 			int no;
 			System.out.println("============================ 학사 통합 관리 시스템 ============================");
 			System.out.println("1. 로그인");
