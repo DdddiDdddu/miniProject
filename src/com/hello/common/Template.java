@@ -12,7 +12,7 @@ public class Template {
 
 	private static String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private static String URL = "jdbc:oracle:thin:@localhost:1521:xe"; // 자르 가져와서 쓸거면 이걸로
-	private static String USER = "greedy"; // 확인
+	private static String USER = "greedy"; // db만들걸로 아디 비번 변경하기 // 확인
 	private static String PASSWORD = "greedy"; // 확인
 	private static SqlSessionFactory sqlSessionFactory;
 
