@@ -12,6 +12,17 @@
 		<result property = "finScore" column = "FIN_SCORE"/>
 		<result property = "grade" column = "GRADE"/>
 	</resultMap>
+	<resultMap type = "com.hello.uims.model.DTO.LectureDTO" id = "lectureResultMap">
+		<result property = "lectureNo" column = "LECTURE_NO"/>
+		<result property = "deptCode" column = "DEPT_CODE"/>
+		<result property = "profNo" column = "PROF_NO"/>
+		<result property = "lectureName" column = "LECTURE_NAME"/>
+		<result property = "credit" column = "CREDIT"/>
+		<result property = "currNo" column = "CURR_NO"/>
+		<result property = "fullNo" column = "FULL_NO"/>
+		<result property = "day" column = "DAY"/>
+		<result property = "time" column = "TIME"/>
+	</resultMap>
 	<select id = "gradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
 		SELECT
 			   LECTURE_NAME,
@@ -26,4 +37,37 @@
 	 	  FROM VIEW_GRADE_CHECK
 	 	 WHERE STUDENT_NO = #{ studentNo }
 	</select>
+	<select id = "selectByProfNo" parameterType = "_int" resultMap = "lectureResultMap">
+		SELECT
+			   LECTURE_NO,
+			   DEPT_CODE,
+			   PROF_NO,
+			   LECTURE_NAME,
+			   CREDIT,
+			   CURR_NO,
+			   FULL_NO,
+			   DAY,
+			   TIME
+	 	  FROM LECTURE
+	 	 WHERE PROF_NO = #{ profNo }
+	</select>
+	<select id = "selectStuGrade" parameterType = "_int" resultMap = "gradeResultMap">
+		SELECT
+			   A.LECTURE_NAME,
+			   A.PROF_NAME,
+			   A.STUDENT_NO,
+			   A.STUDENT_NAME,
+			   A.ATT_SCORE,
+			   A.ASS_SCORE,
+			   A.MID_SCORE,
+			   A.FIN_SCORE,
+			   A.GRADE
+	 	  FROM VIEW_GRADE_CHECK A
+	 	  JOIN LECTURE B
+	 	    ON A.LECTURE_NAME = B.LECTURE_NAME
+	 	 WHERE B.LECTURE_NO = #{ lectureNo }
+	</select>
+	<insert id = "insertGrade" parameterType = "_int">
+		INSERT INTO GRADE
+	</insert>
 </mapper>

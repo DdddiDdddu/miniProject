@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.hello.common.UimsMapper;
 import com.hello.uims.model.DTO.GradeDTO;
+import com.hello.uims.model.DTO.LectureDTO;
+
 import static com.hello.common.Template.getSqlSession;
 
 public class GradeService {
@@ -24,6 +26,45 @@ public class GradeService {
 		sqlSession.close();
 		
 		return list;
+	}
+
+	public ArrayList<LectureDTO> selectByProfNo(int profNo) {
+
+		sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		ArrayList<LectureDTO> list = mapper.selectByProfNo(profNo);
+		
+		sqlSession.close();
+		
+		return list;
+	}
+
+	public ArrayList<GradeDTO> selectStuGrade(int lectureNo) {
+		
+		sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		ArrayList<GradeDTO> list = mapper.selectStuGrade(lectureNo);
+		
+		sqlSession.close();
+		
+		return list;
+	}
+
+	public boolean insertGrade(int studentNo) {
+		
+		sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		int result = mapper.insertGrade(studentNo);
+		
+		if(result > 0) {
+			sqlSession.commit();
+			sqlSession.close();
+			return true;
+		} else {
+			sqlSession.rollback();
+			sqlSession.close();
+			return false;
+		}
 	}
 
 }
