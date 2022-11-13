@@ -70,11 +70,10 @@ public class UimsMenu {
 	}
 
 	private void signIn() {
-		// TODO Auto-generated method stub
-
+		// 지수형 회원가입 파트
 	}
 
-	public void stuMainMenu() {
+	public void stuMainMenu() { // 학생용 메뉴 화면
 
 		do {
 			int no;
@@ -232,7 +231,7 @@ public class UimsMenu {
 	private void insertGrade(Map<String, String> inputLectureNo) {
 
 		ArrayList<GradeDTO> grade = con.selectStuGrade(inputLectureNo);
-		;
+		
 		int currNo = 0;
 
 		while (currNo < grade.size()) {
