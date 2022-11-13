@@ -9,6 +9,7 @@ public class PrintResult {
 	public void printGrade(List<GradeDTO> list) {
 		
 		System.out.println("========================================================================");
+		System.out.println("강의명     교수명  학번      학생명  출석점수 과제점수 중간점수 기말점수 학점");
 		for(GradeDTO grade : list) {
 			System.out.println(grade);
 		}
