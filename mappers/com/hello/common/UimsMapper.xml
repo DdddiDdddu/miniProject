@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hello.common.UimsMapper.xml">
-<!-- .xml 지워야 될 수도 있음 (확인) -->
+<mapper namespace="com.hello.common.UimsMapper">
+	<resultMap type = "com.hello.uims.model.DTO.GradeDTO" id = "gradeResultMap">
+		<result property = "lectureName" column = "LECTURE_NAME"/>
+		<result property = "profName" column = "PROF_NAME"/>
+		<result property = "studentNo" column = "STUDENT_NO"/>
+		<result property = "studentName" column = "STUDENT_NAME"/>
+		<result property = "attScore" column = "ATT_SCORE"/>
+		<result property = "assScore" column = "ASS_SCORE"/>
+		<result property = "midScore" column = "MID_SCORE"/>
+		<result property = "finScore" column = "FIN_SCORE"/>
+		<result property = "grade" column = "GRADE"/>
+	</resultMap>
+	<select id = "gradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
+		SELECT
+			   LECTURE_NAME,
+			   PROF_NAME,
+			   STUDENT_NO,
+			   STUDENT_NAME,
+			   ATT_SCORE,
+			   ASS_SCORE,
+			   MID_SCORE,
+			   FIN_SCORE,
+			   GRADE
+	 	  FROM VIEW_GRADE_CHECK
+	 	 WHERE STUDENT_NO = #{ studentNo }
+	</select>
 </mapper>
