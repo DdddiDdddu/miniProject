@@ -1,10 +1,13 @@
 package com.hello.uims.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import com.hello.uims.controller.Controller;
+import com.hello.uims.model.DTO.GradeDTO;
+import com.hello.uims.model.DTO.LectureDTO;
 
 public class UimsMenu {
 
@@ -27,8 +30,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-//				login();
-				mainMenu();
+				login();
 				break;
 			case 2:
 				signIn();
@@ -48,8 +50,22 @@ public class UimsMenu {
 
 	}
 
-	private void login() {// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
-		// TODO Auto-generated method stub
+	private void login() {
+		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
+		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
+		int no = sc.nextInt();
+		sc.nextLine();
+		System.out.println("학생 : 1");
+		System.out.println("교수 : 2");
+
+		switch (no) {
+		case 1:
+			stuMainMenu();
+			break;
+		case 2:
+			profMainMenu();
+			break;
+		}
 
 	}
 
@@ -58,17 +74,16 @@ public class UimsMenu {
 
 	}
 
-	public void mainMenu() {
+	public void stuMainMenu() {
 
 		do {
 			int no;
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 마이페이지");
 			System.out.println("2. 수강신청");
-			System.out.println("3. 학점조회/부여");
+			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
 			System.out.println("5. 로그아웃");
-			System.out.println("9. 프로그램 종료");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 			no = sc.nextInt();
@@ -90,12 +105,6 @@ public class UimsMenu {
 			case 5:
 				initialMenu();
 				break;
-			case 9:
-				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
-				if ('y' == sc.next().toLowerCase().charAt(0)) {
-					sc.close();
-					return;
-				}
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
@@ -104,8 +113,86 @@ public class UimsMenu {
 
 	}
 
-	private static Map<String, String> inputStudentNo() {
+	private void profMainMenu() { // 교수용 메뉴 화면
+		// 이거도 일단 임시로 복붙한거라 다들 자기 파트 부분 수정해 죠 해 줘
+		do {
+			int no;
+			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
+			System.out.println("1. 지수형");
+			System.out.println("2. 수용");
+			System.out.println("3. 학점관리");
+			System.out.println("4. 종호");
+			System.out.println("5. 로그아웃");
+			System.out.println("=========================================================================");
+			System.out.print("메뉴 선택 : ");
+			no = sc.nextInt();
+			sc.nextLine();
 
+			switch (no) {
+			case 1:
+//				con.myPage();
+				break;
+			case 2:
+//				con.enroll();
+				break;
+			case 3:
+				manageGrade(inputProfNo());
+				break;
+			case 4:
+//				con.lectureJug();
+				break;
+			case 5:
+				initialMenu();
+				break;
+			default:
+				System.out.println("잘못 입력하셨습니다.");
+				break;
+			}
+		} while (true);
+
+	}
+
+	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
+
+		con.selectByProfNo(parameter);
+
+		int no;
+
+		do {
+			System.out.println("================================ 학점 관리 ================================");
+			System.out.println("1. 학점 부여");
+			System.out.println("2. 학점 수정");
+			System.out.println("3. 학점 삭제");
+			System.out.println("4. 돌아가기");
+			System.out.println("=========================================================================");
+			System.out.print("메뉴 선택 : ");
+			no = sc.nextInt();
+			sc.nextLine();
+
+			switch (no) {
+			case 1:
+				insertGrade(inputLectureNo());
+				break;
+			case 2:
+//				con.updateGrade(inputLectureNo());
+				break;
+			case 3:
+//				con.deleteGrade(inputLectureNo());
+				break;
+			case 4:
+				profMainMenu();
+				break;
+			default:
+				System.out.println("잘못 입력하셨습니다.");
+				break;
+			}
+		} while (true);
+
+	}
+
+	private Map<String, String> inputStudentNo() {
+
+		System.out.println("=========================================================================");
 		System.out.print("학번을 입력하세요. : ");
 		String studentNo = sc.nextLine();
 
@@ -113,6 +200,54 @@ public class UimsMenu {
 		parameter.put("studentNo", studentNo);
 
 		return parameter;
+
+	}
+
+	private Map<String, String> inputProfNo() {
+
+		System.out.println("=========================================================================");
+		System.out.print("교수 번호를 입력하세요. : ");
+		String profNo = sc.nextLine();
+
+		Map<String, String> parameter = new HashMap<>();
+		parameter.put("profNo", profNo);
+
+		return parameter;
+
+	}
+
+	private Map<String, String> inputLectureNo() {
+
+		System.out.println("=========================================================================");
+		System.out.print("강의 번호를 입력하세요. : ");
+		String lectureNo = sc.nextLine();
+
+		Map<String, String> parameter = new HashMap<>();
+		parameter.put("lectureNo", lectureNo);
+
+		return parameter;
+
+	}
+
+	private void insertGrade(Map<String, String> inputLectureNo) {
+
+		ArrayList<GradeDTO> grade = con.selectStuGrade(inputLectureNo);
+		;
+		int currNo = 0;
+
+		while (currNo < grade.size()) {
+
+			for (GradeDTO gradeDTO : grade) {
+				if (gradeDTO.getAssScore() == 0 && gradeDTO.getAttScore() == 0) {
+					System.out.println(grade);
+				}
+			}
+
+			con.insertGrade(inputStudentNo());
+			currNo++;
+
+		}
+
 	}
 
 }
