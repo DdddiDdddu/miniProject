@@ -2,10 +2,10 @@ package com.hello.uims.model.DTO;
 
 public class GradeDTO {
 
-	private int gradeNo; // 학점 반호
-	private int lectureNo; // 강의 번호
-	private int profNo; // 교수 번호
+	private String lectureName; // 강의명
+	private String profName; // 교수 이름
 	private int studentNo; // 학번
+	private String studentName; // 학생 이름
 	private int attScore; // 출석 점수
 	private int assScore; // 과제 점수
 	private int midScore; // 중간 점수
@@ -16,13 +16,12 @@ public class GradeDTO {
 
 	}
 
-	public GradeDTO(int gradeNo, int lectureNo, int profNo, int studentNo, int attScore, int assScore, int midScore,
-			int finScore, String grade) {
-		super();
-		this.gradeNo = gradeNo;
-		this.lectureNo = lectureNo;
-		this.profNo = profNo;
+	public GradeDTO(String lectureName, String profName, int studentNo, String studentName, int attScore,
+			int assScore, int midScore, int finScore, String grade) {
+		this.lectureName = lectureName;
+		this.profName = profName;
 		this.studentNo = studentNo;
+		this.studentName = studentName;
 		this.attScore = attScore;
 		this.assScore = assScore;
 		this.midScore = midScore;
@@ -30,28 +29,28 @@ public class GradeDTO {
 		this.grade = grade;
 	}
 
-	public int getGradeNo() {
-		return gradeNo;
+	public String getLectureName() {
+		return lectureName;
 	}
 
-	public void setGradeNo(int gradeNo) {
-		this.gradeNo = gradeNo;
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
 	}
 
-	public int getLectureNo() {
-		return lectureNo;
+	public String getProfName() {
+		return profName;
 	}
 
-	public void setLectureNo(int lectureNo) {
-		this.lectureNo = lectureNo;
+	public void setProfName(String profName) {
+		this.profName = profName;
 	}
 
-	public int getProfNo() {
-		return profNo;
+	public String getStudentName() {
+		return studentName;
 	}
 
-	public void setProfNo(int profNo) {
-		this.profNo = profNo;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
 	public int getStudentNo() {
@@ -103,9 +102,9 @@ public class GradeDTO {
 	}
 
 	public String toString() {
-		return "[gradeNo=" + gradeNo + ", lectureNo=" + lectureNo + ", profNo=" + profNo + ", studentNo=" + studentNo
-				+ ", attScore=" + attScore + ", assScore=" + assScore + ", midScore=" + midScore + ", finScore="
-				+ finScore + ", grade=" + grade + "]";
+		return "[lectureName=" + lectureName + ", profName=" + profName + ", studentNo=" + studentNo + ", studentName="
+				+ studentName + ", attScore=" + attScore + ", assScore=" + assScore + ", midScore=" + midScore
+				+ ", finScore=" + finScore + ", grade=" + grade + "]";
 	}
 
 }
