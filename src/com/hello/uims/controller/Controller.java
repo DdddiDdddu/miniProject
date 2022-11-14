@@ -3,6 +3,7 @@ package com.hello.uims.controller;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.service.GradeService;
@@ -53,13 +54,20 @@ public class Controller {
 		
 	}
 
-	public ArrayList<GradeDTO> selectStuGrade(Map<String, String> parameter) {
+	public ArrayList<EnrollmentDTO> selectStuGrade(Map<String, String> parameter) {
 		
-		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
 		
-		ArrayList<GradeDTO> list = gradeService.selectStuGrade(lectureNo);
+		ArrayList<EnrollmentDTO> list = gradeService.selectStuGrade(parameter);
 		
 		return list;
+	}
+
+	public void inputFinGrade(Map<String, String> parameter) {
+		
+		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
+		
+		list.sort();
+		
 	}
 
 }
