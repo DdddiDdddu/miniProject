@@ -1,6 +1,8 @@
 package com.hello.uims.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.hello.common.UimsMapper;
@@ -50,11 +52,11 @@ public class GradeService {
 		return list;
 	}
 
-	public boolean insertGrade(int studentNo) {
+	public boolean insertGrade(Map<String, String> parameter) {
 		
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-		int result = mapper.insertGrade(studentNo);
+		int result = mapper.insertGrade(parameter);
 		
 		if(result > 0) {
 			sqlSession.commit();
