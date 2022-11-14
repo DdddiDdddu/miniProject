@@ -16,8 +16,8 @@ public class GradeDTO {
 
 	}
 
-	public GradeDTO(String lectureName, String profName, int studentNo, String studentName, int attScore,
-			int assScore, int midScore, int finScore, String grade) {
+	public GradeDTO(String lectureName, String profName, int studentNo, String studentName, int attScore, int assScore,
+			int midScore, int finScore, String grade) {
 		this.lectureName = lectureName;
 		this.profName = profName;
 		this.studentNo = studentNo;
@@ -102,9 +102,8 @@ public class GradeDTO {
 	}
 
 	public String toString() {
-		return "[lectureName=" + lectureName + ", profName=" + profName + ", studentNo=" + studentNo + ", studentName="
-				+ studentName + ", attScore=" + attScore + ", assScore=" + assScore + ", midScore=" + midScore
-				+ ", finScore=" + finScore + ", grade=" + grade + "]";
+		return lectureName + "  " + profName + "  " + studentNo + "  " + studentName + "  " + attScore + "  " + assScore
+				+ "  " + midScore + "  " + finScore + "  " + grade;
 	}
 
 }

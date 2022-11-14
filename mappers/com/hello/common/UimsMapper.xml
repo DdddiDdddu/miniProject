@@ -25,10 +25,10 @@
 	</resultMap>
 		<resultMap type = "com.hello.uims.model.DTO.EnrollmentDTO" id = "enrollmentResultMap">
 		<id property = "enrollId" column = "ENROLL_ID"/>
-		<result property = "studentId" column = "STUDENT_ID"/>
+		<result property = "studentNo" column = "STUDENT_NO"/>
 		<result property = "lectureNo" column = "LECTURE_NO"/>
 	</resultMap>
-<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
+	<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
 		SELECT
 			A.DEPT_CODE
 			A.LECTURE_NO
@@ -87,7 +87,7 @@
 			   DAY,
 			   TIME
 	 	  FROM LECTURE
-	 	 WHERE PROF_NO = #{ profNo }
+	 	 WHERE PROF_NO = #{profNo}
 	</select>
 	<select id = "selectStuGrade" parameterType = "hashmap" resultMap = "enrollmentResultMap">
 		SELECT
@@ -101,7 +101,65 @@
 	</select>
 	<insert id = "insertGrade" parameterType = "hashmap">
 		INSERT INTO GRADE
+			(
+			GRADE_NO,
+			LECTURE_NO,
+			PROF_NO,
+			STUDENT_NO,
+			ATT_SCORE,
+			ASS_SCORE
+			MID_SCORE,
+			FIN_SCORE,
+			GRADE
+			)
 			VALUES
-			(SEQ_GRADE_NO, #{ lectureNo }, #{ profNo }, #{ studentNo ), #{ attScore }, #{ assScore }, #{ midScore }, #{ finScore }, DEFAULT)
+			(
+			SEQ_GRADE_NO, 
+			#{ lectureNo }, 
+			#{ profNo }, 
+			#{ studentNo }, 
+			#{ attScore }, 
+			#{ assScore }, 
+			#{ midScore }, 
+			#{ finScore }, 
+			DEFAULT
+			)
 	</insert>
+	<update id = "inputFinGrade" parameterType = "hashmap">
+		UPDATE GRADE A
+		   SET A.GRADE =
+		  <![CDATA[
+		  CASE WHEN A.ATT_SCORE < 7 THEN 'F'
+		  ]]>
+		  WHEN (SELECT
+                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
+                  FROM GRADE B
+                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.05 THEN 'A+' ]]>
+      	  WHEN (SELECT
+                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
+                  FROM GRADE B
+                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.1 THEN 'A+' ]]>
+          WHEN (SELECT
+                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
+                  FROM GRADE B
+                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.15 THEN 'B+' ]]>
+		  WHEN (SELECT
+                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
+                  FROM GRADE B
+                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.2 THEN 'B' ]]>
+          WHEN (SELECT
+                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
+                  FROM GRADE B
+                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.25 THEN 'C+' ]]>
+          WHEN (SELECT
+                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
+                  FROM GRADE B
+                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.3 THEN 'C' ]]>
+          WHEN (SELECT
+                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
+                  FROM GRADE B
+                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.35 THEN 'D+' ]]>
+          ELSE 'D'
+          END;   
+	</update>
 </mapper>

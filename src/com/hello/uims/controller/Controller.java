@@ -63,22 +63,24 @@ public class Controller {
 
 	public void inputFinGrade(Map<String, String> parameter) {
 		
-		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
-		
-		
+		if(gradeService.inputFinGrade(parameter)) {
+			printResult.printSuccessMessage("inputFinGrade");
+		} else {
+			printResult.printErrorMessage("inputFinGrade");
+		}
 	
 	}
-	public void selectLecture() {
-
-		List<LectureDTO> lectureList = EnrollService.selectLecture();
-
-		if (lectureList != null)
-			printResult.printLecture(lectureList);
-
-		else
-			printResult.printErrorMessage("selectLecture");
-
-	}
+//	public void selectLecture() {
+//
+//		List<LectureDTO> lectureList = EnrollService.selectLecture();
+//
+//		if (lectureList != null)
+//			printResult.printLecture(lectureList);
+//
+//		else
+//			printResult.printErrorMessage("selectLecture");
+//
+//	}
 
 	public void lectureJug() {
 		
