@@ -1,10 +1,12 @@
 package com.hello.uims.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
 import com.hello.uims.view.PrintResult;
 
@@ -60,6 +62,19 @@ public class Controller {
 		ArrayList<GradeDTO> list = gradeService.selectStuGrade(lectureNo);
 		
 		return list;
+	}
+
+	public void selectLecture() {
+
+		List<LectureDTO> lectureList = EnrollService.selectLecture();
+
+		if (lectureList != null) 
+			printResult.printLecture(lectureList);
+			
+		 else 
+			printResult.printErrorMessage("selectLecture");
+		
+		
 	}
 
 }

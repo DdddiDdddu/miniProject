@@ -1,5 +1,10 @@
 package com.hello.uims.model.service;
 
+import java.util.List;
+
+import com.hello.uims.model.DTO.EnrollmentDTO;
+import com.hello.uims.model.DTO.LectureDTO;
+
 public class EnrollService {
 	
 	public EnrollService() { // 수용 파트 
@@ -87,6 +92,13 @@ public class EnrollService {
 //			
 //		}
 		
+	}
+
+	public static List<LectureDTO> selectLecture() {
+		
+		
+		
+		return null;
 	}
 
 }

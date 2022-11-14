@@ -42,20 +42,20 @@ public class PrintResult {
 	public void printGrade(List<GradeDTO> list) {
 
 		System.out.println("========================================================================");
-		System.out.println("강의명     교수명  학번      학생명  출석점수 과제점수 중간점수 기말점수 학점");
-		for (GradeDTO grade : list) {
+		System.out.println("강의명\t교수명\t학번\t학생명\t출석점수\t과제점수\t중간점수\t기말점수\t학점");
+
+		for (GradeDTO grade : list)
 			System.out.println(grade);
-		}
 
 	}
 
 	public void printLecture(List<LectureDTO> list) {
 
 		System.out.println("========================================================================");
-		System.out.println("강의번호  학과코드  교수번호  강의명  수강학점  수강인원  정원인원  요일  시간");
-		for (LectureDTO lecture : list) {
+		System.out.println("강의번호\t학과코드\t교수번호\t강의명\t수강학점\t수강인원\t정원인원\t요일\t시간");
+
+		for (LectureDTO lecture : list)
 			System.out.println(lecture);
-		}
 
 	}
 

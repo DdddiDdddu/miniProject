@@ -19,12 +19,14 @@ public class UimsMenu {
 		do {
 
 			int no;
+			
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원가입");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
+			
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -32,15 +34,18 @@ public class UimsMenu {
 			case 1:
 				login();
 				break;
+				
 			case 2:
 				signIn();
 				break;
+				
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.next().toLowerCase().charAt(0)) {
 					sc.close();
 					return;
 				}
+				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
@@ -55,6 +60,7 @@ public class UimsMenu {
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
 		int no = sc.nextInt();
 		sc.nextLine();
+		
 		System.out.println("학생 : 1");
 		System.out.println("교수 : 2");
 
@@ -62,6 +68,7 @@ public class UimsMenu {
 		case 1:
 			stuMainMenu();
 			break;
+			
 		case 2:
 			profMainMenu();
 			break;
@@ -77,6 +84,7 @@ public class UimsMenu {
 
 		do {
 			int no;
+			
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 마이페이지");
 			System.out.println("2. 수강신청");
@@ -85,6 +93,7 @@ public class UimsMenu {
 			System.out.println("5. 로그아웃");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
+			
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -92,22 +101,28 @@ public class UimsMenu {
 			case 1:
 //				con.myPage();
 				break;
+				
 			case 2:
-//				con.enroll();
+				enrollMenu();
 				break;
+				
 			case 3:
 				con.gradeCheck(inputStudentNo());
 				break;
+				
 			case 4:
 //				con.lectureJug();
 				break;
+				
 			case 5:
 				initialMenu();
 				break;
+				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
+			
 		} while (true);
 
 	}
@@ -116,14 +131,15 @@ public class UimsMenu {
 		// 이거도 일단 임시로 복붙한거라 다들 자기 파트 부분 수정해 죠 해 줘
 		do {
 			int no;
+			
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 지수형");
-			System.out.println("2. 수용");
-			System.out.println("3. 학점관리");
-			System.out.println("4. 종호");
-			System.out.println("5. 로그아웃");
+			System.out.println("2. 학점관리");
+			System.out.println("3. 종호");
+			System.out.println("9. 로그아웃");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
+			
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -131,24 +147,70 @@ public class UimsMenu {
 			case 1:
 //				con.myPage();
 				break;
+				
 			case 2:
-//				con.enroll();
-				break;
-			case 3:
 				manageGrade(inputProfNo());
 				break;
-			case 4:
+				
+			case 3:
 //				con.lectureJug();
 				break;
-			case 5:
+				
+			case 9:
 				initialMenu();
 				break;
+				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
+			
 		} while (true);
 
+	}
+	
+
+	private void enrollMenu() {
+
+		do {
+
+			int no;
+			
+			System.out.println("================================ 수강신청 =================================");
+			System.out.println("1. 수강신청");
+			System.out.println("2. 수강신청 내역");
+			System.out.println("3. 수강신청 취소");
+			System.out.println("9. 돌아가기");
+			System.out.println("=========================================================================");
+			System.out.print("메뉴 선택 : ");
+			
+			no = sc.nextInt();
+			sc.nextLine();
+
+			switch (no) {
+			case 1:
+				con.selectLecture();
+//				enroll();
+				break;
+				
+			case 2:
+//				con.selectEnroll();
+				break;
+				
+			case 3:
+//				con.deleteEnroll(inputEnrollId());
+				break;
+				
+			case 9:
+				return;
+				
+			default:
+				System.out.println("잘못 입력하셨습니다.");
+				break;
+			}
+
+		} while (true);
+		
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
@@ -166,6 +228,7 @@ public class UimsMenu {
 			System.out.println("4. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
+			
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -173,19 +236,24 @@ public class UimsMenu {
 			case 1:
 				insertGrade(parameter);
 				break;
+				
 			case 2:
 //				con.updateGrade(inputLectureNo());
 				break;
+				
 			case 3:
 //				con.deleteGrade(inputLectureNo());
 				break;
+				
 			case 4:
 				profMainMenu();
 				break;
+				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
+			
 		} while (true);
 
 	}
@@ -242,17 +310,23 @@ public class UimsMenu {
 			}
 			System.out.print("학번을 입력하세요. : ");
 			parameter.put("studentNo", sc.next());
+			
 			System.out.print("출석 점수를 입력하세요. : ");
 			parameter.put("attScore", sc.next());
+			
 			System.out.print("과제 점수를 입력하세요. : ");
 			parameter.put("assScore", sc.next());
+			
 			System.out.print("중간 점수를 입력하세요. : ");
 			parameter.put("midScore", sc.next());
+			
 			System.out.print("기말 점수를 입력하세요. : ");
 			parameter.put("finScore", sc.next());
 
 			con.insertGrade(parameter);
+			
 			currNo++;
+			
 		}
 
 	}
