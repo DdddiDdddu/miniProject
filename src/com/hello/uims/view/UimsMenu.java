@@ -6,9 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.hello.uims.controller.Controller;
-import com.hello.uims.model.DTO.GradeDTO;
-import com.hello.uims.model.DTO.LectureDTO;
-import com.hello.uims.model.service.LectureJugService;
+
 
 public class UimsMenu {
 
@@ -302,14 +300,11 @@ public class UimsMenu {
 
 	private void insertGrade(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> grade = con.selectStuGrade(parameter);
+		ArrayList<EnrollmentDTO> enroll = con.selectStuGrade(parameter);
 
-		int currNo = 0;
 
-		while (currNo < grade.size()) {
-			for (GradeDTO gradeDTO : grade) {
-				if (gradeDTO.getAssScore() == 0 && gradeDTO.getAttScore() == 0)
-					System.out.println(grade);
+			for (EnrollmentDTO enrollmentDTO : enroll) {
+					System.out.println(enrollmentDTO);
 			}
 			System.out.print("학번을 입력하세요. : ");
 			parameter.put("studentNo", sc.next());
@@ -325,10 +320,9 @@ public class UimsMenu {
 			
 			System.out.print("기말 점수를 입력하세요. : ");
 			parameter.put("finScore", sc.next());
-
 			con.insertGrade(parameter);
 			
-			currNo++;
+			con.inputFinGrade(parameter);
 			
 		}
 
@@ -379,4 +373,3 @@ public class UimsMenu {
 		return null;
 	}
 
-}

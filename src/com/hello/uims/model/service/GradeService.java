@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.hello.common.UimsMapper;
+import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 
@@ -41,11 +42,11 @@ public class GradeService {
 		return list;
 	}
 
-	public ArrayList<GradeDTO> selectStuGrade(int lectureNo) {
+	public ArrayList<EnrollmentDTO> selectStuGrade(Map<String, String> parameter) {
 		
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-		ArrayList<GradeDTO> list = mapper.selectStuGrade(lectureNo);
+		ArrayList<EnrollmentDTO> list = mapper.selectStuGrade(parameter);
 		
 		sqlSession.close();
 		
@@ -60,13 +61,22 @@ public class GradeService {
 		
 		if(result > 0) {
 			sqlSession.commit();
-			sqlSession.close();
-			return true;
 		} else {
 			sqlSession.rollback();
-			sqlSession.close();
-			return false;
 		}
+		return (result > 0)? true : false;
+	}
+
+	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
+		
+		sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		
+		ArrayList<GradeDTO> list = mapper.selectGrade(parameter);
+		
+		sqlSession.close();
+		
+		return list;
 	}
 
 }
