@@ -67,7 +67,9 @@
 	 	    ON A.LECTURE_NAME = B.LECTURE_NAME
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
 	</select>
-	<insert id = "insertGrade" parameterType = "_int">
+	<insert id = "insertGrade" parameterType = "hashmap">
 		INSERT INTO GRADE
+			VALUES
+			(SEQ_GRADE_NO, #{ lectureNo }, #{ profNo }, #{ studentNo ), #{ attScore }, #{ assScore }, #{ midScore }, #{ finScore }, DEFAULT)
 	</insert>
 </mapper>

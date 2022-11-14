@@ -21,10 +21,8 @@ public class Controller {
 		
 		if(list != null && !list.isEmpty()) {
 			printResult.printGrade(list);
-			System.out.println(1);
 		} else {
 			printResult.printErrorMessage("gradeCheck");
-			System.out.println(2);
 		}
 		
 	}
@@ -45,9 +43,9 @@ public class Controller {
 
 	public void insertGrade(Map<String, String> parameter) {
 		
-		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 		
-		if(gradeService.insertGrade(studentNo)) {
+		
+		if(gradeService.insertGrade(parameter)) {
 			printResult.printSuccessMessage("insertGrade");
 		} else {
 			printResult.printErrorMessage("insertGrade");

@@ -154,6 +154,7 @@ public class UimsMenu {
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
 
 		con.selectByProfNo(parameter);
+		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 
 		int no;
 
@@ -170,7 +171,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				insertGrade(inputLectureNo());
+				insertGrade(parameter);
 				break;
 			case 2:
 //				con.updateGrade(inputLectureNo());
@@ -228,23 +229,30 @@ public class UimsMenu {
 
 	}
 
-	private void insertGrade(Map<String, String> inputLectureNo) {
+	private void insertGrade(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> grade = con.selectStuGrade(inputLectureNo);
-		
+		ArrayList<GradeDTO> grade = con.selectStuGrade(parameter);
+
 		int currNo = 0;
 
 		while (currNo < grade.size()) {
-
 			for (GradeDTO gradeDTO : grade) {
-				if (gradeDTO.getAssScore() == 0 && gradeDTO.getAttScore() == 0) {
+				if (gradeDTO.getAssScore() == 0 && gradeDTO.getAttScore() == 0)
 					System.out.println(grade);
-				}
 			}
+			System.out.print("학번을 입력하세요. : ");
+			parameter.put("studentNo", sc.next());
+			System.out.print("출석 점수를 입력하세요. : ");
+			parameter.put("attScore", sc.next());
+			System.out.print("과제 점수를 입력하세요. : ");
+			parameter.put("assScore", sc.next());
+			System.out.print("중간 점수를 입력하세요. : ");
+			parameter.put("midScore", sc.next());
+			System.out.print("기말 점수를 입력하세요. : ");
+			parameter.put("finScore", sc.next());
 
-			con.insertGrade(inputStudentNo());
+			con.insertGrade(parameter);
 			currNo++;
-
 		}
 
 	}
