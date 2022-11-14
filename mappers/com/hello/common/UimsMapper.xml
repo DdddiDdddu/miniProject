@@ -28,6 +28,24 @@
 		<result property = "studentId" column = "STUDENT_ID"/>
 		<result property = "lectureNo" column = "LECTURE_NO"/>
 	</resultMap>
+<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
+		SELECT
+			A.DEPT_CODE
+			A.LECTURE_NO
+			B.PROF_NAME
+			A.LECTURE_NAME
+			A.CREDIT
+			A.CURR_NO
+			A.FULL_NO
+			A.DAY
+			A.TIME
+		FROM LECTURE A
+		JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
+		JOIN STUDENT C ON B.DEPT_CODE = C.DEPT_CODE
+		WHERE 1 = 1
+		AND A.DEPT_CODE = 'GEC'
+		AND A.DEPT_CODE =  #{ deptCode }
+	</select>
 	<select id = "gradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
 		SELECT
 			   LECTURE_NAME,

@@ -1,6 +1,7 @@
 package com.hello.common;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
@@ -17,6 +18,8 @@ public interface UimsMapper {
 
 	int insertGrade(Map<String, String> parameter);
 
+	List<LectureDTO> selectLecture();
+	
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);
 
 //	List<MenuDTO> selectAllMenu();

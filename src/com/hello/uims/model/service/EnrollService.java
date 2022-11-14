@@ -1,13 +1,33 @@
 package com.hello.uims.model.service;
 
+import static com.hello.common.Template.getSqlSession;
+
 import java.util.List;
 
-import com.hello.uims.model.DTO.EnrollmentDTO;
+import org.apache.ibatis.session.SqlSession;
+
+import com.hello.common.UimsMapper;
 import com.hello.uims.model.DTO.LectureDTO;
 
 public class EnrollService {
-	
-	public EnrollService() { // 수용 파트 
+
+	private UimsMapper mapper;
+
+	public void selectLecture() {
+
+		SqlSession sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+
+		List<LectureDTO> lectureList = mapper.selectLecture();
+
+		for (LectureDTO menu : lectureList)
+			System.out.println(menu);
+
+		sqlSession.close();
+
+	}
+
+	public EnrollService() { // 수용 파트
 
 //		public List<MenuDTO> selectAllMenu() {
 //			
@@ -91,14 +111,7 @@ public class EnrollService {
 //			return result > 0? true: false;
 //			
 //		}
-		
-	}
 
-	public static List<LectureDTO> selectLecture() {
-		
-		
-		
-		return null;
 	}
 
 }
