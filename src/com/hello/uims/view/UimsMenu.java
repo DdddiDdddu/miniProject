@@ -231,12 +231,12 @@ public class UimsMenu {
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
-
+		
+		System.out.println("=========================================================================");
 		con.selectByProfNo(parameter);
 		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
-
+		
 		int no;
-
 		do {
 			System.out.println("================================ 학점 관리 ================================");
 			System.out.println("1. 학점 부여");
@@ -317,10 +317,28 @@ public class UimsMenu {
 	private void insertGrade(Map<String, String> parameter) {
 
 		ArrayList<EnrollmentDTO> enroll = con.selectStuGrade(parameter);
-
+		parameter.put("currNo", Integer.toString(enroll.size()));
+		
 		for (EnrollmentDTO enrollmentDTO : enroll) {
 			System.out.println(enrollmentDTO);
+			
+			System.out.print("학번을 입력하세요. : ");
+			parameter.put("studentNo", sc.next());
+
+			System.out.print("출석 점수를 입력하세요. : ");
+			parameter.put("attScore", sc.next());
+
+			System.out.print("과제 점수를 입력하세요. : ");
+			parameter.put("assScore", sc.next());
+
+			System.out.print("중간 점수를 입력하세요. : ");
+			parameter.put("midScore", sc.next());
+
+			System.out.print("기말 점수를 입력하세요. : ");
+			parameter.put("finScore", sc.next());
+			con.insertGrade(parameter);
 		}
+    
 		System.out.print("학번을 입력하세요. : ");
 		parameter.put("studentNo", sc.next());
 
@@ -336,6 +354,8 @@ public class UimsMenu {
 		System.out.print("기말 점수를 입력하세요. : ");
 		parameter.put("finScore", sc.next());
 		con.insertGrade(parameter);
+
+		con.inputFinGrade(parameter);
 
 		con.inputFinGrade(parameter);
 
@@ -385,5 +405,5 @@ public class UimsMenu {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+  
 }

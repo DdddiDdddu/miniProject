@@ -65,11 +65,17 @@ public class Controller {
 
 	public void inputFinGrade(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
+		//ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
 
+		if(gradeService.inputFinGrade(parameter)) {
+			printResult.printSuccessMessage("inputFinGrade");
+		} else {
+			printResult.printErrorMessage("inputFinGrade");
+		}
+	
 	}
 
-	// 수강신청 강의목록
+  // 수강신청 강의목록
 	public void selectAllLecture() {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
@@ -81,7 +87,7 @@ public class Controller {
 			printResult.printErrorMessage("selectLecture");
 
 	}
-
+  
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 		
