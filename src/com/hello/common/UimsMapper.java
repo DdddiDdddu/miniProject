@@ -22,6 +22,8 @@ public interface UimsMapper {
 	
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);
 
+	int inputFinGrade(Map<String, String> parameter);
+
 //	List<MenuDTO> selectAllMenu();
 //	MenuDTO selectMenuByCode(int code);
 //	int insertMenu(MenuDTO menu);

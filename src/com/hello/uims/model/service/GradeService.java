@@ -79,4 +79,18 @@ public class GradeService {
 		return list;
 	}
 
+	public boolean inputFinGrade(Map<String, String> parameter) {
+		
+		sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		int result = mapper.inputFinGrade(parameter);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		return (result > 0)? true : false;
+	}
+
 }
