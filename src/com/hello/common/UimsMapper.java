@@ -1,7 +1,6 @@
 package com.hello.common;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
@@ -10,6 +9,12 @@ import com.hello.uims.model.DTO.LectureDTO;
 
 public interface UimsMapper {
 
+	// 수강신청 - 강의목록 조회 
+	ArrayList<LectureDTO> selectAllLecture();
+	
+	//수강신청
+	int enroll(Map<String, String> parameter);
+	
 	ArrayList<GradeDTO> gradeCheck(int studentNo);
 
 	ArrayList<LectureDTO> selectByProfNo(int profNo);
@@ -17,8 +22,6 @@ public interface UimsMapper {
 	ArrayList<EnrollmentDTO> selectStuGrade(Map<String, String> parameter);
 
 	int insertGrade(Map<String, String> parameter);
-
-	List<LectureDTO> selectLecture();
 	
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);
 

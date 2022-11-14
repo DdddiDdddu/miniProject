@@ -169,31 +169,32 @@ public class UimsMenu {
 
 	}
 
+	// 수강신청 메뉴 
 	private void enrollMenu() {
 
 		do {
-
 			int no;
 
 			System.out.println("================================ 수강신청 =================================");
 			System.out.println("1. 수강신청");
 			System.out.println("2. 수강신청 내역");
 			System.out.println("3. 수강신청 취소");
+			// 검색기능 강의명, 학과코드 
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
 			no = sc.nextInt();
-			sc.nextLine();
+			sc.nextLine(); // 버퍼에서 엔터제거 
 
 			switch (no) {
 			case 1:
-//				con.selectLecture();
-//				enroll();
+				con.selectAllLecture(); // 수강신청 강의목록 조회
+				enroll(); // 수강신청
 				break;
 
 			case 2:
-//				con.selectEnroll();
+				con.selectEnroll(); // 수강신청 내역
 				break;
 
 			case 3:
@@ -210,6 +211,23 @@ public class UimsMenu {
 
 		} while (true);
 
+	}
+
+	// 수강신청 
+	private void enroll() {
+		
+		Map<String, String> parameter = new HashMap<>();
+		
+		System.out.print("학번을 입력해주세요 : "); 
+		parameter.put("studentNo", sc.nextLine()); 
+		sc.nextLine(); // 버퍼에서 엔터제거
+		
+		System.out.print("수강신청할 강의의 강의코드를 입력해주세요 : "); 
+		parameter.put("lectureNo", sc.nextLine());
+		sc.nextLine(); // 버퍼에서 엔터제거
+		
+		con.enroll(parameter); 
+		
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
@@ -320,6 +338,24 @@ public class UimsMenu {
 			parameter.put("finScore", sc.next());
 			con.insertGrade(parameter);
 		}
+    
+		System.out.print("학번을 입력하세요. : ");
+		parameter.put("studentNo", sc.next());
+
+		System.out.print("출석 점수를 입력하세요. : ");
+		parameter.put("attScore", sc.next());
+
+		System.out.print("과제 점수를 입력하세요. : ");
+		parameter.put("assScore", sc.next());
+
+		System.out.print("중간 점수를 입력하세요. : ");
+		parameter.put("midScore", sc.next());
+
+		System.out.print("기말 점수를 입력하세요. : ");
+		parameter.put("finScore", sc.next());
+		con.insertGrade(parameter);
+
+		con.inputFinGrade(parameter);
 
 		con.inputFinGrade(parameter);
 
@@ -369,4 +405,5 @@ public class UimsMenu {
 		// TODO Auto-generated method stub
 		return null;
 	}
+  
 }
