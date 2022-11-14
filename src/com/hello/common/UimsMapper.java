@@ -18,11 +18,11 @@ public interface UimsMapper {
 	int insertGrade(Map<String, String> parameter);
 
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);
-	
+
 //	List<MenuDTO> selectAllMenu();
 //	MenuDTO selectMenuByCode(int code);
 //	int insertMenu(MenuDTO menu);
 //	int updateMenu(MenuDTO menu);
 //	int deleteMenu(int code); // 예시
-	
+
 }

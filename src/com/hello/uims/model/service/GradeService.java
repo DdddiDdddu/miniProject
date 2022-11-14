@@ -61,13 +61,10 @@ public class GradeService {
 		
 		if(result > 0) {
 			sqlSession.commit();
-			sqlSession.close();
-			return true;
 		} else {
 			sqlSession.rollback();
-			sqlSession.close();
-			return false;
 		}
+		return (result > 0)? true : false;
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
