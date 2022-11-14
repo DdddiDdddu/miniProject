@@ -77,4 +77,9 @@ public class Controller {
 		
 	}
 
+	public void lectureJug() {
+		
+		
+	}
+
 }

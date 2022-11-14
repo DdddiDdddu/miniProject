@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.hello.uims.controller.Controller;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.service.LectureJugService;
 
 public class UimsMenu {
 
@@ -111,7 +112,7 @@ public class UimsMenu {
 				break;
 				
 			case 4:
-//				con.lectureJug();
+				lectureJug();
 				break;
 				
 			case 5:
@@ -126,6 +127,8 @@ public class UimsMenu {
 		} while (true);
 
 	}
+
+	
 
 	private void profMainMenu() { // 교수용 메뉴 화면
 		// 이거도 일단 임시로 복붙한거라 다들 자기 파트 부분 수정해 죠 해 줘
@@ -329,6 +332,51 @@ public class UimsMenu {
 			
 		}
 
+	}
+	
+	private void lectureJug() {
+		LectureJugService lectureJugService = new LectureJugService();
+		
+		do {
+
+			int no;
+			
+			System.out.println("================================ 강의평가 =================================");
+			System.out.println("1. 교수 강의 평가");
+			System.out.println("2. 평가 수정");
+			System.out.println("3. 평가 삭제");
+			System.out.println("4. 평가조회");
+			System.out.println("9. 돌아가기");
+			System.out.println("=========================================================================");
+			System.out.print("메뉴 선택 : ");
+			
+			no = sc.nextInt();
+			sc.nextLine();
+			
+			switch(no){
+			case 1: lectureJugService.judgementProfStudy(inputJudge()); break;
+			case 2: //lectureJugService.modifyJudge(inputChangeJudge()); break;
+			case 3: //lectureJugService.deleteJudge(deleteJudge()); break;
+			case 4: //lectureJugService.judgementShow(showJudge()); break;
+				
+			case 9:
+				profMainMenu();
+				break;
+				
+			default:
+				System.out.println("잘못 입력하셨습니다.");
+				break;
+			}
+		
+
+		
+		}while(true);
+		
+	}
+
+	private Object inputJudge() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

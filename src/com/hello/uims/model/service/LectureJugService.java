@@ -8,4 +8,9 @@ public class LectureJugService {
 		
 	}
 
+	public void judgementProfStudy(Object inputJudge) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
