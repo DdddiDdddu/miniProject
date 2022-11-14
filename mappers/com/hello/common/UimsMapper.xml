@@ -13,7 +13,7 @@
 		<result property = "grade" column = "GRADE"/>
 	</resultMap>
 	<resultMap type = "com.hello.uims.model.DTO.LectureDTO" id = "lectureResultMap">
-		<result property = "lectureNo" column = "LECTURE_NO"/>
+		<id property = "lectureNo" column = "LECTURE_NO"/>
 		<result property = "deptCode" column = "DEPT_CODE"/>
 		<result property = "profNo" column = "PROF_NO"/>
 		<result property = "lectureName" column = "LECTURE_NAME"/>
@@ -23,7 +23,12 @@
 		<result property = "day" column = "DAY"/>
 		<result property = "time" column = "TIME"/>
 	</resultMap>
-	<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
+		<resultMap type = "com.hello.uims.model.DTO.EnrollmentDTO" id = "enrollmentResultMap">
+		<id property = "enrollId" column = "ENROLL_ID"/>
+		<result property = "studentId" column = "STUDENT_ID"/>
+		<result property = "lectureNo" column = "LECTURE_NO"/>
+	</resultMap>
+<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
 		SELECT
 			A.DEPT_CODE
 			A.LECTURE_NO
@@ -55,6 +60,21 @@
 	 	  FROM VIEW_GRADE_CHECK
 	 	 WHERE STUDENT_NO = #{ studentNo }
 	</select>
+	<select id = "selectGrade" parameterType = "hashmap" resultMap = "gradeResultMap">
+		SELECT
+			   GRADE_NO,
+			   LECTURE_NO,
+			   PROF_NO,
+			   STUDENT_NO,
+			   ATT_SCORE,
+			   ASS_SCORE,
+			   MID_SCORE,
+			   FIN_SCORE,
+			   GRADE
+	 	  FROM GRADE
+	 	 WHERE PROF_NO = #{ profNo }
+	 	   AND LECTURE_NO = #{ lectureNo }
+	</select>
 	<select id = "selectByProfNo" parameterType = "_int" resultMap = "lectureResultMap">
 		SELECT
 			   LECTURE_NO,
@@ -69,21 +89,15 @@
 	 	  FROM LECTURE
 	 	 WHERE PROF_NO = #{ profNo }
 	</select>
-	<select id = "selectStuGrade" parameterType = "_int" resultMap = "gradeResultMap">
+	<select id = "selectStuGrade" parameterType = "hashmap" resultMap = "enrollmentResultMap">
 		SELECT
-			   A.LECTURE_NAME,
-			   A.PROF_NAME,
-			   A.STUDENT_NO,
-			   A.STUDENT_NAME,
-			   A.ATT_SCORE,
-			   A.ASS_SCORE,
-			   A.MID_SCORE,
-			   A.FIN_SCORE,
-			   A.GRADE
-	 	  FROM VIEW_GRADE_CHECK A
-	 	  JOIN LECTURE B
-	 	    ON A.LECTURE_NAME = B.LECTURE_NAME
+			   A.LECTURE_NO
+			   A.STUDENT_NO
+		  FROM ENROLLMENT A
+		  JOIN LECTURE B
+		    ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
+	 	   AND C.PROF_NO = #{ profNo }
 	</select>
 	<insert id = "insertGrade" parameterType = "hashmap">
 		INSERT INTO GRADE
