@@ -6,8 +6,15 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.hello.uims.controller.Controller;
+
+import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.service.LectureJugService;
+
+import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.StudentDTO;
+import com.hello.uims.model.service.LectureJugService;
+
 
 public class UimsMenu {
 
@@ -19,14 +26,14 @@ public class UimsMenu {
 		do {
 
 			int no;
-			
+
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원가입");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
-			
+
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -34,25 +41,20 @@ public class UimsMenu {
 			case 1:
 				logIn();
 				break;
-				
 			case 2:
 				signUp();
 				break;
-				
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.next().toLowerCase().charAt(0)) {
 					sc.close();
 					return;
 				}
-				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-
 		} while (true);
-
 	}
 
 	public void logIn() {
@@ -67,6 +69,10 @@ public class UimsMenu {
 		int no = sc.nextInt();
 		sc.nextLine();
 		
+
+		System.out.println("학생 : 1");
+		System.out.println("교수 : 2");
+
 		switch (no) {
 		case 1:
 			StudentDTO student = con.selectLogin(inputStuId());
@@ -83,12 +89,10 @@ public class UimsMenu {
 				}
 			}
 			break;
-			
 		case 2:
 			//con.profMainMenu();
 			break;
 		}
-
 	}
 
 	private HashMap<String, String> inputStuId() {
@@ -103,25 +107,22 @@ public class UimsMenu {
 
 	private void signUp() {
 		// 지수형 회원가입 파트
-		
+
 		String str = sc.nextLine();
-		
+
 		System.out.println("===============================회원가입===================================");
 		System.out.println("아이디를 설정하세요");
 		str = sc.nextLine();
 		System.out.println("비밀번호를 설정하세요(특수문자 제외)");
 		str = sc.nextLine();
-		
-			
-			
-		
+
 	}
 
 	public void stuMainMenu() { // 학생용 메뉴 화면
 
 		do {
 			int no;
-			
+
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 마이페이지");
 			System.out.println("2. 수강신청");
@@ -130,7 +131,7 @@ public class UimsMenu {
 			System.out.println("5. 로그아웃");
 			System.out.println("========================================================================");
 			System.out.print("메뉴 선택 : ");
-			
+
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -138,37 +139,30 @@ public class UimsMenu {
 			case 1:
 //				con.myPage();
 				break;
-				
 			case 2:
 				enrollMenu();
 				break;
-				
 			case 3:
-				con.gradeCheck(inputStudentNo());
+				con.selectGradeCheck(inputStudentNo());
 				break;
-				
 			case 4:
-//				con.lectureJug();
+				lectureJug();
 				break;
-				
 			case 5:
 				initialMenu();
 				break;
-				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-			
 		} while (true);
-
 	}
 
 	private void profMainMenu() { // 교수용 메뉴 화면
 		// 이거도 일단 임시로 복붙한거라 다들 자기 파트 부분 수정해 죠 해 줘
 		do {
 			int no;
-			
+
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 지수형");
 			System.out.println("2. 학점관리");
@@ -176,7 +170,7 @@ public class UimsMenu {
 			System.out.println("9. 로그아웃");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
-			
+
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -184,79 +178,92 @@ public class UimsMenu {
 			case 1:
 //				con.myPage();
 				break;
-				
 			case 2:
 				manageGrade(inputProfNo());
 				break;
-				
 			case 3:
 //				con.lectureJug();
 				break;
-				
 			case 9:
 				initialMenu();
 				break;
-				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-			
 		} while (true);
-
 	}
-	
 
-	private void enrollMenu() {
+	// 수강신청 메뉴
+	public void enrollMenu() {
 
 		do {
-
 			int no;
-			
+
 			System.out.println("================================ 수강신청 =================================");
-			System.out.println("1. 수강신청");
-			System.out.println("2. 수강신청 내역");
-			System.out.println("3. 수강신청 취소");
+			System.out.println("1. 강의목록 조회");
+			System.out.println("2. 수강신청");
+			System.out.println("3. 수강신청 내역");
+			System.out.println("4. 수강신청 취소");
+			// 검색기능 강의명, 학과코드
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
-			
+
 			no = sc.nextInt();
-			sc.nextLine();
+			sc.nextLine(); // 버퍼에서 엔터제거
 
 			switch (no) {
 			case 1:
-				con.selectLecture();
-//				enroll();
+				con.selectAllLecture(); // 수강신청 강의목록 조회
 				break;
-				
+
 			case 2:
-//				con.selectEnroll();
+				con.enroll(inputEnroll());
 				break;
-				
+
 			case 3:
-//				con.deleteEnroll(inputEnrollId());
+				con.selectEnroll(inputStudentNo()); // 수강신청 내역
 				break;
-				
+
+			case 4:
+				con.deleteEnroll(inputEnroll());
+				break;
+
 			case 9:
 				return;
-				
+
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
 
 		} while (true);
-		
+
+	}
+
+	// 학번 강의코드 입력
+	public Map<String, String> inputEnroll() {
+
+		Map<String, String> parameter = new HashMap<>();
+
+		System.out.print("학번을 입력해주세요 : ");
+		parameter.put("studentNo", sc.nextLine());
+
+		System.out.print("강의코드를 입력해주세요 : ");
+		parameter.put("lectureNo", sc.nextLine());
+
+		return parameter;
+
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
 
+		System.out.println("=========================================================================");
 		con.selectByProfNo(parameter);
 		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 
 		int no;
-
 		do {
 			System.out.println("================================ 학점 관리 ================================");
 			System.out.println("1. 학점 부여");
@@ -265,7 +272,7 @@ public class UimsMenu {
 			System.out.println("4. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
-			
+
 			no = sc.nextInt();
 			sc.nextLine();
 
@@ -273,25 +280,48 @@ public class UimsMenu {
 			case 1:
 				insertGrade(parameter);
 				break;
-				
 			case 2:
-//				con.updateGrade(inputLectureNo());
+				updateGrade(parameter);
 				break;
-				
 			case 3:
-//				con.deleteGrade(inputLectureNo());
+				deleteGrade(parameter);
 				break;
-				
 			case 4:
 				profMainMenu();
 				break;
-				
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-			
 		} while (true);
+	}
+
+	private void updateGrade(Map<String, String> parameter) {
+
+		con.selectGrade(parameter);
+
+		parameter.put("studentNo", inputStudentNo().get("studentNo"));
+		System.out.println("================================ 학점 수정 ================================");
+		System.out.print("출석 점수를 입력하세요. : ");
+		parameter.put("attScore", sc.nextLine());
+		System.out.print("과제 점수를 입력하세요. : ");
+		parameter.put("assScore", sc.nextLine());
+		System.out.print("중간고사 점수를 입력하세요. : ");
+		parameter.put("midScore", sc.nextLine());
+		System.out.print("기말고사 점수를 입력하세요. : ");
+		parameter.put("finScore", sc.nextLine());
+
+		con.updateGrade(parameter);
+
+	}
+
+	private void deleteGrade(Map<String, String> parameter) {
+
+		con.selectGrade(parameter);
+
+		parameter.put("studentNo", inputStudentNo().get("studentNo"));
+		System.out.println("================================ 학점 삭제 ================================");
+		con.deleteGrade(parameter);
 
 	}
 
@@ -336,36 +366,134 @@ public class UimsMenu {
 
 	private void insertGrade(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> grade = con.selectStuGrade(parameter);
+		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
+		parameter.put("currNo", Integer.toString(enroll.size()));
+		System.out.println("================================ 학생 목록 ================================");
 
-		int currNo = 0;
+		for (EnrollmentDTO enrollmentDTO : enroll) {
+			System.out.println(enrollmentDTO);
 
-		while (currNo < grade.size()) {
-			for (GradeDTO gradeDTO : grade) {
-				if (gradeDTO.getAssScore() == 0 && gradeDTO.getAttScore() == 0)
-					System.out.println(grade);
-			}
 			System.out.print("학번을 입력하세요. : ");
 			parameter.put("studentNo", sc.next());
-			
 			System.out.print("출석 점수를 입력하세요. : ");
 			parameter.put("attScore", sc.next());
-			
 			System.out.print("과제 점수를 입력하세요. : ");
 			parameter.put("assScore", sc.next());
-			
 			System.out.print("중간 점수를 입력하세요. : ");
 			parameter.put("midScore", sc.next());
-			
 			System.out.print("기말 점수를 입력하세요. : ");
 			parameter.put("finScore", sc.next());
-
-			con.insertGrade(parameter);
-			
-			currNo++;
-			
+			con.insertScores(parameter);
 		}
+
+		if (enroll != null && !enroll.isEmpty()) {
+			con.inputFinGrade(parameter);
+		}
+
+
+	
+	
+	private void lectureJug(Map<String, String> parameter) {
+		LectureJugService lectureJugService = new LectureJugService();
+		
+		con.selectByLectureNo(parameter);
+		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
+		
 
 	}
 
+	private void lectureJug() {
+		LectureJugService lectureJugService = new LectureJugService();
+
+
+		do {
+
+			int no;
+
+			System.out.println("================================ 강의평가 =================================");
+			System.out.println("1. 교수 강의 평가");
+			System.out.println("2. 평가 수정");
+			System.out.println("3. 평가 삭제");
+			System.out.println("4. 평가조회");
+			System.out.println("9. 돌아가기");
+			System.out.println("=========================================================================");
+
+			System.out.println("메뉴 선택 : ");
+			
+			no = sc.nextInt();
+			sc.nextLine();
+			
+			switch(no){
+			case 1: updateJudge(parameter); break;
+			case 2: //lectureJugService.modifyJudge(inputChangeJudge()); break;
+			case 3: //lectureJugService.deleteJudge(deleteJudge()); break;
+			case 4: //lectureJugService.selectJudge(); break;
+				
+
+			System.out.print("메뉴 선택 : ");
+
+			no = sc.nextInt();
+			sc.nextLine();
+
+			switch (no) {
+			case 1:
+				lectureJugService.judgementProfStudy(inputJudge());
+				break;
+			case 2: // lectureJugService.modifyJudge(inputChangeJudge()); break;
+			case 3: // lectureJugService.deleteJudge(deleteJudge()); break;
+			case 4: // lectureJugService.judgementShow(showJudge()); break;
+
+
+			case 9:
+				stuMainMenu();
+				break;
+
+			default:
+				System.out.println("잘못 입력하셨습니다.");
+				break;
+			}
+
+		} while (true);
+
+	}
+
+	private void updateJudge(Map<String, String> parameter) {
+		
+		ArrayList<LectureJugDTO> lectureJugDTO = con.selectLectureNo(parameter);
+		
+		double avg = 0.0;
+
+			for (LectureJugDTO lectureJug : lectureJugDTO) {
+					System.out.println(lectureJugDTO);
+			}
+			
+			System.out.println("질문에 알맞게 점수를 입력해주세요");
+			System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
+			int score1 = sc.nextInt();
+			System.out.println("강의내용은 해당영역의 이론과 지식을 적절히 담고 있는가? (1 ~ 5점으로 입력해주세요)");
+			int score2 = sc.nextInt();
+			System.out.println("담당교수는 학생들의 이해도를 높이기 위하여 최선을 다하였는가? (1 ~ 5점으로 입력해주세요)");
+			int score3 = sc.nextInt();
+			System.out.println("담당교수는 열성적이고 성실하게 강의에 임하였는가? (1 ~ 5점으로 입력해주세요)");
+			int score4 = sc.nextInt();
+			System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
+			int score5 = sc.nextInt();
+			sc.nextLine();
+			
+			avg = (double) (score1 + score2 + score3 + score4+ score5) / 5;
+			
+			String avgs = Double.toString(avg);
+			
+			parameter.put("StuJugScore", avgs);
+			
+			System.out.println("교수님에게 할 말 한 문장으로 남겨주세요.");
+			parameter.put("StuOneJug", sc.nextLine());
+			
+			con.inputJudgement(parameter);
+			
+	}
+		
+		
 }
+
+
