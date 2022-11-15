@@ -54,10 +54,6 @@ public class LectureJugService {
 		return list;
 	}
 
-
-	
-
-
 	public static boolean inputJudgement(Map<String, String> parameter) {
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -85,5 +81,6 @@ public class LectureJugService {
 		
 		return list;
 	}
+
 
 }

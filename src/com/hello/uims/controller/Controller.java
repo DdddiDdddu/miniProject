@@ -1,6 +1,8 @@
 package com.hello.uims.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
@@ -20,22 +22,22 @@ import com.hello.uims.view.PrintResult;
 
 public class Controller {
 
-	private final PrintResult printResult;
+	private PrintResult printResult = new PrintResult();
+	// private final EnrollService enrollService;
+	private GradeService gradeService = new GradeService();
+	// private final LectureJugService lectureJugService;
+	private LogInService loginService = new LogInService();
 	private final EnrollService enrollService;
-	private final GradeService gradeService;
 	// private final LectureJugService lectureJugService;
 	private final LogInService logInService;
-	private final SignUpService signUpService;
 
 	public Controller() {
-		printResult = new PrintResult();
 		enrollService = new EnrollService();
-		gradeService = new GradeService();
-		// lectureJugService = new LectureJugService()
 		logInService = new LogInService();
-		signUpService = new SignUpService();
+		// lectureJugService = new LectureJugService()
 
 	}
+
 
 	public void selectGradeCheck(Map<String, String> parameter) {
 
@@ -80,9 +82,9 @@ public class Controller {
 		ArrayList<EnrollmentDTO> list = gradeService.selectStudentList(parameter);
 
 		if (list != null && !list.isEmpty())
-			printResult.printSuccessMessage("selectStuGrade");
+			printResult.printSuccessMessage("selectStudentList");
 		else
-			printResult.printErrorMessage("selectStuGrade");
+			printResult.printErrorMessage("selectStudentList");
 
 		return list;
 
@@ -90,12 +92,12 @@ public class Controller {
 
 	public void inputFinGrade(Map<String, String> parameter) {
 
-		if (gradeService.inputFinGrade(parameter)) 
+		if (gradeService.inputFinGrade(parameter))
 
 			printResult.printSuccessMessage("inputFinGrade");
 		else
 			printResult.printErrorMessage("inputFinGrade");
-      
+
 	}
 
 	// 수강신청 강의목록
@@ -131,17 +133,16 @@ public class Controller {
 			printResult.printErrorMessage("selectEnroll");
 
 	}
-	
+
 	// 수강신청 취소
 	public void deleteEnroll(Map<String, String> parameter) {
 
-		if (enrollService.deleteEnroll(parameter)) 
+		if (enrollService.deleteEnroll(parameter))
 			printResult.printSuccessMessage("deleteEnroll");
-		 else 
+		else
 			printResult.printErrorMessage("deleteEnroll");
-      
-	}
 
+	}
 
 	public void selectGrade(Map<String, String> parameter) {
 
@@ -164,13 +165,14 @@ public class Controller {
 	}
 
 	public void deleteGrade(Map<String, String> parameter) {
-		
+
 		if (gradeService.deleteGrade(parameter))
 			printResult.printSuccessMessage("deleteGrade");
 		else
 			printResult.printErrorMessage("deleteGrade");
 
 	}
+
 
 	public void selectByStudentNo(Map<String, String> parameter) {
 
@@ -195,15 +197,22 @@ public class Controller {
 		
 	}
 
+
 	public void modifyJudge() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	public StudentDTO selectLogin(Map<String, String> parameter) {
 
+		StudentDTO student = loginService.selectLogin(parameter);
 
+		if (student == null) {
+			printResult.printErrorMessage("selectLogin");
+		}
 
-	
+		return student;
 
-	
+	}
+
 }

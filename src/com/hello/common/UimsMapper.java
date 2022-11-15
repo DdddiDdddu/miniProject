@@ -7,6 +7,7 @@ import java.util.Map;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
@@ -23,6 +24,11 @@ public interface UimsMapper {
   
 	// 수강신청 취소
 	int deleteEnroll(Map<String, String> parameter);
+
+	int insertGrade(Map<String, String> parameter);
+
+	StudentDTO selectLogin(Map<String, String> parameter);
+
 
 	// 학생 : 학점 조회
 	ArrayList<GradeDTO> selectGradeCheck(int studentNo);

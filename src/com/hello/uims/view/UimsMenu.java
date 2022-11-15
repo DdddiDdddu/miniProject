@@ -9,6 +9,13 @@ import com.hello.uims.controller.Controller;
 import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.service.LectureJugService;
 
+
+import com.hello.uims.model.DTO.EnrollmentDTO;
+import com.hello.uims.model.DTO.GradeDTO;
+import com.hello.uims.model.DTO.StudentDTO;
+import com.hello.uims.model.service.LectureJugService;
+
+
 public class UimsMenu {
 
 	private static Scanner sc = new Scanner(System.in);
@@ -16,7 +23,7 @@ public class UimsMenu {
 
 	public void initialMenu() {
 
-		do {
+		label: do {
 
 			int no;
 
@@ -32,18 +39,22 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				login();
+
+				logIn();
+
 				break;
 
 			case 2:
-				signIn();
+
+				signUp();
+
 				break;
 
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.next().toLowerCase().charAt(0)) {
 					sc.close();
-					return;
+					break label;
 				}
 
 			default:
@@ -55,28 +66,57 @@ public class UimsMenu {
 
 	}
 
-	private void login() {
+
+	public void logIn() {
+
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
+		System.out.println("=========================");
+		System.out.println("학생이면 1번");
+		System.out.println("교수면 2번");
+		System.out.println("=========================");
+		System.out.print("메뉴 선택 : ");
+
 		int no = sc.nextInt();
 		sc.nextLine();
 
-		System.out.println("학생 : 1");
-		System.out.println("교수 : 2");
-
 		switch (no) {
 		case 1:
-			stuMainMenu();
+			while (true) {
+				StudentDTO student = con.selectLogin(inputStuId());
+
+				if (student != null) {
+
+					System.out.println("비밀번호를 입력하세요");
+
+					if (student.getStudentPwd().equalsIgnoreCase(sc.nextLine())) {
+						stuMainMenu();
+						break;
+					} else {
+						System.out.println("비밀번호가 틀렸습니다.");
+					}
+				}
+			}
 			break;
 
 		case 2:
-			profMainMenu();
+			// con.profMainMenu();
 			break;
 		}
 
 	}
 
-	private void signIn() {
+	private HashMap<String, String> inputStuId() {
+
+		HashMap<String, String> loginMap = new HashMap<>();
+		System.out.println("아이디를 입력하세요");
+		loginMap.put("studentId", sc.nextLine());
+
+		return loginMap;
+
+	}
+
+	private void signUp() {
 		// 지수형 회원가입 파트
 	}
 
@@ -254,6 +294,61 @@ public class UimsMenu {
 			}
 
 		} while (true);
+	}
+
+	private void insertGrade(Map<String, String> parameter) {
+
+		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
+		parameter.put("currNo", Integer.toString(enroll.size()));
+		System.out.println("================================ 학생 목록 ================================");
+
+//		HashMap<String, Integer> gradeMap = new HashMap<>();
+
+		for (EnrollmentDTO enrollmentDTO : enroll) {
+			System.out.println(enrollmentDTO);
+
+			System.out.print("학번을 입력하세요. : ");
+			parameter.put("studentNo", sc.next());
+			System.out.print("출석 점수를 입력하세요. : ");
+			parameter.put("attScore", sc.next());
+			System.out.print("과제 점수를 입력하세요. : ");
+			parameter.put("assScore", sc.next());
+			System.out.print("중간 점수를 입력하세요. : ");
+			parameter.put("midScore", sc.next());
+			System.out.print("기말 점수를 입력하세요. : ");
+			parameter.put("finScore", sc.next());
+			con.insertScores(parameter);
+		}
+
+		if (enroll != null && !enroll.isEmpty()) {
+			con.inputFinGrade(parameter);
+		}
+
+	}
+
+	private void updateGrade(Map<String, String> parameter) {
+
+		con.selectGrade(parameter);
+
+		parameter.put("studentNo", inputStudentNo().get("studentNo"));
+		System.out.println("================================ 학점 수정 ================================");
+		System.out.print("출석 점수를 입력하세요. : ");
+		parameter.put("attScore", sc.nextLine());
+		System.out.print("과제 점수를 입력하세요. : ");
+		parameter.put("assScore", sc.nextLine());
+		System.out.print("중간고사 점수를 입력하세요. : ");
+		parameter.put("midScore", sc.nextLine());
+		System.out.print("기말고사 점수를 입력하세요. : ");
+		parameter.put("finScore", sc.nextLine());
+
+		con.updateGrade(parameter);
+
+	}
+
+	private void deleteGrade(Map<String, String> parameter) {
+
+
+		} while (true);
 
 	}
 
@@ -296,34 +391,11 @@ public class UimsMenu {
 
 	}
 
-	private void insertGrade(Map<String, String> parameter) {
 
-		ArrayList<EnrollmentDTO> enroll = con.selectStuGrade(parameter);
 
-		for (EnrollmentDTO enrollmentDTO : enroll) {
-			System.out.println(enrollmentDTO);
-		}
-		System.out.print("학번을 입력하세요. : ");
-		parameter.put("studentNo", sc.next());
-
-		System.out.print("출석 점수를 입력하세요. : ");
-		parameter.put("attScore", sc.next());
-
-		System.out.print("과제 점수를 입력하세요. : ");
-		parameter.put("assScore", sc.next());
-
-		System.out.print("중간 점수를 입력하세요. : ");
-		parameter.put("midScore", sc.next());
-
-		System.out.print("기말 점수를 입력하세요. : ");
-		parameter.put("finScore", sc.next());
-		con.insertGrade(parameter);
-
-		con.inputFinGrade(parameter);
-
-	}
 
 	private void lectureJug(Map<String, String> parameter) {
+
 
 		do {
 
@@ -343,6 +415,7 @@ public class UimsMenu {
 			sc.nextLine();
 
 			switch (no) {
+
 			case 1:
 				updateJudge(parameter);
 				break;
@@ -351,6 +424,12 @@ public class UimsMenu {
 			case 4: // lectureJugService.selectJudge(); break;
 			}
 
+
+				default:
+					System.out.println("잘못 입력하셨습니다.");
+					break;
+				}
+			}
 		} while (true);
 
 	}
@@ -363,6 +442,7 @@ public class UimsMenu {
 
 		System.out.print("과목 번호를 입력하세요. : ");
 		parameter.put("lectureNo", sc.next());
+
 		System.out.println("질문에 알맞게 점수를 입력해주세요");
 		System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
 		int score1 = sc.nextInt();
@@ -386,6 +466,7 @@ public class UimsMenu {
 		parameter.put("StuOneJug", sc.nextLine());
 
 		con.inputJudgement(parameter);
+
 	}
 
 }
