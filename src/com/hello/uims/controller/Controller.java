@@ -6,17 +6,33 @@ import java.util.Map;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
+import com.hello.uims.model.service.LogInService;
+import com.hello.uims.model.service.SignUpService;
 import com.hello.uims.view.PrintResult;
 import com.hello.uims.view.studentNo;
 
-public class Controller {
+ public class Controller {
 
-	private EnrollService enrollService = new EnrollService();
-	private GradeService gradeService = new GradeService();
-	private PrintResult printResult = new PrintResult();
-
+	private final PrintResult printResult;
+	//private final EnrollService enrollService;
+	private final GradeService gradeService;
+	//private final LectureJugService lectureJugService;
+	private final LogInService logInService;
+	private final SignUpService signUpService;
+	
+	public Controller() {
+		printResult = new PrintResult();
+		//enrollService = new EnrollService();
+		gradeService = new GradeService();
+		//lectureJugService = new LectureJugService()
+		logInService = new LogInService();
+		signUpService = new SignUpService();
+		
+	}
+	
 	public void gradeCheck(Map<String, String> parameter) {
 
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
@@ -115,5 +131,22 @@ public class Controller {
 	public void lectureJug() {
 
 	}
+
+	public static void logIn() {
+		
+		
+		StudentDTO stu = new StudentDTO();
+		
+		
+		
+	}
+
+	public static void signUp() {
+		
+		
+	}
+
+		
+	
 
 }

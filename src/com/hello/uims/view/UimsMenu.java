@@ -32,11 +32,11 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				login();
+				con.logIn();
 				break;
 
 			case 2:
-				signIn();
+				con.signUp();
 				break;
 
 			case 9:
@@ -55,7 +55,7 @@ public class UimsMenu {
 
 	}
 
-	private void login() {
+	private void logIn() {
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
 		int no = sc.nextInt();
@@ -78,6 +78,18 @@ public class UimsMenu {
 
 	private void signIn() {
 		// 지수형 회원가입 파트
+		
+		String str = sc.nextLine();
+		
+		System.out.println("===============================회원가입===================================");
+		System.out.println("아이디를 설정하세요");
+		str = sc.nextLine();
+		System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+		str = sc.nextLine();
+		
+			
+			
+		
 	}
 
 	public void stuMainMenu() { // 학생용 메뉴 화면
@@ -91,7 +103,7 @@ public class UimsMenu {
 			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
 			System.out.println("5. 로그아웃");
-			System.out.println("=========================================================================");
+			System.out.println("========================================================================");
 			System.out.print("메뉴 선택 : ");
 
 			no = sc.nextInt();
