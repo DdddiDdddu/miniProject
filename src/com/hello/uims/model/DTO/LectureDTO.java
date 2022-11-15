@@ -17,11 +17,12 @@ public class LectureDTO {
 
 	}
 
-	public LectureDTO(String deptCode, int lectureNo, String profName, String lectureName, char credit, int currNo,
+	public LectureDTO(String deptCode, int lectureNo, int profNo, String profName, String lectureName, char credit, int currNo,
 			int fullNo, String day, String time) {
 		super();
 		this.deptCode = deptCode;
 		this.lectureNo = lectureNo;
+		this.profNo = profNo;
 		this.profName = profName;
 		this.lectureName = lectureName;
 		this.credit = credit;
@@ -112,7 +113,7 @@ public class LectureDTO {
 	}
 	
 	public String toString() {
-		return "[deptCode=" + deptCode + ", lectureNo=" + lectureNo + ", profName=" + profName + ", lectureName="
+		return "[deptCode=" + deptCode + ", lectureNo=" + lectureNo + ", profName=" + profName + ", profNo=" + profNo + ", lectureName="
 				+ lectureName + ", credit=" + credit + ", currNo=" + currNo + ", fullNo=" + fullNo + ", day=" + day
 				+ ", time=" + time + "]";
 	}

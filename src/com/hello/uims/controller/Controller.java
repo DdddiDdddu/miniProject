@@ -81,9 +81,9 @@ public class Controller {
 		ArrayList<EnrollmentDTO> list = gradeService.selectStudentList(parameter);
 
 		if (list != null && !list.isEmpty())
-			printResult.printSuccessMessage("selectStuGrade");
+			printResult.printSuccessMessage("selectStudentList");
 		else
-			printResult.printErrorMessage("selectStuGrade");
+			printResult.printErrorMessage("selectStudentList");
 
 		return list;
 

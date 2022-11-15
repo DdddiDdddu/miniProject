@@ -102,8 +102,7 @@
 		DELETE FROM ENROLLMENT
 		WHERE STUDENT_NO = #{ studentNo } AND LECTURE_NO = #{ lectureNo }
 	</delete>
-	<select id="selectGradeCheck" parameterType="_int"
-		resultMap="gradeResultMap">
+	<select id="selectGradeCheck" parameterType="_int" resultMap="gradeResultMap">
 		SELECT
 		LECTURE_NAME,
 		PROF_NAME,
@@ -136,54 +135,55 @@
 	<select id="selectByProfNo" parameterType="_int"
 		resultMap="lectureResultMap">
 		SELECT
-		LECTURE_NO,
-		DEPT_CODE,
-		PROF_NO,
-		LECTURE_NAME,
-		CREDIT,
-		CURR_NO,
-		FULL_NO,
-		DAY,
-		TIME
-		FROM LECTURE
-		WHERE PROF_NO = #{profNo}
+		   	   A.DEPT_CODE, 
+			   A.LECTURE_NO, 
+			   A.PROF_NO, 
+			   B.PROF_NAME, 
+			   A.LECTURE_NAME, 
+			   A.CREDIT, 
+			   A.CURR_NO, 
+			   A.FULL_NO, 
+			   A.DAY, 
+			   A.TIME
+	 	  FROM LECTURE A
+	 	  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
+	 	 WHERE A.PROF_NO = #{ profNo }
 	</select>
 	<select id="selectStudentList" parameterType="hashmap"
 		resultMap="enrollmentResultMap">
 		SELECT
-		A.LECTURE_NO,
-		A.STUDENT_NO
-		FROM ENROLLMENT A
-		JOIN LECTURE B
-		ON A.LECTURE_NO = B.LECTURE_NO
-		WHERE B.LECTURE_NO = #{ lectureNo }
-		AND B.PROF_NO = #{ profNo }
+			   A.LECTURE_NO,
+			   A.STUDENT_NO
+		  FROM ENROLLMENT A
+		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
+	 	 WHERE B.LECTURE_NO = #{ lectureNo }
+	 	   AND B.PROF_NO = #{ profNo }
 	</select>
 	<insert id="insertScores" parameterType="hashmap">
 		INSERT INTO GRADE
-		(
-		GRADE_NO,
-		LECTURE_NO,
-		PROF_NO,
-		STUDENT_NO,
-		ATT_SCORE,
-		ASS_SCORE
-		MID_SCORE,
-		FIN_SCORE,
-		GRADE
-		)
-		VALUES
-		(
-		SEQ_GRADE_NO,
-		#{ lectureNo },
-		#{ profNo },
-		#{ studentNo },
-		#{ attScore },
-		#{ assScore },
-		#{ midScore },
-		#{ finScore },
-		DEFAULT
-		)
+			(
+			GRADE_NO,
+			LECTURE_NO,
+			PROF_NO,
+			STUDENT_NO,
+			ATT_SCORE,
+			ASS_SCORE,
+			MID_SCORE,
+			FIN_SCORE,
+			GRADE
+			)
+			VALUES
+			(
+			SEQ_GRADE_NO, 
+			#{ lectureNo }, 
+			#{ profNo }, 
+			#{ studentNo }, 
+			#{ attScore }, 
+			#{ assScore }, 
+			#{ midScore }, 
+			#{ finScore }, 
+			DEFAULT
+			)
 	</insert>
 	<update id="inputFinGrade" parameterType="hashmap">
 		UPDATE GRADE A

@@ -6,10 +6,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.hello.uims.controller.Controller;
-
 import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.service.LectureJugService;
-
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.StudentDTO;
@@ -23,7 +21,7 @@ public class UimsMenu {
 
 	public void initialMenu() {
 
-		do {
+		label: do {
 
 			int no;
 
@@ -48,7 +46,7 @@ public class UimsMenu {
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.next().toLowerCase().charAt(0)) {
 					sc.close();
-					return;
+					break label;
 				}
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -69,9 +67,13 @@ public class UimsMenu {
 		int no = sc.nextInt();
 		sc.nextLine();
 		
-
 		System.out.println("학생 : 1");
 		System.out.println("교수 : 2");
+		System.out.println("=========================");
+		System.out.print("메뉴 선택 : ");
+		
+		int no = sc.nextInt();
+		sc.nextLine();
 
 		switch (no) {
 		case 1:
@@ -259,7 +261,6 @@ public class UimsMenu {
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
 
-		System.out.println("=========================================================================");
 		con.selectByProfNo(parameter);
 		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 
@@ -294,6 +295,36 @@ public class UimsMenu {
 				break;
 			}
 		} while (true);
+	}
+
+	private void insertGrade(Map<String, String> parameter) {
+
+		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
+		parameter.put("currNo", Integer.toString(enroll.size()));
+		System.out.println("================================ 학생 목록 ================================");
+		
+//		HashMap<String, Integer> gradeMap = new HashMap<>();
+		
+		for (EnrollmentDTO enrollmentDTO : enroll) {
+			System.out.println(enrollmentDTO);
+			
+			System.out.print("학번을 입력하세요. : ");
+			parameter.put("studentNo", sc.next());
+			System.out.print("출석 점수를 입력하세요. : ");
+			parameter.put("attScore", sc.next());
+			System.out.print("과제 점수를 입력하세요. : ");
+			parameter.put("assScore", sc.next());
+			System.out.print("중간 점수를 입력하세요. : ");
+			parameter.put("midScore", sc.next());
+			System.out.print("기말 점수를 입력하세요. : ");
+			parameter.put("finScore", sc.next());
+			con.insertScores(parameter);
+		}
+
+		if (enroll != null && !enroll.isEmpty()) {
+			con.inputFinGrade(parameter);
+		}
+
 	}
 
 	private void updateGrade(Map<String, String> parameter) {
@@ -364,47 +395,8 @@ public class UimsMenu {
 
 	}
 
-	private void insertGrade(Map<String, String> parameter) {
-
-		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
-		parameter.put("currNo", Integer.toString(enroll.size()));
-		System.out.println("================================ 학생 목록 ================================");
-
-		for (EnrollmentDTO enrollmentDTO : enroll) {
-			System.out.println(enrollmentDTO);
-
-			System.out.print("학번을 입력하세요. : ");
-			parameter.put("studentNo", sc.next());
-			System.out.print("출석 점수를 입력하세요. : ");
-			parameter.put("attScore", sc.next());
-			System.out.print("과제 점수를 입력하세요. : ");
-			parameter.put("assScore", sc.next());
-			System.out.print("중간 점수를 입력하세요. : ");
-			parameter.put("midScore", sc.next());
-			System.out.print("기말 점수를 입력하세요. : ");
-			parameter.put("finScore", sc.next());
-			con.insertScores(parameter);
-		}
-
-		if (enroll != null && !enroll.isEmpty()) {
-			con.inputFinGrade(parameter);
-		}
-
-
-	
-	
-	private void lectureJug(Map<String, String> parameter) {
-		LectureJugService lectureJugService = new LectureJugService();
-		
-		con.selectByLectureNo(parameter);
-		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
-		
-
-	}
-
 	private void lectureJug() {
 		LectureJugService lectureJugService = new LectureJugService();
-
 
 		do {
 
@@ -492,8 +484,7 @@ public class UimsMenu {
 			con.inputJudgement(parameter);
 			
 	}
-		
-		
+  
 }
 
 

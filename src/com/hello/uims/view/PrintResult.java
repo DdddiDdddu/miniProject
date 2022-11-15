@@ -27,9 +27,9 @@ public class PrintResult {
 		case "insertGrade":
 			successMessage = "학점 추가에 성공하셨습니다.";
 			break;
-		case "selectStuGrade":
-			successMessage = "======= 수강생 목록 =======";
-			break;
+//		case "selectStudentList":
+//			successMessage = "======= 수강생 목록 =======";
+//			break;
 		case "updateGrade":
 			successMessage = "학점 수정에 성공하셨습니다.";
 			break;
@@ -64,7 +64,7 @@ public class PrintResult {
 	public void printLecture(List<LectureDTO> list) {
 
 		System.out.println("=========================================================================");
-		System.out.println("학과코드\t       강의번호\t    교수명\t   강의명\t\t\t 수강학점\t   수강인원    정원인원     요일    시간");
+		System.out.println("학과코드\t       강의번호\t    교수명\t 교수번호\t  강의명\t\t\t 수강학점\t   수강인원    정원인원     요일    시간");
 
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
@@ -94,7 +94,7 @@ public class PrintResult {
 		case "insertGrade":
 			errorMessage = "학점 부여 실패";
 			break;
-		case "selectStuGrade":
+		case "selectStudentList":
 			errorMessage = "수강생이 없습니다.";
 			break;
 		case "selectGrade":
@@ -105,7 +105,7 @@ public class PrintResult {
 		case "enroll":
 			errorMessage = "수강신청 실패";
 			break;
-		case "selectEnroll":
+		case "selectLecture":
 			errorMessage = "수강신청한 강의가 없습니다.";
 			break; 
 		case "deleteEnroll":
