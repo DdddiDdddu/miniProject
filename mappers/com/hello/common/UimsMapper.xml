@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hello.common.UimsMapper">
+	<resultMap type = "com.hello.uims.model.DTO.StudentDTO" id = "studentResultMap">
+		<id property = "studentNo" column = "STUDENT_NO"/>
+		<result property = "deptCode" column = "DEPT_CODE"/>
+		<result property = "studentId" column = "STUDENT_ID"/>
+		<result property = "studentPwd" column = "STUDENT_PWD"/>
+		<result property = "studentName" column = "STUDENT_NAME"/>
+		<result property = "address" column = "ADDRESS"/>
+		<result property = "studentTelNo" column = "STUDENT_TELNO"/>
+		<result property = "email" column = "EMAIL"/>
+		<result property = "enrollDate" column = "ENROLL_DATE"/>
+		<result property = "status" column = "STATUS"/>
+	</resultMap>
 	<resultMap type = "com.hello.uims.model.DTO.GradeDTO" id = "gradeResultMap">
 		<result property = "lectureName" column = "LECTURE_NAME"/>
 		<result property = "profName" column = "PROF_NAME"/>
@@ -13,7 +25,7 @@
 		<result property = "grade" column = "GRADE"/>
 	</resultMap>
 	<resultMap type = "com.hello.uims.model.DTO.LectureDTO" id = "lectureResultMap">
-		<result property = "lectureNo" column = "LECTURE_NO"/>
+		<id property = "lectureNo" column = "LECTURE_NO"/>
 		<result property = "deptCode" column = "DEPT_CODE"/>
 		<result property = "profNo" column = "PROF_NO"/>
 		<result property = "lectureName" column = "LECTURE_NAME"/>
@@ -23,6 +35,12 @@
 		<result property = "day" column = "DAY"/>
 		<result property = "time" column = "TIME"/>
 	</resultMap>
+	<select id = "selectLogin" parameterType = "hashmap" resultMap = "studentResultMap">
+		SELECT
+			   STUDENT_PWD
+		  FROM STUDENT
+		 WHERE STUDENT_ID = #{ studentId }
+	</select>
 	<select id = "gradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
 		SELECT
 			   LECTURE_NAME,
@@ -70,6 +88,6 @@
 	<insert id = "insertGrade" parameterType = "hashmap">
 		INSERT INTO GRADE
 			VALUES
-			(SEQ_GRADE_NO, #{ lectureNo }, #{ profNo }, #{ studentNo ), #{ attScore }, #{ assScore }, #{ midScore }, #{ finScore }, DEFAULT)
+			(SEQ_GRADE_NO, #{ lectureNo }, #{ profNo }, #{ studentNo }, #{ attScore }, #{ assScore }, #{ midScore }, #{ finScore }, DEFAULT)
 	</insert>
 </mapper>

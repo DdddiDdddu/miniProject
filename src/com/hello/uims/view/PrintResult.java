@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
 
@@ -64,9 +65,9 @@ public class PrintResult {
 		String errorMessage = "";
 
 		switch (errorCode) {
-//		case "selectList":
-//			errorMessage = "메뉴 목록 조회에 실패하셨습니다.";
-//			break;
+		case "selectLogin":
+			errorMessage = "없는 아이디입니다.";
+			break;
 //		case "selectOne":
 //			errorMessage = "메뉴 조회에 실패하셨습니다.";
 //			break;
@@ -90,5 +91,15 @@ public class PrintResult {
 		System.out.println(errorMessage);
 
 	}
+
+	public void printLogStu(StudentDTO id) {
+		System.out.println(id);
+	}
+
+	public void printErrorLogStu(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 
 public interface UimsMapper {
 
@@ -15,6 +16,10 @@ public interface UimsMapper {
 	ArrayList<GradeDTO> selectStuGrade(int lectureNo);
 
 	int insertGrade(Map<String, String> parameter);
+
+	StudentDTO selectLogin(Map<String, String> parameter);
+
+
 	
 //	List<MenuDTO> selectAllMenu();
 //	MenuDTO selectMenuByCode(int code);
