@@ -1,9 +1,9 @@
 package com.hello.uims.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
+import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.StudentDTO;
@@ -12,8 +12,9 @@ import com.hello.uims.model.service.GradeService;
 import com.hello.uims.model.service.LogInService;
 import com.hello.uims.model.service.SignUpService;
 import com.hello.uims.view.PrintResult;
+import com.hello.uims.view.studentNo;
 
-public class Controller {
+ public class Controller {
 
 	private final PrintResult printResult;
 	//private final EnrollService enrollService;
@@ -33,65 +34,102 @@ public class Controller {
 	}
 	
 	public void gradeCheck(Map<String, String> parameter) {
-		
+
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
-		
+
 		ArrayList<GradeDTO> list = gradeService.gradeCheck(studentNo);
-		
-		if(list != null && !list.isEmpty()) {
+
+		if (list != null && !list.isEmpty())
 			printResult.printGrade(list);
-		} else {
+
+		else
 			printResult.printErrorMessage("gradeCheck");
-		}
-		
+
 	}
 
 	public void selectByProfNo(Map<String, String> parameter) {
-		
+
 		int profNo = Integer.parseInt(parameter.get("profNo"));
-		
+
 		ArrayList<LectureDTO> list = gradeService.selectByProfNo(profNo);
-		
-		if(list != null && !list.isEmpty()) {
+
+		if (list != null && !list.isEmpty())
 			printResult.printLecture(list);
-		} else {
+
+		else
 			printResult.printErrorMessage("selectByProfNo");
-		}
-		
+
 	}
 
 	public void insertGrade(Map<String, String> parameter) {
-		
-		
-		
-		if(gradeService.insertGrade(parameter)) {
+
+		if (gradeService.insertGrade(parameter))
 			printResult.printSuccessMessage("insertGrade");
-		} else {
+
+		else
 			printResult.printErrorMessage("insertGrade");
-		}
-		
+
 	}
 
-	public ArrayList<GradeDTO> selectStuGrade(Map<String, String> parameter) {
-		
-		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
-		
-		ArrayList<GradeDTO> list = gradeService.selectStuGrade(lectureNo);
-		
+	public ArrayList<EnrollmentDTO> selectStuGrade(Map<String, String> parameter) {
+
+		ArrayList<EnrollmentDTO> list = gradeService.selectStuGrade(parameter);
+
 		return list;
+
 	}
 
-	public void selectLecture() {
+	public void inputFinGrade(Map<String, String> parameter) {
 
-		List<LectureDTO> lectureList = EnrollService.selectLecture();
+		//ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
 
-		if (lectureList != null) 
+		if(gradeService.inputFinGrade(parameter)) {
+			printResult.printSuccessMessage("inputFinGrade");
+		} else {
+			printResult.printErrorMessage("inputFinGrade");
+		}
+	
+	}
+
+  // 수강신청 강의목록
+	public void selectAllLecture() {
+
+		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
+
+		if (lectureList != null)
 			printResult.printLecture(lectureList);
-			
-		 else 
+
+		else
+			printResult.printErrorMessage("selectLecture");
+
+	}
+  
+	// 수강신청
+	public void enroll(Map<String, String> parameter) {
+		
+		if (enrollService.enroll(parameter))
+			printResult.printSuccessMessage("enroll");
+
+		else
+			printResult.printErrorMessage("enroll");
+
+	}
+	
+	// 수강신청 내역
+	public void selectEnroll() {
+		
+		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
+
+		if (lectureList != null)
+			printResult.printLecture(lectureList);
+
+		else
 			printResult.printErrorMessage("selectLecture");
 		
-		
+	}
+
+	public void lectureJug() {
+
 	}
 
 	public static void logIn() {

@@ -1,13 +1,68 @@
 package com.hello.uims.model.service;
 
-import java.util.List;
+import static com.hello.common.Template.getSqlSession;
 
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.hello.common.UimsMapper;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 
 public class EnrollService {
-	
-	public EnrollService() { // 수용 파트 
+
+	SqlSession sqlSession = null;
+	private UimsMapper mapper;
+
+	public ArrayList<LectureDTO> selectAllLecture() {
+
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+
+		ArrayList<LectureDTO> lectureList = mapper.selectAllLecture();
+
+		for (LectureDTO lecture : lectureList) // 용도?
+			System.out.println(lecture);
+
+		sqlSession.close();
+
+		return lectureList;
+
+	}
+
+	public boolean enroll(Map<String, String> parameter) {
+		
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+
+		int result = mapper.enroll(parameter);
+
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		return (result > 0) ? true : false;
+
+	}
+
+	// 예시
+	public ArrayList<EnrollmentDTO> selectStuGrade(Map<String, String> parameter) {
+
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+		ArrayList<EnrollmentDTO> list = mapper.selectStuGrade(parameter);
+
+		sqlSession.close();
+
+		return list;
+	}
+
+	public EnrollService() { // 수용 파트
+
+	}
 
 //		public List<MenuDTO> selectAllMenu() {
 //			
@@ -91,14 +146,5 @@ public class EnrollService {
 //			return result > 0? true: false;
 //			
 //		}
-		
-	}
-
-	public static List<LectureDTO> selectLecture() {
-		
-		
-		
-		return null;
-	}
 
 }
