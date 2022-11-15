@@ -9,10 +9,10 @@ import com.hello.uims.model.DTO.LectureDTO;
 
 public interface UimsMapper {
 
-	// 수강신청 - 강의목록 조회
+	// 전체 강의목록 조회
 	ArrayList<LectureDTO> selectAllLecture();
 
-	// 수강신청
+	// 수강신청 
 	int enroll(Map<String, String> parameter);
 
 	// 수강신청 내역

@@ -6,7 +6,6 @@ import java.util.Map;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
-import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
 import com.hello.uims.model.service.LogInService;
