@@ -9,12 +9,18 @@ import com.hello.uims.model.DTO.LectureDTO;
 
 public interface UimsMapper {
 
-	// 수강신청 - 강의목록 조회 
+	// 수강신청 - 강의목록 조회
 	ArrayList<LectureDTO> selectAllLecture();
-	
-	//수강신청
+
+	// 수강신청
 	int enroll(Map<String, String> parameter);
-	
+
+	// 수강신청 내역
+	ArrayList<LectureDTO> selectEnroll(Map<String, String> parameter);
+  
+	// 수강신청 취소
+	int deleteEnroll(Map<String, String> parameter);
+
 	// 학생 : 학점 조회
 	ArrayList<GradeDTO> selectGradeCheck(int studentNo);
 	
@@ -38,11 +44,5 @@ public interface UimsMapper {
 
 	// 교수 : 학점 삭제
 	int deleteGrade(Map<String, String> parameter);
-
-//	List<MenuDTO> selectAllMenu();
-//	MenuDTO selectMenuByCode(int code);
-//	int insertMenu(MenuDTO menu);
-//	int updateMenu(MenuDTO menu);
-//	int deleteMenu(int code); // 예시
 
 }

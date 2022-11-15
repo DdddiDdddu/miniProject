@@ -33,10 +33,10 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				login();
+				con.logIn();
 				break;
 			case 2:
-				signIn();
+				con.signUp();
 				break;
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
@@ -51,7 +51,7 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	private void login() {
+	private void logIn() {
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
 		int no = sc.nextInt();
@@ -72,6 +72,18 @@ public class UimsMenu {
 
 	private void signIn() {
 		// 지수형 회원가입 파트
+		
+		String str = sc.nextLine();
+		
+		System.out.println("===============================회원가입===================================");
+		System.out.println("아이디를 설정하세요");
+		str = sc.nextLine();
+		System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+		str = sc.nextLine();
+		
+			
+			
+		
 	}
 
 	public void stuMainMenu() { // 학생용 메뉴 화면
@@ -85,7 +97,7 @@ public class UimsMenu {
 			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
 			System.out.println("5. 로그아웃");
-			System.out.println("=========================================================================");
+			System.out.println("========================================================================");
 			System.out.print("메뉴 선택 : ");
 
 			no = sc.nextInt();
@@ -150,17 +162,18 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	// 수강신청 메뉴
-	private void enrollMenu() {
+	// 수강신청 메뉴 
+	public void enrollMenu() {
 
 		do {
 			int no;
 
 			System.out.println("================================ 수강신청 =================================");
-			System.out.println("1. 수강신청");
-			System.out.println("2. 수강신청 내역");
-			System.out.println("3. 수강신청 취소");
-			// 검색기능 강의명, 학과코드
+			System.out.println("1. 강의목록 조회");
+			System.out.println("2. 수강신청");
+			System.out.println("3. 수강신청 내역");
+			System.out.println("4. 수강신청 취소");
+			// 검색기능 강의명, 학과코드 
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
@@ -171,13 +184,16 @@ public class UimsMenu {
 			switch (no) {
 			case 1:
 				con.selectAllLecture(); // 수강신청 강의목록 조회
-				enroll(); // 수강신청
 				break;
 			case 2:
-				con.selectEnroll(); // 수강신청 내역
+				con.enroll(inputEnroll());
 				break;
 			case 3:
-//				con.deleteEnroll(inputEnrollId());
+				con.selectEnroll(inputStudentNo()); // 수강신청 내역
+				break;
+				
+			case 4:
+				con.deleteEnroll(inputEnroll());
 				break;
 			case 9:
 				return;
@@ -188,21 +204,19 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	// 수강신청
-	private void enroll() {
-
+	// 수강신청 
+	public Map<String, String> inputEnroll() {
+		
 		Map<String, String> parameter = new HashMap<>();
-
-		System.out.print("학번을 입력해주세요 : ");
-		parameter.put("studentNo", sc.nextLine());
-		sc.nextLine(); // 버퍼에서 엔터제거
-
-		System.out.print("수강신청할 강의의 강의코드를 입력해주세요 : ");
+		
+		System.out.print("학번을 입력해주세요 : "); 
+		parameter.put("studentNo", sc.nextLine()); 
+		
+		System.out.print("강의코드를 입력해주세요 : "); 
 		parameter.put("lectureNo", sc.nextLine());
-		sc.nextLine(); // 버퍼에서 엔터제거
-
-		con.enroll(parameter);
-
+		
+		return parameter; 
+		
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
