@@ -12,6 +12,7 @@ import com.hello.uims.model.service.LectureJugService;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.LectureJugService;
 
 
@@ -38,10 +39,10 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-//				con.logIn();
+				logIn();
 				break;
 			case 2:
-//				con.signUp();
+				signUp();
 				break;
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
@@ -56,26 +57,55 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	private void logIn() {
+	public void logIn() {
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
+		System.out.println("=========================");
+		System.out.println("학생이면 1번");
+		System.out.println("교수면 2번");
+		System.out.println("=========================");
+		System.out.print("메뉴 선택 : ");
+		
 		int no = sc.nextInt();
 		sc.nextLine();
+		
 
 		System.out.println("학생 : 1");
 		System.out.println("교수 : 2");
 
 		switch (no) {
 		case 1:
-			stuMainMenu();
+			StudentDTO student = con.selectLogin(inputStuId());
+			
+			
+			if(student != null) {
+				
+				System.out.println("비밀번호를 입력하세요");
+				
+				if(student.getStudentPwd() == sc.next()) {
+					stuMainMenu();
+				} else {
+					System.out.println("비밀번호가 틀렸습니다.");
+				}
+			}
 			break;
 		case 2:
-			profMainMenu();
+			//con.profMainMenu();
 			break;
 		}
 	}
 
-	private void signIn() {
+	private HashMap<String, String> inputStuId() {
+		
+		HashMap<String, String> loginMap = new HashMap<>();
+		System.out.println("아이디를 입력하세요");
+		loginMap.put("studentId", sc.next());
+		
+		return loginMap;
+		
+	}
+
+	private void signUp() {
 		// 지수형 회원가입 파트
 
 		String str = sc.nextLine();
@@ -466,4 +496,4 @@ public class UimsMenu {
 		
 }
 
-}
+
