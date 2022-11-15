@@ -16,7 +16,8 @@ public class UimsMenu {
 	private Controller con = new Controller();
 
 	public void initialMenu() {
-
+		
+		label:
 		do {
 
 			int no;
@@ -33,16 +34,16 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				con.logIn();
+//				con.logIn();
 				break;
 			case 2:
-				con.signUp();
+//				con.signUp();
 				break;
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.next().toLowerCase().charAt(0)) {
 					sc.close();
-					return;
+					break label;
 				}
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -51,14 +52,13 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	private void logIn() {
+	public void logIn() {
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
-		int no = sc.nextInt();
-		sc.nextLine();
-
 		System.out.println("학생 : 1");
 		System.out.println("교수 : 2");
+		int no = sc.nextInt();
+		sc.nextLine();
 
 		switch (no) {
 		case 1:

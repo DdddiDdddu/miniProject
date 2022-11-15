@@ -78,7 +78,6 @@
 	<delete id = "deleteEnroll" parameterType = "hashmap">
 		DELETE FROM ENROLLMENT WHERE STUDENT_NO = #{ studentNo } AND LECTURE_NO = #{ lectureNo } 
 	</delete>
-	<select id = "gradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
 
 <select id = "selectGradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
 		SELECT
@@ -111,25 +110,26 @@
 	</select>
 	<select id = "selectByProfNo" parameterType = "_int" resultMap = "lectureResultMap">
 		SELECT
-			   LECTURE_NO,
-			   DEPT_CODE,
-			   PROF_NO,
-			   LECTURE_NAME,
-			   CREDIT,
-			   CURR_NO,
-			   FULL_NO,
-			   DAY,
-			   TIME
-	 	  FROM LECTURE
-	 	 WHERE PROF_NO = #{profNo}
+		   	   A.DEPT_CODE, 
+			   A.LECTURE_NO, 
+			   A.PROF_NO, 
+			   B.PROF_NAME, 
+			   A.LECTURE_NAME, 
+			   A.CREDIT, 
+			   A.CURR_NO, 
+			   A.FULL_NO, 
+			   A.DAY, 
+			   A.TIME
+	 	  FROM LECTURE A
+	 	  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
+	 	 WHERE A.PROF_NO = #{ profNo }
 	</select>
 	<select id = "selectStudentList" parameterType = "hashmap" resultMap = "enrollmentResultMap">
 		SELECT
 			   A.LECTURE_NO,
 			   A.STUDENT_NO
 		  FROM ENROLLMENT A
-		  JOIN LECTURE B
-		    ON A.LECTURE_NO = B.LECTURE_NO
+		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
 	 	   AND B.PROF_NO = #{ profNo }
 	</select>
