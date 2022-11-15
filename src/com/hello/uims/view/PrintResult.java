@@ -34,6 +34,9 @@ public class PrintResult {
 		case "updateGrade":
 			successMessage = "학점 수정에 성공하셨습니다.";
 			break;
+		case "deleteGrade":
+			successMessage = "학점 삭제에 성공하셨습니다.";
+			break;
 //		case "update":
 //			successMessage = "메뉴 수정에 성공하셨습니다.";
 //			break;
@@ -57,7 +60,7 @@ public class PrintResult {
 
 	public void printGrade(List<GradeDTO> list) {
 
-		System.out.println("========================================================================");
+		System.out.println("================================ 학점 목록 ================================");
 		System.out.println("강의명\t교수명\t학번\t학생명\t출석점수\t과제점수\t중간점수\t기말점수\t학점");
 
 		for (GradeDTO grade : list)
@@ -67,7 +70,7 @@ public class PrintResult {
 
 	public void printLecture(List<LectureDTO> list) {
 
-		System.out.println("=========================================================================");
+		System.out.println("================================ 강의 목록 ================================");
 		System.out.println("학과코드\t       강의번호\t    교수명\t 교수번호\t  강의명\t\t\t 수강학점\t   수강인원    정원인원     요일    시간");
 
 		for (LectureDTO lecture : list)
@@ -75,7 +78,7 @@ public class PrintResult {
 
 	}
 	public void printStudent(ArrayList<StudentDTO> list) {
-		System.out.println("=========================================================================");
+		System.out.println("================================ 학생 목록 ================================");
 		System.out.println("학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
 
 		for (StudentDTO student : list)
@@ -104,7 +107,7 @@ public class PrintResult {
 			errorMessage = "강의중인 강의가 없습니다.";
 			break;
 		case "insertGrade":
-			errorMessage = "학점 부여 실패";
+			errorMessage = "이미 학점을 부여한 학생입니다.";
 			break;
 		case "selectStudentList":
 			errorMessage = "수강생이 없습니다.";
@@ -114,6 +117,10 @@ public class PrintResult {
 			break;
 		case "updateGrade":
 			errorMessage = "수강중인 학생이 아닙니다.";
+			break;
+		case "deleteGrade":
+			errorMessage = "수강중인 학생이 아닙니다.";
+			break;
 		case "enroll":
 			errorMessage = "수강신청 실패";
 			break;

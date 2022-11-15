@@ -41,9 +41,9 @@ public class Controller {
 
 	public void selectGradeCheck(Map<String, String> parameter) {
 
-		int studentNo = Integer.parseInt(parameter.get("studentNo"));
+		
 
-		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(studentNo);
+		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(parameter);
 
 		if (list != null && !list.isEmpty())
 			printResult.printGrade(list);
@@ -68,12 +68,15 @@ public class Controller {
 	}
 
 	public void insertScores(Map<String, String> parameter) {
-
-		if (gradeService.insertScores(parameter))
-			printResult.printSuccessMessage("insertGrade");
-
-		else
+		
+		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(parameter);
+		
+		if(list != null && !list.isEmpty()) {
 			printResult.printErrorMessage("insertGrade");
+		} else {
+			if (gradeService.insertScores(parameter))
+				printResult.printSuccessMessage("insertGrade");
+		}
 
 	}
 
@@ -90,10 +93,11 @@ public class Controller {
 
 	}
 
-	public void inputFinGrade(Map<String, String> parameter) {
-
-		if (gradeService.inputFinGrade(parameter))
-
+	public void inputFinGrade() {
+		
+		
+		
+		if (gradeService.inputFinGrade())
 			printResult.printSuccessMessage("inputFinGrade");
 		else
 			printResult.printErrorMessage("inputFinGrade");
@@ -144,7 +148,7 @@ public class Controller {
 
 	}
 
-	public void selectGrade(Map<String, String> parameter) {
+	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
 
 		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
 
@@ -152,7 +156,8 @@ public class Controller {
 			printResult.printGrade(list);
 		else
 			printResult.printErrorMessage("selectGrade");
-
+		
+		return (list != null && !list.isEmpty())? list : null;
 	}
 
 	public void updateGrade(Map<String, String> parameter) {
@@ -165,7 +170,7 @@ public class Controller {
 	}
 
 	public void deleteGrade(Map<String, String> parameter) {
-
+		
 		if (gradeService.deleteGrade(parameter))
 			printResult.printSuccessMessage("deleteGrade");
 		else
