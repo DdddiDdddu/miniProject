@@ -24,7 +24,13 @@ public class PrintResult {
 
 		switch (successCode) {
 		case "insertGrade":
-			successMessage = "학점 추가 성공.";
+			successMessage = "학점 추가에 성공하셨습니다.";
+			break;
+		case "selectStuGrade":
+			successMessage = "======= 수강생 목록 =======";
+			break;
+		case "updateGrade":
+			successMessage = "학점 수정에 성공하셨습니다.";
 			break;
 //		case "update":
 //			successMessage = "메뉴 수정에 성공하셨습니다.";
@@ -79,7 +85,7 @@ public class PrintResult {
 //			errorMessage = "신규 메뉴 등록에 실패하셨습니다.";
 //			break;
 		case "gradeCheck":
-			errorMessage = "수강중인 강의가 없습니다.";
+			errorMessage = "수강중인 강의가 없거나 학점 조회 기간이 아닙니다.";
 			break;
 		case "selectByProfNo":
 			errorMessage = "강의중인 강의가 없습니다.";
@@ -87,6 +93,14 @@ public class PrintResult {
 		case "insertGrade":
 			errorMessage = "학점 부여 실패";
 			break;
+		case "selectStuGrade":
+			errorMessage = "수강생이 없습니다.";
+			break;
+		case "selectGrade":
+			errorMessage = "등록된 학점이 없습니다.";
+			break;
+		case "updateGrade":
+			errorMessage = "수강중인 학생이 아닙니다.";
 		case "enroll":
 			errorMessage = "수강신청 실패";
 			break;

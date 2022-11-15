@@ -79,6 +79,8 @@
 		DELETE FROM ENROLLMENT WHERE STUDENT_NO = #{ studentNo } AND LECTURE_NO = #{ lectureNo } 
 	</delete>
 	<select id = "gradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
+
+<select id = "selectGradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
 		SELECT
 			   LECTURE_NAME,
 			   PROF_NAME,
@@ -121,17 +123,17 @@
 	 	  FROM LECTURE
 	 	 WHERE PROF_NO = #{profNo}
 	</select>
-	<select id = "selectStuGrade" parameterType = "hashmap" resultMap = "enrollmentResultMap">
+	<select id = "selectStudentList" parameterType = "hashmap" resultMap = "enrollmentResultMap">
 		SELECT
-			   A.LECTURE_NO
+			   A.LECTURE_NO,
 			   A.STUDENT_NO
 		  FROM ENROLLMENT A
 		  JOIN LECTURE B
 		    ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
-	 	   AND C.PROF_NO = #{ profNo }
+	 	   AND B.PROF_NO = #{ profNo }
 	</select>
-	<insert id = "insertGrade" parameterType = "hashmap">
+	<insert id = "insertScores" parameterType = "hashmap">
 		INSERT INTO GRADE
 			(
 			GRADE_NO,
@@ -159,39 +161,38 @@
 	</insert>
 	<update id = "inputFinGrade" parameterType = "hashmap">
 		UPDATE GRADE A
-		   SET A.GRADE =
-		  <![CDATA[
-		  CASE WHEN A.ATT_SCORE < 7 THEN 'F'
-		  ]]>
-		  WHEN (SELECT
-                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
-                  FROM GRADE B
-                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.05 THEN 'A+' ]]>
-      	  WHEN (SELECT
-                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
-                  FROM GRADE B
-                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.1 THEN 'A+' ]]>
-          WHEN (SELECT
-                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
-                  FROM GRADE B
-                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.15 THEN 'B+' ]]>
-		  WHEN (SELECT
-                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
-                  FROM GRADE B
-                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.2 THEN 'B' ]]>
-          WHEN (SELECT
-                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
-                  FROM GRADE B
-                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.25 THEN 'C+' ]]>
-          WHEN (SELECT
-                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
-                  FROM GRADE B
-                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.3 THEN 'C' ]]>
-          WHEN (SELECT
-                       RANK() OVER (ORDER BY (B.ATT_SCORE + B.ASS_SCORE + B.MID_SCORE + B.FIN_SCORE) DESC) AS RK
-                  FROM GRADE B
-                 <![CDATA[ WHERE B.LECTURE_NO = #{ lecutreNo } AND B.STUDENT_NO = #{ studentNo }) <= #{ currNo } * 0.35 THEN 'D+' ]]>
-          ELSE 'D'
-          END;   
+		   SET A.GRADE = (SELECT
+                       		 <![CDATA[CASE WHEN B.ATT_SCORE < 7 THEN 'F'
+                           			  WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.05 THEN 'A+'
+                           		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.1 THEN 'A'
+                                      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.15 THEN 'B+'
+                            		  WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.2 THEN 'B'
+                          		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.25 THEN 'C+'
+                            	      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.3 THEN 'C'
+                         		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.35 THEN 'D+']]>
+                        		      ELSE 'D'
+                      		          END;
+                  		    FROM VIEW_GRADE_CHECK B
+               		       WHERE A.STUDENT_NO = B.STUDENT_NO)
+		 WHERE EXISTS(SELECT
+                     		 0
+              		    FROM VIEW_GRADE_CHECK B
+             		   WHERE A.STUDENT_NO = B.STUDENT_NO)
+  		   AND A.LECTURE_NO = #{ lectureNo }
 	</update>
+	<update id = "updateGrade" parameterType = "hashmap">
+		UPDATE GRADE
+		   SET ATT_SCORE = #{ attScore },
+		       ASS_SCORE = #{ assScore },
+		       MID_SCORE = #{ midScore },
+		       FIN_SCORE = #{ finScore }
+		 WHERE STUDENT_NO = #{ studentNo }
+		   AND LECTURE_NO = #{ lectureNo }
+	</update>
+	<delete id = "deleteGrade" parameterType = "hashmap">
+		DELETE FROM GRADE
+		 WHERE PROF_NO = #{ profNo }
+		   AND STUDENT_NO = #{ studentNo }
+		   AND LECTURE_NO = #{ lectureNo }
+	</delete>
 </mapper>

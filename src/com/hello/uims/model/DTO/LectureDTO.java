@@ -110,7 +110,7 @@ public class LectureDTO {
 	public void setTime(String time) {
 		this.time = time;
 	}
-
+	
 	public String toString() {
 		return "[deptCode=" + deptCode + ", lectureNo=" + lectureNo + ", profName=" + profName + ", lectureName="
 				+ lectureName + ", credit=" + credit + ", currNo=" + currNo + ", fullNo=" + fullNo + ", day=" + day
