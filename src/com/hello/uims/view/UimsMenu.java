@@ -33,10 +33,10 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				con.logIn();
+//				con.logIn();
 				break;
 			case 2:
-				con.signUp();
+//				con.signUp();
 				break;
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
@@ -72,18 +72,15 @@ public class UimsMenu {
 
 	private void signIn() {
 		// 지수형 회원가입 파트
-		
+
 		String str = sc.nextLine();
-		
+
 		System.out.println("===============================회원가입===================================");
 		System.out.println("아이디를 설정하세요");
 		str = sc.nextLine();
 		System.out.println("비밀번호를 설정하세요(특수문자 제외)");
 		str = sc.nextLine();
-		
-			
-			
-		
+
 	}
 
 	public void stuMainMenu() { // 학생용 메뉴 화면
@@ -162,7 +159,7 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	// 수강신청 메뉴 
+	// 수강신청 메뉴
 	public void enrollMenu() {
 
 		do {
@@ -173,7 +170,7 @@ public class UimsMenu {
 			System.out.println("2. 수강신청");
 			System.out.println("3. 수강신청 내역");
 			System.out.println("4. 수강신청 취소");
-			// 검색기능 강의명, 학과코드 
+			// 검색기능 강의명, 학과코드
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
@@ -185,38 +182,44 @@ public class UimsMenu {
 			case 1:
 				con.selectAllLecture(); // 수강신청 강의목록 조회
 				break;
+
 			case 2:
 				con.enroll(inputEnroll());
 				break;
+
 			case 3:
 				con.selectEnroll(inputStudentNo()); // 수강신청 내역
 				break;
-				
+
 			case 4:
 				con.deleteEnroll(inputEnroll());
 				break;
+
 			case 9:
 				return;
+
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
+
 		} while (true);
+
 	}
 
-	// 수강신청 
+	// 학번 강의코드 입력
 	public Map<String, String> inputEnroll() {
-		
+
 		Map<String, String> parameter = new HashMap<>();
-		
-		System.out.print("학번을 입력해주세요 : "); 
-		parameter.put("studentNo", sc.nextLine()); 
-		
-		System.out.print("강의코드를 입력해주세요 : "); 
+
+		System.out.print("학번을 입력해주세요 : ");
+		parameter.put("studentNo", sc.nextLine());
+
+		System.out.print("강의코드를 입력해주세요 : ");
 		parameter.put("lectureNo", sc.nextLine());
-		
-		return parameter; 
-		
+
+		return parameter;
+
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
@@ -261,7 +264,7 @@ public class UimsMenu {
 	private void updateGrade(Map<String, String> parameter) {
 
 		con.selectGrade(parameter);
-		
+
 		parameter.put("studentNo", inputStudentNo().get("studentNo"));
 		System.out.println("================================ 학점 수정 ================================");
 		System.out.print("출석 점수를 입력하세요. : ");
@@ -272,15 +275,15 @@ public class UimsMenu {
 		parameter.put("midScore", sc.nextLine());
 		System.out.print("기말고사 점수를 입력하세요. : ");
 		parameter.put("finScore", sc.nextLine());
-		
+
 		con.updateGrade(parameter);
-		
+
 	}
 
 	private void deleteGrade(Map<String, String> parameter) {
-		
+
 		con.selectGrade(parameter);
-		
+
 		parameter.put("studentNo", inputStudentNo().get("studentNo"));
 		System.out.println("================================ 학점 삭제 ================================");
 		con.deleteGrade(parameter);
