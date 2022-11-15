@@ -1,9 +1,11 @@
 package com.hello.uims.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
 
@@ -44,6 +46,9 @@ public class PrintResult {
 		case "deleteEnroll":
 			successMessage = "수강신청 취소 성공";
 			break;
+		case "inputJudgement":
+			successMessage = "강의 평가 등록에 성공하셨습니다.";
+			break;
 		}
 
 		System.out.println(successMessage);
@@ -68,6 +73,14 @@ public class PrintResult {
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
 
+	}
+	public void printStudent(ArrayList<StudentDTO> list) {
+		System.out.println("=========================================================================");
+		System.out.println("학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
+
+		for (StudentDTO student : list)
+			System.out.println(student);
+		
 	}
 
 	public void printErrorMessage(String errorCode) {// 각 메소드에서 호출시케이스마다 추가하면서 하자
@@ -110,6 +123,10 @@ public class PrintResult {
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
+		case "inputJudgement":
+			errorMessage = "강의 평가 등록 실패.";
+			break;
+		
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";
 //			break;
@@ -118,5 +135,7 @@ public class PrintResult {
 		System.out.println(errorMessage);
 
 	}
+
+	
 
 }

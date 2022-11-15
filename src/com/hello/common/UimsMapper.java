@@ -8,6 +8,7 @@ import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 
 public interface UimsMapper {
 
@@ -53,8 +54,11 @@ public interface UimsMapper {
   // 학생 : 강의 평가 하기
 	List<LectureJugDTO> selectJug();
 
-  //학생 : 강의 평가 저장
-	ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter);
+  //학생 : 강의 평가 작성
+	int inputJudgement(Map<String, String> parameter);
+	
+  //학생 : 강의 목록 조회
+	ArrayList<StudentDTO> selectByStudentNo(int studentNo);
 
 	
 

@@ -12,6 +12,7 @@ import com.hello.common.UimsMapper;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 
 public class LectureJugService {
 	
@@ -54,19 +55,35 @@ public class LectureJugService {
 	}
 
 
-	public static ArrayList<LectureDTO> selectByLectureNo(int lectureNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
-	public static ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter) {
+	public static boolean inputJudgement(Map<String, String> parameter) {
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 		
-		ArrayList<LectureJugDTO> list = mapper.inputJudgement(parameter);
+		int result = mapper.inputJudgement(parameter);
+		
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
 		
 		sqlSession.close();
+		
+		return (result > 0) ? true : false;
+	}
+
+
+	public static ArrayList<StudentDTO> selectByStudentNo(int studentNo) {
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		
+		ArrayList<StudentDTO> list = mapper.selectByStudentNo(studentNo);
+
+		sqlSession.close();
+		
+		return list;
 	}
 
 }

@@ -7,6 +7,7 @@ import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
 
@@ -142,10 +143,6 @@ public class Controller {
 	}
 
 
-	public void lectureJug() {
-
-	}
-
 	public void selectGrade(Map<String, String> parameter) {
 
 		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
@@ -175,29 +172,36 @@ public class Controller {
 
 	}
 
-	public void selectByLectureNo(Map<String, String> parameter) {
-		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
+	public void selectByStudentNo(Map<String, String> parameter) {
 
-		ArrayList<LectureJugDTO> list = LectureJugService.selectByLectureNo(lectureNo);
+		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 
-		if (list != null && !list.isEmpty()) {
-			printResult.printLecture(list);
-		} else {
+		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
+
+		if (list != null && !list.isEmpty())
+			printResult.printStudent(list);
+
+		else
 			printResult.printErrorMessage("selectByProfNo");
-		}
 		
-	}
-
-	public ArrayList<LectureJugDTO> selectLectureNo(Map<String, String> parameter) {
-		ArrayList<LectureJugDTO> list = LectureJugService.selectLectureNo(parameter);
-
-		return list;
 	}
 
 	public void inputJudgement(Map<String, String> parameter) {
-		ArrayList<LectureJugDTO> list = LectureJugService.inputJudgement(parameter);
+		if (LectureJugService.inputJudgement(parameter))
+			printResult.printSuccessMessage("inputJudgement");
+
+		else
+			printResult.printErrorMessage("inputJudgement");
 		
 	}
+
+	public void modifyJudge() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 	
 
