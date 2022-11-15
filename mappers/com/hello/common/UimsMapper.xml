@@ -221,4 +221,25 @@
 		AND STUDENT_NO = #{ studentNo }
 		AND LECTURE_NO = #{ lectureNo }
 	</delete>
+	<insert id="inputJudgement" parameterType="hashmap">
+	INSERT INTO GRADE
+		(
+		JUDGEMENT_NO,
+		LECTURE_NO,
+		STUDENT_NO,
+		PROF_NO,
+		STU_JUG_SCORE,
+		STU_ONE_JUG
+		)
+		VALUES
+		(
+		SEQ_GRADE_NO,
+		#{ judgementNo },
+		#{ lectureNo },
+		#{ studentNo },
+		#{ profNo },
+		#{ StuJugScore },
+		#{ StuOneJug },
+		DEFAULT
+	</insert>
 </mapper>
