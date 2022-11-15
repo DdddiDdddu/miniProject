@@ -13,9 +13,10 @@
 		<result property = "enrollDate" column = "ENROLL_DATE"/>
 		<result property = "status" column = "STATUS"/>
 	</resultMap>
-	<resultMap type="com.hello.uims.model.DTO.GradeDTO"
-		id="gradeResultMap">
+	<resultMap type="com.hello.uims.model.DTO.GradeDTO" id="gradeResultMap">
+		<result property="lectureNo" column="LECTURE_NO" />
 		<result property="lectureName" column="LECTURE_NAME" />
+		<result property="profNo" column="PROF_NO" />
 		<result property="profName" column="PROF_NAME" />
 		<result property="studentNo" column="STUDENT_NO" />
 		<result property="studentName" column="STUDENT_NAME" />
@@ -102,6 +103,7 @@
 		DELETE FROM ENROLLMENT
 		WHERE STUDENT_NO = #{ studentNo } AND LECTURE_NO = #{ lectureNo }
 	</delete>
+	<!-- 학생 : 학점 조회 -->
 	<select id="selectGradeCheck" parameterType="_int" resultMap="gradeResultMap">
 		SELECT
 		LECTURE_NAME,
@@ -116,6 +118,7 @@
 		FROM VIEW_GRADE_CHECK
 		WHERE STUDENT_NO = #{ studentNo }
 	</select>
+	<!-- 교수 : 학점 조회 -->
 	<select id="selectGrade" parameterType="hashmap"
 		resultMap="gradeResultMap">
 		SELECT
@@ -132,7 +135,8 @@
 		WHERE PROF_NO = #{ profNo }
 		AND LECTURE_NO = #{ lectureNo }
 	</select>
-	<select id="selectByProfNo" parameterType="_int"
+	<!-- 교수 : 강의 목록 조회 -->
+	<select id="selectByProfNo" parameterType="hashmap"
 		resultMap="lectureResultMap">
 		SELECT
 		   	   A.DEPT_CODE, 
@@ -149,6 +153,7 @@
 	 	  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
 	 	 WHERE A.PROF_NO = #{ profNo }
 	</select>
+	<!-- 교수 : 수강생 목록 조회 -->
 	<select id="selectStudentList" parameterType="hashmap"
 		resultMap="enrollmentResultMap">
 		SELECT
@@ -159,6 +164,7 @@
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
 	 	   AND B.PROF_NO = #{ profNo }
 	</select>
+	<!-- 교수 : 점수 입력 -->
 	<insert id="insertScores" parameterType="hashmap">
 		INSERT INTO GRADE
 			(
@@ -185,6 +191,7 @@
 			DEFAULT
 			)
 	</insert>
+	<!-- 교수 : 학점 입력 -->
 	<update id="inputFinGrade" parameterType="hashmap">
 		UPDATE GRADE A
 		SET A.GRADE = (SELECT
@@ -206,6 +213,7 @@
 		WHERE A.STUDENT_NO = B.STUDENT_NO)
 		AND A.LECTURE_NO = #{ lectureNo }
 	</update>
+	<!-- 교수 : 점수 수정 -->
 	<update id="updateGrade" parameterType="hashmap">
 		UPDATE GRADE
 		SET ATT_SCORE = #{ attScore },
@@ -215,6 +223,7 @@
 		WHERE STUDENT_NO = #{ studentNo }
 		AND LECTURE_NO = #{ lectureNo }
 	</update>
+	<!-- 교수 : 학점 삭제 -->
 	<delete id="deleteGrade" parameterType="hashmap">
 		DELETE FROM GRADE
 		WHERE PROF_NO = #{ profNo }

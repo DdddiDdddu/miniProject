@@ -33,10 +33,10 @@ public class Controller {
 
 	public Controller() {
 		enrollService = new EnrollService();
+		logInService = new LogInService();
 		// lectureJugService = new LectureJugService()
 
 	}
-
 
 	public void selectGradeCheck(Map<String, String> parameter) {
 
@@ -176,19 +176,18 @@ public class Controller {
 
 	}
 
-	public void selectByLectureNo(Map<String, String> parameter) {
-		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
-
-		ArrayList<LectureJugDTO> list = LectureJugService.selectByLectureNo(lectureNo);
-
-		if (list != null && !list.isEmpty()) {
-			printResult.printLecture(list);
-		} else {
-			printResult.printErrorMessage("selectByProfNo");
-		}
-
-	}
-
+//	public void selectByLectureNo(Map<String, String> parameter) {
+//		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
+//
+//		ArrayList<LectureJugDTO> list = LectureJugService.selectByLectureNo(lectureNo);
+//
+//		if (list != null && !list.isEmpty()) {
+//			printResult.printLecture(list);
+//		} else {
+//			printResult.printErrorMessage("selectByProfNo");
+//		}
+//
+//	}
 
 	public ArrayList<LectureJugDTO> selectLectureNo(Map<String, String> parameter) {
 		ArrayList<LectureJugDTO> list = LectureJugService.selectLectureNo(parameter);
@@ -196,21 +195,21 @@ public class Controller {
 		return list;
 	}
 
+//	public void selectLecture() {
+//
+//		List<LectureDTO> lectureList = EnrollService.selectLecture();
+//
+//		if (lectureList != null)
+//			printResult.printLecture(lectureList);
+//
+//		else
+//			printResult.printErrorMessage("selectLecture");
+//	}
 
-	public void selectLecture() {
-
-		List<LectureDTO> lectureList = EnrollService.selectLecture();
-
-		if (lectureList != null)
-			printResult.printLecture(lectureList);
-
-		else
-			printResult.printErrorMessage("selectLecture");
-
-	public void inputJudgement(Map<String, String> parameter) {
-		ArrayList<LectureJugDTO> list = LectureJugService.inputJudgement(parameter);
-
-	}
+//	public void inputJudgement(Map<String, String> parameter) {
+//		ArrayList<LectureJugDTO> list = LectureJugService.inputJudgement(parameter);
+//
+//	}
 
 	public StudentDTO selectLogin(Map<String, String> parameter) {
 
