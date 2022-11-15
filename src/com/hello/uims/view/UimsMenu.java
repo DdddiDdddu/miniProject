@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.hello.uims.controller.Controller;
+import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.service.LectureJugService;
 
 
 public class UimsMenu {
@@ -326,10 +328,13 @@ public class UimsMenu {
 			
 		}
 
-	}
 	
-	private void lectureJug() {
+	
+	private void lectureJug(Map<String, String> parameter) {
 		LectureJugService lectureJugService = new LectureJugService();
+		
+		con.selectByLectureNo(parameter);
+		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 		
 		do {
 
@@ -342,19 +347,19 @@ public class UimsMenu {
 			System.out.println("4. 평가조회");
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
-			System.out.print("메뉴 선택 : ");
+			System.out.println("메뉴 선택 : ");
 			
 			no = sc.nextInt();
 			sc.nextLine();
 			
 			switch(no){
-			case 1: lectureJugService.judgementProfStudy(inputJudge()); break;
+			case 1: updateJudge(parameter); break;
 			case 2: //lectureJugService.modifyJudge(inputChangeJudge()); break;
 			case 3: //lectureJugService.deleteJudge(deleteJudge()); break;
-			case 4: //lectureJugService.judgementShow(showJudge()); break;
+			case 4: //lectureJugService.selectJudge(); break;
 				
 			case 9:
-				profMainMenu();
+				stuMainMenu();
 				break;
 				
 			default:
@@ -368,8 +373,42 @@ public class UimsMenu {
 		
 	}
 
-	private Object inputJudge() {
-		// TODO Auto-generated method stub
-		return null;
+	private void updateJudge(Map<String, String> parameter) {
+		
+		ArrayList<LectureJugDTO> lectureJugDTO = con.selectLectureNo(parameter);
+		
+		double avg = 0.0;
+
+			for (LectureJugDTO lectureJug : lectureJugDTO) {
+					System.out.println(lectureJugDTO);
+			}
+			
+			System.out.println("질문에 알맞게 점수를 입력해주세요");
+			System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
+			int score1 = sc.nextInt();
+			System.out.println("강의내용은 해당영역의 이론과 지식을 적절히 담고 있는가? (1 ~ 5점으로 입력해주세요)");
+			int score2 = sc.nextInt();
+			System.out.println("담당교수는 학생들의 이해도를 높이기 위하여 최선을 다하였는가? (1 ~ 5점으로 입력해주세요)");
+			int score3 = sc.nextInt();
+			System.out.println("담당교수는 열성적이고 성실하게 강의에 임하였는가? (1 ~ 5점으로 입력해주세요)");
+			int score4 = sc.nextInt();
+			System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
+			int score5 = sc.nextInt();
+			sc.nextLine();
+			
+			avg = (double) (score1 + score2 + score3 + score4+ score5) / 5;
+			
+			String avgs = Double.toString(avg);
+			
+			parameter.put("StuJugScore", avgs);
+			
+			System.out.println("교수님에게 할 말 한 문장으로 남겨주세요.");
+			parameter.put("StuOneJug", sc.nextLine());
+			
+			con.inputJudgement(parameter);
+			
 	}
+		
+		
+}
 
