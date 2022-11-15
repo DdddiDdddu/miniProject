@@ -182,15 +182,16 @@ public class UimsMenu {
 	}
 
 	// 수강신청 메뉴 
-	private void enrollMenu() {
+	public void enrollMenu() {
 
 		do {
 			int no;
 
 			System.out.println("================================ 수강신청 =================================");
-			System.out.println("1. 수강신청");
-			System.out.println("2. 수강신청 내역");
-			System.out.println("3. 수강신청 취소");
+			System.out.println("1. 강의목록 조회");
+			System.out.println("2. 수강신청");
+			System.out.println("3. 수강신청 내역");
+			System.out.println("4. 수강신청 취소");
 			// 검색기능 강의명, 학과코드 
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
@@ -202,15 +203,18 @@ public class UimsMenu {
 			switch (no) {
 			case 1:
 				con.selectAllLecture(); // 수강신청 강의목록 조회
-				enroll(); // 수강신청
 				break;
 
 			case 2:
-				con.selectEnroll(); // 수강신청 내역
+				con.enroll(inputEnroll());
 				break;
 
 			case 3:
-//				con.deleteEnroll(inputEnrollId());
+				con.selectEnroll(inputStudentNo()); // 수강신청 내역
+				break;
+				
+			case 4:
+				con.deleteEnroll(inputEnroll());
 				break;
 
 			case 9:
@@ -226,19 +230,17 @@ public class UimsMenu {
 	}
 
 	// 수강신청 
-	private void enroll() {
+	public Map<String, String> inputEnroll() {
 		
 		Map<String, String> parameter = new HashMap<>();
 		
 		System.out.print("학번을 입력해주세요 : "); 
 		parameter.put("studentNo", sc.nextLine()); 
-		sc.nextLine(); // 버퍼에서 엔터제거
 		
-		System.out.print("수강신청할 강의의 강의코드를 입력해주세요 : "); 
+		System.out.print("강의코드를 입력해주세요 : "); 
 		parameter.put("lectureNo", sc.nextLine());
-		sc.nextLine(); // 버퍼에서 엔터제거
 		
-		con.enroll(parameter); 
+		return parameter; 
 		
 	}
 

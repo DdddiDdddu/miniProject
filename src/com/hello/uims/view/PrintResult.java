@@ -32,6 +32,12 @@ public class PrintResult {
 //		case "delete":
 //			successMessage = "메뉴 삭제에 성공하셨습니다.";
 //			break;
+		case "enroll":
+			successMessage = "수강신청 성공";
+			break;
+		case "deleteEnroll":
+			successMessage = "수강신청 취소 성공";
+			break;
 		}
 
 		System.out.println(successMessage);
@@ -50,8 +56,8 @@ public class PrintResult {
 
 	public void printLecture(List<LectureDTO> list) {
 
-		System.out.println("========================================================================");
-		System.out.println("강의번호\t학과코드\t교수번호\t강의명\t수강학점\t수강인원\t정원인원\t요일\t시간");
+		System.out.println("=========================================================================");
+		System.out.println("학과코드\t       강의번호\t    교수명\t   강의명\t\t\t 수강학점\t   수강인원    정원인원     요일    시간");
 
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
@@ -80,6 +86,15 @@ public class PrintResult {
 			break;
 		case "insertGrade":
 			errorMessage = "학점 부여 실패";
+			break;
+		case "enroll":
+			errorMessage = "수강신청 실패";
+			break;
+		case "selectEnroll":
+			errorMessage = "수강신청한 강의가 없습니다.";
+			break; 
+		case "deleteEnroll":
+			errorMessage = "수강신청 취소 실패";
 			break;
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";

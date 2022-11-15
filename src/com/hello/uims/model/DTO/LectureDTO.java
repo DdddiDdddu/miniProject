@@ -2,9 +2,10 @@ package com.hello.uims.model.DTO;
 
 public class LectureDTO {
 
-	private int lectureNo; // 강의 번호
 	private String deptCode; // 학과 코드
+	private int lectureNo; // 강의 번호
 	private int profNo; // 교수 번호
+	private String profName; // 교수 이름
 	private String lectureName; // 강의명
 	private char credit; // 수강학점
 	private int currNo; // 수강인원
@@ -16,11 +17,12 @@ public class LectureDTO {
 
 	}
 
-	public LectureDTO(int lectureNo, String deptCode, int profNo, String lectureName, char credit, int currNo,
+	public LectureDTO(String deptCode, int lectureNo, String profName, String lectureName, char credit, int currNo,
 			int fullNo, String day, String time) {
-		this.lectureNo = lectureNo;
+		super();
 		this.deptCode = deptCode;
-		this.profNo = profNo;
+		this.lectureNo = lectureNo;
+		this.profName = profName;
 		this.lectureName = lectureName;
 		this.credit = credit;
 		this.currNo = currNo;
@@ -43,6 +45,14 @@ public class LectureDTO {
 
 	public void setDeptCode(String deptCode) {
 		this.deptCode = deptCode;
+	}
+	
+	public String getProfName() {
+		return profName;
+	}
+
+	public void setProfName(String profName) {
+		this.profName = profName;
 	}
 
 	public int getProfNo() {
@@ -102,8 +112,9 @@ public class LectureDTO {
 	}
 
 	public String toString() {
-		return "[lectureNo=" + lectureNo + ", deptCode=" + deptCode + ", profNo=" + profNo + ", lectureName="
+		return "[deptCode=" + deptCode + ", lectureNo=" + lectureNo + ", profName=" + profName + ", lectureName="
 				+ lectureName + ", credit=" + credit + ", currNo=" + currNo + ", fullNo=" + fullNo + ", day=" + day
 				+ ", time=" + time + "]";
 	}
+	
 }
