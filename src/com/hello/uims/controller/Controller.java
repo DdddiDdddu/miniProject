@@ -12,27 +12,26 @@ import com.hello.uims.model.service.GradeService;
 import com.hello.uims.model.service.LogInService;
 import com.hello.uims.model.service.SignUpService;
 import com.hello.uims.view.PrintResult;
-import com.hello.uims.view.studentNo;
 
- public class Controller {
+public class Controller {
 
 	private final PrintResult printResult;
-	//private final EnrollService enrollService;
+	private final EnrollService enrollService;
 	private final GradeService gradeService;
-	//private final LectureJugService lectureJugService;
+	// private final LectureJugService lectureJugService;
 	private final LogInService logInService;
 	private final SignUpService signUpService;
-	
+
 	public Controller() {
 		printResult = new PrintResult();
-		//enrollService = new EnrollService();
+		enrollService = new EnrollService();
 		gradeService = new GradeService();
-		//lectureJugService = new LectureJugService()
+		// lectureJugService = new LectureJugService()
 		logInService = new LogInService();
 		signUpService = new SignUpService();
-		
+
 	}
-	
+
 	public void gradeCheck(Map<String, String> parameter) {
 
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
@@ -81,72 +80,73 @@ import com.hello.uims.view.studentNo;
 
 	public void inputFinGrade(Map<String, String> parameter) {
 
-		//ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
+		// ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
 
-		if(gradeService.inputFinGrade(parameter)) {
+		if (gradeService.inputFinGrade(parameter)) {
 			printResult.printSuccessMessage("inputFinGrade");
 		} else {
 			printResult.printErrorMessage("inputFinGrade");
 		}
-	
+
 	}
 
-  // 수강신청 강의목록
+	// 수강신청 강의목록
 	public void selectAllLecture() {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
 
 		if (lectureList != null)
 			printResult.printLecture(lectureList);
-
 		else
 			printResult.printErrorMessage("selectLecture");
 
 	}
-  
+
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
-		
+
 		if (enrollService.enroll(parameter))
 			printResult.printSuccessMessage("enroll");
-
 		else
 			printResult.printErrorMessage("enroll");
 
 	}
-	
+
 	// 수강신청 내역
-	public void selectEnroll() {
-		
-		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
+	public void selectEnroll(Map<String, String> parameter) {
+
+		ArrayList<LectureDTO> lectureList = enrollService.selectEnroll(parameter);
 
 		if (lectureList != null)
 			printResult.printLecture(lectureList);
-
 		else
-			printResult.printErrorMessage("selectLecture");
+			printResult.printErrorMessage("selectEnroll");
+
+	}
+	
+	// 수강신청 취소
+	public void deleteEnroll(Map<String, String> parameter) {
+
+		if (enrollService.deleteEnroll(parameter)) 
+			printResult.printSuccessMessage("deleteEnroll");
+		 else 
+			printResult.printErrorMessage("deleteEnroll");
 		
 	}
+
 
 	public void lectureJug() {
 
 	}
 
 	public static void logIn() {
-		
-		
+
 		StudentDTO stu = new StudentDTO();
-		
-		
-		
+
 	}
 
 	public static void signUp() {
-		
-		
-	}
 
-		
-	
+	}
 
 }

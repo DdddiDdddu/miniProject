@@ -14,26 +14,25 @@ import com.hello.uims.model.DTO.LectureDTO;
 public class EnrollService {
 
 	SqlSession sqlSession = null;
-	private UimsMapper mapper;
+	UimsMapper mapper;
 
+	// 수강신청 강의목록 조회
 	public ArrayList<LectureDTO> selectAllLecture() {
 
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
-
+		
 		ArrayList<LectureDTO> lectureList = mapper.selectAllLecture();
-
-		for (LectureDTO lecture : lectureList) // 용도?
-			System.out.println(lecture);
-
+		
 		sqlSession.close();
 
 		return lectureList;
 
 	}
 
+	// 수강신청 
 	public boolean enroll(Map<String, String> parameter) {
-		
+
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
 
@@ -47,21 +46,34 @@ public class EnrollService {
 		return (result > 0) ? true : false;
 
 	}
+	
+	public ArrayList<LectureDTO> selectEnroll(Map<String, String> parameter) {
+		
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+		
+		ArrayList<LectureDTO> lectureList = mapper.selectEnroll(parameter);
+		
+		sqlSession.close();
 
-	// 예시
-	public ArrayList<EnrollmentDTO> selectStuGrade(Map<String, String> parameter) {
+		return lectureList;
+		
+	}
+
+	public boolean deleteEnroll(Map<String, String> parameter) {
 
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
-		ArrayList<EnrollmentDTO> list = mapper.selectStuGrade(parameter);
 
-		sqlSession.close();
+		int result = mapper.deleteEnroll(parameter);
 
-		return list;
-	}
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
 
-	public EnrollService() { // 수용 파트
-
+		return (result > 0) ? true : false;
+		
 	}
 
 //		public List<MenuDTO> selectAllMenu() {
