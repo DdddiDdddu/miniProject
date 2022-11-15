@@ -60,13 +60,13 @@ public class LectureJugService {
 	}
 
 
-	public static ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter) {
-		SqlSession sqlSession = getSqlSession();
-		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-		
-		ArrayList<LectureJugDTO> list = mapper.inputJudgement(parameter);
-		
-		sqlSession.close();
-	}
+//	public static ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter) {
+//		SqlSession sqlSession = getSqlSession();
+//		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+//		
+//		ArrayList<LectureJugDTO> list = mapper.inputJudgement(parameter);
+//		
+//		sqlSession.close();
+//	}
 
 }
