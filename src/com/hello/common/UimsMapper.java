@@ -33,8 +33,8 @@ public interface UimsMapper {
 	StudentDTO selectLogin(Map<String, String> parameter);
 
 	// 학생 : 학점 조회
-	ArrayList<GradeDTO> selectGradeCheck(int studentNo);
-
+	ArrayList<GradeDTO> selectGradeCheck(Map<String, String> parameter);
+	
 	// 교수 : 강의 목록 조회
 	ArrayList<LectureDTO> selectByProfNo(int profNo);
 
@@ -45,8 +45,8 @@ public interface UimsMapper {
 	int insertScores(Map<String, String> parameter);
 
 	// 교수 : A~D, F 학점 입력
-	int inputFinGrade(Map<String, String> parameter);
-
+	int inputFinGrade();
+	
 	// 교수 : 학점 관리를 위한 학점 목록 조회
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);
 
