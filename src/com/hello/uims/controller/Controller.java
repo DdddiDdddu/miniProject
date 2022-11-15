@@ -17,11 +17,11 @@ public class Controller {
 	private GradeService gradeService = new GradeService();
 	private PrintResult printResult = new PrintResult();
 
-	public void gradeCheck(Map<String, String> parameter) {
+	public void selectGradeCheck(Map<String, String> parameter) {
 
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 
-		ArrayList<GradeDTO> list = gradeService.gradeCheck(studentNo);
+		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(studentNo);
 
 		if (list != null && !list.isEmpty())
 			printResult.printGrade(list);
@@ -45,9 +45,9 @@ public class Controller {
 
 	}
 
-	public void insertGrade(Map<String, String> parameter) {
+	public void insertScores(Map<String, String> parameter) {
 
-		if (gradeService.insertGrade(parameter))
+		if (gradeService.insertScores(parameter))
 			printResult.printSuccessMessage("insertGrade");
 
 		else
@@ -55,9 +55,14 @@ public class Controller {
 
 	}
 
-	public ArrayList<EnrollmentDTO> selectStuGrade(Map<String, String> parameter) {
+	public ArrayList<EnrollmentDTO> selectStudentList(Map<String, String> parameter) {
 
-		ArrayList<EnrollmentDTO> list = gradeService.selectStuGrade(parameter);
+		ArrayList<EnrollmentDTO> list = gradeService.selectStudentList(parameter);
+
+		if (list != null && !list.isEmpty())
+			printResult.printSuccessMessage("selectStuGrade");
+		else
+			printResult.printErrorMessage("selectStuGrade");
 
 		return list;
 
@@ -65,17 +70,14 @@ public class Controller {
 
 	public void inputFinGrade(Map<String, String> parameter) {
 
-		//ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
-
-		if(gradeService.inputFinGrade(parameter)) {
+		if (gradeService.inputFinGrade(parameter))
 			printResult.printSuccessMessage("inputFinGrade");
-		} else {
+		else
 			printResult.printErrorMessage("inputFinGrade");
-		}
-	
+
 	}
 
-  // 수강신청 강의목록
+	// 수강신청 강의목록
 	public void selectAllLecture() {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
@@ -87,10 +89,10 @@ public class Controller {
 			printResult.printErrorMessage("selectLecture");
 
 	}
-  
+
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
-		
+
 		if (enrollService.enroll(parameter))
 			printResult.printSuccessMessage("enroll");
 
@@ -98,10 +100,10 @@ public class Controller {
 			printResult.printErrorMessage("enroll");
 
 	}
-	
+
 	// 수강신청 내역
 	public void selectEnroll() {
-		
+
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
 
 		if (lectureList != null)
@@ -109,10 +111,39 @@ public class Controller {
 
 		else
 			printResult.printErrorMessage("selectLecture");
-		
+
 	}
 
 	public void lectureJug() {
+
+	}
+
+	public void selectGrade(Map<String, String> parameter) {
+
+		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
+
+		if (list != null && !list.isEmpty())
+			printResult.printGrade(list);
+		else
+			printResult.printErrorMessage("selectGrade");
+
+	}
+
+	public void updateGrade(Map<String, String> parameter) {
+
+		if (gradeService.updateGrade(parameter))
+			printResult.printSuccessMessage("updateGrade");
+		else
+			printResult.printErrorMessage("updateGrade");
+
+	}
+
+	public void deleteGrade(Map<String, String> parameter) {
+		
+		if (gradeService.deleteGrade(parameter))
+			printResult.printSuccessMessage("deleteGrade");
+		else
+			printResult.printErrorMessage("deleteGrade");
 
 	}
 
