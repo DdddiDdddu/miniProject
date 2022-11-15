@@ -6,10 +6,15 @@ import java.util.Map;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
+
+import com.hello.uims.model.service.LectureJugService;
+
 import com.hello.uims.model.service.LogInService;
 import com.hello.uims.model.service.SignUpService;
+
 import com.hello.uims.view.PrintResult;
 
 public class Controller {
@@ -170,4 +175,31 @@ public class Controller {
 
 	}
 
+	public void selectByLectureNo(Map<String, String> parameter) {
+		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
+
+		ArrayList<LectureJugDTO> list = LectureJugService.selectByLectureNo(lectureNo);
+
+		if (list != null && !list.isEmpty()) {
+			printResult.printLecture(list);
+		} else {
+			printResult.printErrorMessage("selectByProfNo");
+		}
+		
+	}
+
+	public ArrayList<LectureJugDTO> selectLectureNo(Map<String, String> parameter) {
+		ArrayList<LectureJugDTO> list = LectureJugService.selectLectureNo(parameter);
+
+		return list;
+	}
+
+	public void inputJudgement(Map<String, String> parameter) {
+		ArrayList<LectureJugDTO> list = LectureJugService.inputJudgement(parameter);
+		
+	}
+
+	
+
+	
 }
