@@ -78,22 +78,22 @@
 	<delete id = "deleteEnroll" parameterType = "hashmap">
 		DELETE FROM ENROLLMENT WHERE STUDENT_NO = #{ studentNo } AND LECTURE_NO = #{ lectureNo } 
 	</delete>
-
-<select id = "selectGradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
+	<select id="selectGradeCheck" parameterType="_int" resultMap="gradeResultMap">
 		SELECT
-			   LECTURE_NAME,
-			   PROF_NAME,
-			   STUDENT_NO,
-			   STUDENT_NAME,
-			   ATT_SCORE,
-			   ASS_SCORE,
-			   MID_SCORE,
-			   FIN_SCORE,
-			   GRADE
-	 	  FROM VIEW_GRADE_CHECK
-	 	 WHERE STUDENT_NO = #{ studentNo }
-	</select> 
-	<select id = "selectGrade" parameterType = "hashmap" resultMap = "gradeResultMap">
+		LECTURE_NAME,
+		PROF_NAME,
+		STUDENT_NO,
+		STUDENT_NAME,
+		ATT_SCORE,
+		ASS_SCORE,
+		MID_SCORE,
+		FIN_SCORE,
+		GRADE
+		FROM VIEW_GRADE_CHECK
+		WHERE STUDENT_NO = #{ studentNo }
+	</select>
+	<select id="selectGrade" parameterType="hashmap"
+		resultMap="gradeResultMap">
 		SELECT
 			   GRADE_NO,
 			   LECTURE_NO,
