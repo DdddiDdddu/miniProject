@@ -138,10 +138,6 @@ public class Controller {
 
 	}
 
-	public void lectureJug() {
-
-	}
-
 	public void selectGrade(Map<String, String> parameter) {
 
 		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
@@ -171,42 +167,35 @@ public class Controller {
 
 	}
 
-//	public void selectByLectureNo(Map<String, String> parameter) {
-//		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
-//
-//		ArrayList<LectureJugDTO> list = LectureJugService.selectByLectureNo(lectureNo);
-//
-//		if (list != null && !list.isEmpty()) {
-//			printResult.printLecture(list);
-//		} else {
-//			printResult.printErrorMessage("selectByProfNo");
-//		}
-//
-//	}
 
+	public void selectByStudentNo(Map<String, String> parameter) {
 
-	public ArrayList<LectureJugDTO> selectLectureNo(Map<String, String> parameter) {
-		ArrayList<LectureJugDTO> list = LectureJugService.selectLectureNo(parameter);
+		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 
-		return list;
+		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
+
+		if (list != null && !list.isEmpty())
+			printResult.printStudent(list);
+
+		else
+			printResult.printErrorMessage("selectByProfNo");
+		
+	}
+
+	public void inputJudgement(Map<String, String> parameter) {
+		if (LectureJugService.inputJudgement(parameter))
+			printResult.printSuccessMessage("inputJudgement");
+
+		else
+			printResult.printErrorMessage("inputJudgement");
+		
 	}
 
 
-//	public void selectLecture() {
-//
-//		List<LectureDTO> lectureList = EnrollService.selectLecture();
-//
-//		if (lectureList != null)
-//			printResult.printLecture(lectureList);
-//
-//		else
-//			printResult.printErrorMessage("selectLecture");
-//	}
-	
-//	public void inputJudgement(Map<String, String> parameter) {
-//		ArrayList<LectureJugDTO> list = LectureJugService.inputJudgement(parameter);
-//
-//	}
+	public void modifyJudge() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public StudentDTO selectLogin(Map<String, String> parameter) {
 
