@@ -1,8 +1,6 @@
 package com.hello.uims.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
@@ -12,12 +10,8 @@ import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
-
 import com.hello.uims.model.service.LectureJugService;
-
 import com.hello.uims.model.service.LogInService;
-import com.hello.uims.model.service.SignUpService;
-
 import com.hello.uims.view.PrintResult;
 
 public class Controller {

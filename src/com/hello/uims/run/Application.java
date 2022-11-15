@@ -10,10 +10,10 @@ public class Application {
 		
 //		menu.initialMenu(); // 체크할 것들에 주석으로 '확인' 달아놓기! - 수용
 		
-		menu.profMainMenu();
-		
 		// 수강신청 테스트
 //		menu.logIn();
+		
+		menu.stuMainMenu();
 		
 	}
 

@@ -36,7 +36,14 @@ public class EnrollService {
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
 
+		// 등록 성공 여부 판단 
 		int result = mapper.enroll(parameter);
+		
+		// 시간표를 ArrayList로 받아옴
+		ArrayList<LectureDTO> timeList = mapper.timeTable(parameter);
+		
+		// 시간 중복되는지 체크
+		boolean duplication;
 
 		if (result > 0)
 			sqlSession.commit();
