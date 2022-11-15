@@ -16,9 +16,8 @@ public class UimsMenu {
 	private Controller con = new Controller();
 
 	public void initialMenu() {
-		
-		label:
-		do {
+
+		label: do {
 
 			int no;
 
@@ -72,18 +71,15 @@ public class UimsMenu {
 
 	private void signIn() {
 		// 지수형 회원가입 파트
-		
+
 		String str = sc.nextLine();
-		
+
 		System.out.println("===============================회원가입===================================");
 		System.out.println("아이디를 설정하세요");
 		str = sc.nextLine();
 		System.out.println("비밀번호를 설정하세요(특수문자 제외)");
 		str = sc.nextLine();
-		
-			
-			
-		
+
 	}
 
 	public void stuMainMenu() { // 학생용 메뉴 화면
@@ -162,7 +158,7 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	// 수강신청 메뉴 
+	// 수강신청 메뉴
 	public void enrollMenu() {
 
 		do {
@@ -173,7 +169,7 @@ public class UimsMenu {
 			System.out.println("2. 수강신청");
 			System.out.println("3. 수강신청 내역");
 			System.out.println("4. 수강신청 취소");
-			// 검색기능 강의명, 학과코드 
+			// 검색기능 강의명, 학과코드
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
@@ -191,7 +187,7 @@ public class UimsMenu {
 			case 3:
 				con.selectEnroll(inputStudentNo()); // 수강신청 내역
 				break;
-				
+
 			case 4:
 				con.deleteEnroll(inputEnroll());
 				break;
@@ -204,24 +200,23 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	// 수강신청 
+	// 수강신청
 	public Map<String, String> inputEnroll() {
-		
+
 		Map<String, String> parameter = new HashMap<>();
-		
-		System.out.print("학번을 입력해주세요 : "); 
-		parameter.put("studentNo", sc.nextLine()); 
-		
-		System.out.print("강의코드를 입력해주세요 : "); 
+
+		System.out.print("학번을 입력해주세요 : ");
+		parameter.put("studentNo", sc.nextLine());
+
+		System.out.print("강의코드를 입력해주세요 : ");
 		parameter.put("lectureNo", sc.nextLine());
-		
-		return parameter; 
-		
+
+		return parameter;
+
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
 
-		System.out.println("=========================================================================");
 		con.selectByProfNo(parameter);
 		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 
@@ -258,10 +253,40 @@ public class UimsMenu {
 		} while (true);
 	}
 
+	private void insertGrade(Map<String, String> parameter) {
+
+		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
+		parameter.put("currNo", Integer.toString(enroll.size()));
+		System.out.println("================================ 학생 목록 ================================");
+		
+//		HashMap<String, Integer> gradeMap = new HashMap<>();
+		
+		for (EnrollmentDTO enrollmentDTO : enroll) {
+			System.out.println(enrollmentDTO);
+			
+			System.out.print("학번을 입력하세요. : ");
+			parameter.put("studentNo", sc.next());
+			System.out.print("출석 점수를 입력하세요. : ");
+			parameter.put("attScore", sc.next());
+			System.out.print("과제 점수를 입력하세요. : ");
+			parameter.put("assScore", sc.next());
+			System.out.print("중간 점수를 입력하세요. : ");
+			parameter.put("midScore", sc.next());
+			System.out.print("기말 점수를 입력하세요. : ");
+			parameter.put("finScore", sc.next());
+			con.insertScores(parameter);
+		}
+
+		if (enroll != null && !enroll.isEmpty()) {
+			con.inputFinGrade(parameter);
+		}
+
+	}
+
 	private void updateGrade(Map<String, String> parameter) {
 
 		con.selectGrade(parameter);
-		
+
 		parameter.put("studentNo", inputStudentNo().get("studentNo"));
 		System.out.println("================================ 학점 수정 ================================");
 		System.out.print("출석 점수를 입력하세요. : ");
@@ -272,15 +297,15 @@ public class UimsMenu {
 		parameter.put("midScore", sc.nextLine());
 		System.out.print("기말고사 점수를 입력하세요. : ");
 		parameter.put("finScore", sc.nextLine());
-		
+
 		con.updateGrade(parameter);
-		
+
 	}
 
 	private void deleteGrade(Map<String, String> parameter) {
-		
+
 		con.selectGrade(parameter);
-		
+
 		parameter.put("studentNo", inputStudentNo().get("studentNo"));
 		System.out.println("================================ 학점 삭제 ================================");
 		con.deleteGrade(parameter);
@@ -323,34 +348,6 @@ public class UimsMenu {
 		parameter.put("lectureNo", lectureNo);
 
 		return parameter;
-
-	}
-
-	private void insertGrade(Map<String, String> parameter) {
-
-		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
-		parameter.put("currNo", Integer.toString(enroll.size()));
-		System.out.println("================================ 학생 목록 ================================");
-
-		for (EnrollmentDTO enrollmentDTO : enroll) {
-			System.out.println(enrollmentDTO);
-
-			System.out.print("학번을 입력하세요. : ");
-			parameter.put("studentNo", sc.next());
-			System.out.print("출석 점수를 입력하세요. : ");
-			parameter.put("attScore", sc.next());
-			System.out.print("과제 점수를 입력하세요. : ");
-			parameter.put("assScore", sc.next());
-			System.out.print("중간 점수를 입력하세요. : ");
-			parameter.put("midScore", sc.next());
-			System.out.print("기말 점수를 입력하세요. : ");
-			parameter.put("finScore", sc.next());
-			con.insertScores(parameter);
-		}
-
-		if (enroll != null && !enroll.isEmpty()) {
-			con.inputFinGrade(parameter);
-		}
 
 	}
 
