@@ -2,12 +2,10 @@ package com.hello.uims.model.service;
 import static com.hello.common.Template.getSqlSession;
 
 //import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.hello.common.UimsMapper;
-import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
 

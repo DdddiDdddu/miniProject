@@ -294,12 +294,6 @@ public class UimsMenu {
 
 	}
 
-	private void enroll() {
-
-		
-		
-	}
-
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
 
 		int no;
@@ -711,7 +705,7 @@ public class UimsMenu {
 	}
 
 	private void showJudge(Map<String, String> parameter) {
-		ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
+		con.selectJudgement(parameter);
 		
 	}
 	
