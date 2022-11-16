@@ -21,7 +21,6 @@ public class UimsMenu {
 	public void initialMenu() {
 
 		label: do {
-
 			int no;
 
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
@@ -275,6 +274,12 @@ public class UimsMenu {
 
 		return parameter;
 
+	}
+
+	private void enroll() {
+
+		
+		
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
