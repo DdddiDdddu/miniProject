@@ -166,10 +166,28 @@ public class Controller {
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
-		if (enrollService.enroll(parameter))
-			printResult.printSuccessMessage("enroll");
-		else
-			printResult.printErrorMessage("enroll");
+		switch (enrollService.enroll(parameter)) {
+		case "enrollSuccess":
+			printResult.printSuccessMessage("enrollSuccess");
+			break;
+
+		case "totalCreditOver":
+			printResult.printErrorMessage("totalCreditOver");
+			break;
+
+		case "enrollFail":
+			printResult.printErrorMessage("enrollFail");
+			break;
+
+		case "timeDuplication":
+			printResult.printErrorMessage("timeDuplication");
+			break;
+
+		case "duplication":
+			printResult.printErrorMessage("duplication");
+			break;
+
+		}
 
 	}
 
@@ -224,8 +242,7 @@ public class Controller {
 			printResult.printErrorMessage("deleteGrade");
 
 	}
-
-
+  
 	public void selectByStudentNo(Map<String, String> parameter) {
 
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
@@ -252,7 +269,6 @@ public class Controller {
 
 
   	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
-
 
 		StudentDTO student = loginService.selectLoginStudent(parameter);
 
