@@ -96,5 +96,22 @@ public class LoginService {
 		
 	}
 
+	public boolean updateProfId(Map<String, String> parameter) {
+		
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+
+		int result = mapper.updateProfId(parameter);
+
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		sqlSession.close();
+
+		return (result > 0) ? true : false;
+	}
+
 
 }

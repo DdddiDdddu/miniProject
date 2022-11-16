@@ -195,6 +195,15 @@
 		  FROM PROFESSOR
 		 WHERE PROF_ID = #{ profId }
 	</select>
+	<!-- 교수정보 수정 -->
+	<update id = "updateProfId" parameterType="hashmap">
+		UPDATE PROFESSOR
+		   SET PROF_PWD = #{ profPwd },
+		   	   ADDRESS = #{ address },
+		   	   PROF_TELNO = #{ profTelNo },
+			   EMAIL = #{ email }
+		 WHERE PROF_NO = #{ profNo }
+	</update>
 	<!-- 강의목록 조회 -->
 	<select id="selectAllLecture" parameterType="hashmap"
 		resultMap="lectureResultMap">

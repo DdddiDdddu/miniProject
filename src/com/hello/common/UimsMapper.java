@@ -101,4 +101,7 @@ public interface UimsMapper {
 	// 조회(교수)
 	ProfessorDTO selectProfId(Map<String, String> parameter);
 
+	// 수정(교수)
+	int updateProfId(Map<String, String> parameter);
+
 }
