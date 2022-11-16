@@ -84,9 +84,9 @@ public class UimsMenu {
 
 				if (student != null) {
 
-					System.out.println("비밀번호를 입력하세요. (대소문자를 구분합니다.)");
+					System.out.println("비밀번호를 입력하세요");
 
-					if (student.getStudentPwd().equals(sc.nextLine())) {
+					if (student.getStudentPwd().equalsIgnoreCase(sc.nextLine())) {
 						stuMainMenu();
 						break;
 					} else {
@@ -535,7 +535,7 @@ public class UimsMenu {
 			case 2:
 				con.modifyJudge();
 				break;
-//			case 3:  lectureJugService.deleteJudge(deleteJudge()); break;
+			case 3: // lectureJugService.deleteJudge(deleteJudge()); break;
 			case 4: // lectureJugService.selectJudge(); break;
 
 			default:

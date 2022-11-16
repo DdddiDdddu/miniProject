@@ -64,7 +64,7 @@ public class PrintResult {
 	public void printGrade(List<GradeDTO> list) {
 
 		System.out.println("================================ 학점 목록 ================================");
-		System.out.println("강의명\t교수명\t학번\t학생명\t출석점수\t과제점수\t중간점수\t기말점수 \t학점");
+		System.out.println("강의명\t교수명\t학번\t학생명\t출석점수\t과제점수\t중간점수\t기말점수\t학점");
 
 		for (GradeDTO grade : list)
 			System.out.println(grade);
@@ -79,6 +79,14 @@ public class PrintResult {
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
 
+	}
+	public void printStudent(ArrayList<StudentDTO> list) {
+		System.out.println("================================ 학생 목록 ================================");
+		System.out.println("학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
+
+		for (StudentDTO student : list)
+			System.out.println(student);
+		
 	}
 
 	public void printStudent(ArrayList<StudentDTO> list) {
@@ -141,7 +149,6 @@ public class PrintResult {
 		case "inputJudgement":
 			errorMessage = "강의 평가 등록 실패.";
 			break;
-
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";
 //			break;
@@ -150,6 +157,7 @@ public class PrintResult {
 		System.out.println(errorMessage);
 
 	}
+
 
 	public void printLogStu(StudentDTO id) {
 		System.out.println(id);

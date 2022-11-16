@@ -63,10 +63,10 @@ public interface UimsMapper {
 	// 학생 : 강의 평가 하기
 	List<LectureJugDTO> selectJug();
 
-	//학생 : 강의 평가 작성
+  //학생 : 강의 평가 작성
 	int inputJudgement(Map<String, String> parameter);
 	
-	//학생 : 강의 목록 조회
+  //학생 : 강의 목록 조회
 	ArrayList<StudentDTO> selectByStudentNo(int studentNo);
 
 }
