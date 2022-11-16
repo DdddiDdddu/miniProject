@@ -42,7 +42,6 @@ public class Controller {
 
 		if (list != null && !list.isEmpty())
 			printResult.printGrade(list);
-
 		else
 			printResult.printErrorMessage("gradeCheck");
 

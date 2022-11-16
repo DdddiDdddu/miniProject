@@ -92,60 +92,60 @@
 	<!-- 회원 가입(학생) -->
 	<insert id = "insertStudent" parameterType="hashmap">
 		INSERT INTO STUDENT 
-		(
-		 STUDENT_NO,
-		 DEPT_CODE,
-		 STUDENT_ID, 
-		 STUDENT_PWD,
-		 STUDENT_NAME,
-		 ADDRESS,
-		 STUDENT_TELNO,
-		 EMAIL,
-		 ENROLL_DATE,
-		 STATUS
-		) 
-		VALUES
-		(
-		SEQ_STUDENT_NO.NEXTVAL,
-		 NULL,
-		 #{ studentId },
-		 #{ studentPwd },
-		 #{ studentName },
-		 NULL,
-		 #{ studentTelNo },
-		 NULL,
-		 DEFAULT,
-		 DEFAULT
-		)
+			(
+			 STUDENT_NO,
+			 DEPT_CODE,
+			 STUDENT_ID, 
+			 STUDENT_PWD,
+			 STUDENT_NAME,
+			 ADDRESS,
+			 STUDENT_TELNO,
+			 EMAIL,
+			 ENROLL_DATE,
+			 STATUS
+			) 
+			VALUES
+			(
+			SEQ_STUDENT_NO.NEXTVAL,
+			 NULL,
+			 #{ studentId },
+			 #{ studentPwd },
+			 #{ studentName },
+			 NULL,
+			 #{ studentTelNo },
+			 NULL,
+			 DEFAULT,
+			 DEFAULT
+			)
 	</insert>
 	<!-- 회원 가입(교수) -->
 	<insert id = "insertProfessor" parameterType="hashmap">
 		INSERT INTO PROFESSOR 
-		(
-		 PROF_NO,
-		 DEPT_CODE,
-		 PROF_ID, 
-		 PROF_PWD,
-		 PROF_NAME,
-		 ADDRESS,
-		 PROF_TELNO,
-		 EMAIL,
-		 ENROLL_DATE,
-		 STATUS
-		) 
-		VALUES
-		(
-		SEQ_PROF_NO.NEXTVAL,
-		 NULL,
-		 #{ profId },
-		 #{ profPwd },
-		 #{ profName },
-		 NULL,
-		 #{ profTelNo },
-		 NULL,
-		 DEFAULT,
-		 DEFAULT
-		)
+			(
+			 PROF_NO,
+			 DEPT_CODE,
+			 PROF_ID, 
+			 PROF_PWD,
+			 PROF_NAME,
+			 ADDRESS,
+			 PROF_TELNO,
+			 EMAIL,
+			 ENROLL_DATE,
+			 STATUS
+			) 
+			VALUES
+			(
+			SEQ_PROF_NO.NEXTVAL,
+			 NULL,
+			 #{ profId },
+			 #{ profPwd },
+			 #{ profName },
+			 NULL,
+			 #{ profTelNo },
+			 NULL,
+			 DEFAULT,
+			 DEFAULT
+			)
 	</insert>
 	<!-- 학생 조회 -->
 	<select id = "selectStuId" parameterType="hashmap"
@@ -182,71 +182,70 @@
 	<select id="selectAllLecture" parameterType="hashmap"
 		resultMap="lectureResultMap">
 		SELECT
-		A.DEPT_CODE,
-		A.LECTURE_NO,
-		A.PROF_NO,
-		B.PROF_NAME,
-		A.LECTURE_NAME,
-		A.CREDIT,
-		A.CURR_NO,
-		A.FULL_NO,
-		A.DAY,
-		A.TIME
-		FROM LECTURE A
-		JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
-		ORDER BY LECTURE_NO
+			   A.DEPT_CODE,
+			   A.LECTURE_NO,
+			   A.PROF_NO,
+			   B.PROF_NAME,
+			   A.LECTURE_NAME,
+			   A.CREDIT,
+			   A.CURR_NO,
+			   A.FULL_NO,
+			   A.DAY,
+			   A.TIME
+		  FROM LECTURE A
+		  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
+		 ORDER BY LECTURE_NO
 	</select>
 	<!-- 수강신청 -->
 	<insert id="enroll" parameterType="hashmap">
 		INSERT INTO ENROLLMENT
-		VALUES
-		(
-		SEQ_ENROLL_NO.NEXTVAL,
-		#{ studentNo },
-		#{ lectureNo }
-		)
+			VALUES
+			(
+			SEQ_ENROLL_NO.NEXTVAL,
+			#{ studentNo },
+			#{ lectureNo }
+			)
 	</insert>
 	<!-- 수강신청 내역 -->
 	<select id="selectEnroll" parameterType="hashmap" resultMap="lectureResultMap">
 		SELECT
-		B.DEPT_CODE,
-		B.LECTURE_NO,
-		B.PROF_NO,
-		C.PROF_NAME,
-		B.LECTURE_NAME,
-		B.CREDIT,
-		B.CURR_NO,
-		B.FULL_NO,
-		B.DAY,
-		B.TIME
-		FROM ENROLLMENT A
-		JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
-		JOIN PROFESSOR C ON B.PROF_NO = C.PROF_NO
-		WHERE 1 = 1
-		AND STUDENT_NO = #{ studentNo }
-		ORDER BY LECTURE_NO
+			   B.DEPT_CODE,
+			   B.LECTURE_NO,
+			   B.PROF_NO,
+			   C.PROF_NAME,
+			   B.LECTURE_NAME,
+			   B.CREDIT,
+			   B.CURR_NO,
+			   B.FULL_NO,
+			   B.DAY,
+			   B.TIME
+		  FROM ENROLLMENT A
+		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
+		  JOIN PROFESSOR C ON B.PROF_NO = C.PROF_NO
+		 WHERE 1 = 1
+		   AND STUDENT_NO = #{ studentNo }
+		 ORDER BY LECTURE_NO
 	</select>
 	<!-- 수강신청 취소 -->
 	<delete id="deleteEnroll" parameterType="hashmap">
-		DELETE 
-		FROM ENROLLMENT
-		WHERE 1 = 1
-		AND STUDENT_NO = #{ studentNo } 
-		AND LECTURE_NO = #{ lectureNo }
+		DELETE FROM ENROLLMENT
+		 WHERE 1 = 1
+		   AND STUDENT_NO = #{ studentNo } 
+		   AND LECTURE_NO = #{ lectureNo }
 	</delete>
 	<!-- 시간표 -->
 	<select id="timeTable" parameterType="hashmap" resultMap="timeTableResultMap">
 		SELECT
-			A.ENROLL_ID,
-			A.STUDENT_NO, 
-			A.LECTURE_NO, 
-			A.DAY, 
-			A.FIRST_CLASS, 
-			A.SECOND_CLASS,
-			A.CREDIT
-		FROM VIEW_ENROLLMENT_LECTURE A
-		WHERE 1 = 1
-		AND A.STUDENT_NO = #{ studentNo }
+			   A.ENROLL_ID,
+			   A.STUDENT_NO, 
+		   	   A.LECTURE_NO, 
+			   A.DAY, 
+			   A.FIRST_CLASS, 
+			   A.SECOND_CLASS,
+			   A.CREDIT
+		  FROM VIEW_ENROLLMENT_LECTURE A
+		 WHERE 1 = 1
+		   AND A.STUDENT_NO = #{ studentNo }
 	</select>
 	<select id="selectGradeCheck" parameterType="hashmap" resultMap="gradeResultMap">
 		SELECT
@@ -260,13 +259,13 @@
 			   A.FIN_SCORE,
 			   A.GRADE
 		  FROM VIEW_GRADE_CHECK A
-		  JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
+		  JOIN GRADE B ON A.GRADE_NO = B.GRADE_NO
 		 WHERE A.STUDENT_NO = #{ studentNo }
 		<if test = "profNo != null">
-			AND B.PROF_NO = #{ profNo }
+		   AND B.PROF_NO = #{ profNo }
 		</if>
 		<if test = "lectureNo != null">
-			AND B.LECTURE_NO = #{ lectureNo }
+		   AND B.LECTURE_NO = #{ lectureNo }
 		</if>
 	</select>
 	<select id="selectGrade" parameterType="hashmap"
@@ -282,7 +281,7 @@
 			   A.FIN_SCORE,
 			   A.GRADE
 		  FROM VIEW_GRADE_CHECK A
-		  JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
+		  JOIN GRADE B ON A.GRADE_NO = B.GRADE_NO
 		 WHERE B.PROF_NO = #{ profNo }
 		   AND B.LECTURE_NO = #{ lectureNo }
 	</select>
@@ -349,27 +348,27 @@
 	</update>
 	<update id="updateGrade" parameterType="hashmap">
 		UPDATE GRADE
-		SET ATT_SCORE = #{ attScore },
-		ASS_SCORE = #{ assScore },
-		MID_SCORE = #{ midScore },
-		FIN_SCORE = #{ finScore }
-		WHERE STUDENT_NO = #{ studentNo }
-		AND LECTURE_NO = #{ lectureNo }
+		   SET ATT_SCORE = #{ attScore },
+			   ASS_SCORE = #{ assScore },
+			   MID_SCORE = #{ midScore },
+			   FIN_SCORE = #{ finScore }
+			   WHERE STUDENT_NO = #{ studentNo }
+		   AND LECTURE_NO = #{ lectureNo }
 	</update>
 	<delete id="deleteGrade" parameterType="hashmap">
 		DELETE FROM GRADE
-		WHERE PROF_NO = #{ profNo }
-		AND STUDENT_NO = #{ studentNo }
-		AND LECTURE_NO = #{ lectureNo }
+		 WHERE PROF_NO = #{ profNo }
+		   AND STUDENT_NO = #{ studentNo }
+		   AND LECTURE_NO = #{ lectureNo }
 	</delete>
 	<!-- 학생이름 보여주기 -->
 	<select id="selectByStudentNo" parameterType="hashmap" resultMap="studentResultMap">
 		SELECT 
-   			STUDENT_NO,
-    		DEPT_CODE,
-    		STUDENT_NAME
-		FROM STUDENT
-	 	WHERE STUDENT_NO = #{ studentNo }
+   			   STUDENT_NO,
+    		   DEPT_CODE,
+    		   STUDENT_NAME
+		  FROM STUDENT
+	 	 WHERE STUDENT_NO = #{ studentNo }
 	</select>
 	<!-- 강의평가 작성부분 -->
 	<insert id="inputJudgement" parameterType="hashmap">
@@ -395,21 +394,21 @@
 	<!-- 강의 평가 수정 -->
 	<update id="modifyJudgement" parameterType="hashmap">
 		UPDATE LECTURE_JUG
-		SET STU_JUG_SCORE= #{ stuJugScore },
-		STU_ONE_JUG = #{ stuOneJug }
-		WHERE STUDENT_NO = #{ studentNo }
-		AND JUDGEMENT_NO = #{ judgementNo }
+		   SET STU_JUG_SCORE= #{ stuJugScore },
+		   STU_ONE_JUG = #{ stuOneJug }
+		 WHERE STUDENT_NO = #{ studentNo }
+		   AND JUDGEMENT_NO = #{ judgementNo }
 	</update>
 	<!-- 학생 : 강의 평가 목록 조회 -->
 	<select id="selectJudgement" parameterType="hashmap"
 		resultMap="lectureJugResultMap">
 		SELECT
-			A.JUDGEMENT_NO,
-			A.LECTURE_NO,
-			A.STUDENT_NO,
-			A.PROF_NO,
-			A.STU_JUG_SCORE,
-			A.STU_ONE_JUG
+			   A.JUDGEMENT_NO,
+			   A.LECTURE_NO,
+			   A.STUDENT_NO,
+			   A.PROF_NO,
+			   A.STU_JUG_SCORE,
+			   A.STU_ONE_JUG
 		  FROM LECTURE_JUG A
 		  JOIN STUDENT B ON A.STUDENT_NO = B.STUDENT_NO
 		 WHERE B.STUDENT_NO = #{ studentNo }
@@ -417,19 +416,19 @@
 	<!-- 강의 평가 삭제 -->
 	<delete id="deleteJudgement" parameterType="hashmap">
 		DELETE FROM LECTURE_JUG
-		WHERE  JUDGEMENT_NO = #{ judgementNo }
-		AND STUDENT_NO = #{ studentNo }
+		 WHERE JUDGEMENT_NO = #{ judgementNo }
+		   AND STUDENT_NO = #{ studentNo }
 	</delete>
 	<!-- 교수 : 강의 평가 목록 조회 -->
 	<select id="selectJudgementProf" parameterType="hashmap"
 		resultMap="lectureJugResultMap">
 		SELECT
-			A.JUDGEMENT_NO,
-			A.LECTURE_NO,
-			A.STUDENT_NO,
-			A.PROF_NO,
-			A.STU_JUG_SCORE,
-			A.STU_ONE_JUG
+			   A.JUDGEMENT_NO,
+			   A.LECTURE_NO,
+			   A.STUDENT_NO,
+			   A.PROF_NO,
+			   A.STU_JUG_SCORE,
+			   A.STU_ONE_JUG
 		  FROM LECTURE_JUG A
 		  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
 		 WHERE B.PROF_NO = #{ profNo }
