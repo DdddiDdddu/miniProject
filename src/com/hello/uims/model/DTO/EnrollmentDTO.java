@@ -2,7 +2,6 @@ package com.hello.uims.model.DTO;
 
 public class EnrollmentDTO {
 
-	private int enrollId; // 수강 신청 번호 
 	private int studentNo; // 학번 
 	private int lectureNo; // 강의 번호 
 
@@ -10,19 +9,10 @@ public class EnrollmentDTO {
 
 	}
 
-	public EnrollmentDTO(int enrollId, int studentNo, int lectureNo) {
+	public EnrollmentDTO(int studentNo, int lectureNo) {
 		super();
-		this.enrollId = enrollId;
 		this.studentNo = studentNo;
 		this.lectureNo = lectureNo;
-	}
-
-	public int getEnrollId() {
-		return enrollId;
-	}
-
-	public void setEnrollId(int enrollId) {
-		this.enrollId = enrollId;
 	}
 
 	public int getStudentNo() {
@@ -42,7 +32,7 @@ public class EnrollmentDTO {
 	}
 	
 	public String toString() {
-		return "[enrollId=" + enrollId + ", studentNo=" + studentNo + ", lectureNo=" + lectureNo + "]";
+		return "[studentNo=" + studentNo + ", lectureNo=" + lectureNo + "]";
 	}
 
 }

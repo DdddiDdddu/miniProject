@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
 
@@ -24,7 +25,13 @@ public class PrintResult {
 
 		switch (successCode) {
 		case "insertGrade":
-			successMessage = "학점 추가 성공.";
+			successMessage = "학점 추가에 성공하셨습니다.";
+			break;
+//		case "selectStudentList":
+//			successMessage = "======= 수강생 목록 =======";
+//			break;
+		case "updateGrade":
+			successMessage = "학점 수정에 성공하셨습니다.";
 			break;
 //		case "update":
 //			successMessage = "메뉴 수정에 성공하셨습니다.";
@@ -32,6 +39,15 @@ public class PrintResult {
 //		case "delete":
 //			successMessage = "메뉴 삭제에 성공하셨습니다.";
 //			break;
+		case "enroll":
+			successMessage = "수강신청 성공";
+			break;
+		case "deleteEnroll":
+			successMessage = "수강신청 취소 성공";
+			break;
+		case "insertMember":
+			successMessage = "회원가입이 되었습니다.";
+			break;
 		}
 
 		System.out.println(successMessage);
@@ -50,8 +66,8 @@ public class PrintResult {
 
 	public void printLecture(List<LectureDTO> list) {
 
-		System.out.println("========================================================================");
-		System.out.println("강의번호\t학과코드\t교수번호\t강의명\t수강학점\t수강인원\t정원인원\t요일\t시간");
+		System.out.println("=========================================================================");
+		System.out.println("학과코드\t       강의번호\t    교수명\t 교수번호\t  강의명\t\t\t 수강학점\t   수강인원    정원인원     요일    시간");
 
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
@@ -63,9 +79,9 @@ public class PrintResult {
 		String errorMessage = "";
 
 		switch (errorCode) {
-//		case "selectList":
-//			errorMessage = "메뉴 목록 조회에 실패하셨습니다.";
-//			break;
+		case "selectLogin":
+			errorMessage = "없는 아이디입니다.";
+			break;
 //		case "selectOne":
 //			errorMessage = "메뉴 조회에 실패하셨습니다.";
 //			break;
@@ -73,13 +89,33 @@ public class PrintResult {
 //			errorMessage = "신규 메뉴 등록에 실패하셨습니다.";
 //			break;
 		case "gradeCheck":
-			errorMessage = "수강중인 강의가 없습니다.";
+			errorMessage = "수강중인 강의가 없거나 학점 조회 기간이 아닙니다.";
 			break;
 		case "selectByProfNo":
 			errorMessage = "강의중인 강의가 없습니다.";
 			break;
 		case "insertGrade":
 			errorMessage = "학점 부여 실패";
+			break;
+		case "selectStudentList":
+			errorMessage = "수강생이 없습니다.";
+			break;
+		case "selectGrade":
+			errorMessage = "등록된 학점이 없습니다.";
+			break;
+		case "updateGrade":
+			errorMessage = "수강중인 학생이 아닙니다.";
+		case "enroll":
+			errorMessage = "수강신청 실패";
+			break;
+		case "selectLecture":
+			errorMessage = "수강신청한 강의가 없습니다.";
+			break; 
+		case "deleteEnroll":
+			errorMessage = "수강신청 취소 실패";
+			break;
+		case "insertMember":
+			errorMessage = "회원가입이 실패 했습니다";
 			break;
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";

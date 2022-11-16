@@ -2,32 +2,79 @@ package com.hello.uims.model.service;
 
 import static com.hello.common.Template.getSqlSession;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.hello.common.UimsMapper;
+import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 
 public class EnrollService {
 
-	private UimsMapper mapper;
+	SqlSession sqlSession = null;
+	UimsMapper mapper;
 
-	public void selectLecture() {
+	// 수강신청 강의목록 조회
+	public ArrayList<LectureDTO> selectAllLecture() {
 
-		SqlSession sqlSession = getSqlSession();
+		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
-
-		List<LectureDTO> lectureList = mapper.selectLecture();
-
-		for (LectureDTO menu : lectureList)
-			System.out.println(menu);
-
+		
+		ArrayList<LectureDTO> lectureList = mapper.selectAllLecture();
+		
 		sqlSession.close();
+
+		return lectureList;
 
 	}
 
-	public EnrollService() { // 수용 파트
+	// 수강신청 
+	public boolean enroll(Map<String, String> parameter) {
+
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+
+		int result = mapper.enroll(parameter);
+
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		return (result > 0) ? true : false;
+
+	}
+	
+	public ArrayList<LectureDTO> selectEnroll(Map<String, String> parameter) {
+		
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+		
+		ArrayList<LectureDTO> lectureList = mapper.selectEnroll(parameter);
+		
+		sqlSession.close();
+
+		return lectureList;
+		
+	}
+
+	public boolean deleteEnroll(Map<String, String> parameter) {
+
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+
+		int result = mapper.deleteEnroll(parameter);
+
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		return (result > 0) ? true : false;
+		
+	}
 
 //		public List<MenuDTO> selectAllMenu() {
 //			
@@ -111,7 +158,5 @@ public class EnrollService {
 //			return result > 0? true: false;
 //			
 //		}
-
-	}
 
 }

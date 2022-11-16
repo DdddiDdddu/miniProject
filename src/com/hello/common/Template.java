@@ -28,7 +28,7 @@ public class Template {
 			configuration.addMapper(UimsMapper.class);
 
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
-
+			
 		}
 		
 		return sqlSessionFactory.openSession(false);

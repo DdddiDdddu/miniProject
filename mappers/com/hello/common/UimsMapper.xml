@@ -1,107 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hello.common.UimsMapper">
-	<resultMap type = "com.hello.uims.model.DTO.GradeDTO" id = "gradeResultMap">
-		<result property = "lectureName" column = "LECTURE_NAME"/>
-		<result property = "profName" column = "PROF_NAME"/>
-		<result property = "studentNo" column = "STUDENT_NO"/>
-		<result property = "studentName" column = "STUDENT_NAME"/>
-		<result property = "attScore" column = "ATT_SCORE"/>
-		<result property = "assScore" column = "ASS_SCORE"/>
-		<result property = "midScore" column = "MID_SCORE"/>
-		<result property = "finScore" column = "FIN_SCORE"/>
-		<result property = "grade" column = "GRADE"/>
-	</resultMap>
-	<resultMap type = "com.hello.uims.model.DTO.LectureDTO" id = "lectureResultMap">
-		<id property = "lectureNo" column = "LECTURE_NO"/>
+	<resultMap type = "com.hello.uims.model.DTO.StudentDTO" id = "studentResultMap">
+		<id property = "studentNo" column = "STUDENT_NO"/>
 		<result property = "deptCode" column = "DEPT_CODE"/>
-		<result property = "profNo" column = "PROF_NO"/>
-		<result property = "lectureName" column = "LECTURE_NAME"/>
-		<result property = "credit" column = "CREDIT"/>
-		<result property = "currNo" column = "CURR_NO"/>
-		<result property = "fullNo" column = "FULL_NO"/>
-		<result property = "day" column = "DAY"/>
-		<result property = "time" column = "TIME"/>
-	</resultMap>
-		<resultMap type = "com.hello.uims.model.DTO.EnrollmentDTO" id = "enrollmentResultMap">
-		<id property = "enrollId" column = "ENROLL_ID"/>
 		<result property = "studentId" column = "STUDENT_ID"/>
-		<result property = "lectureNo" column = "LECTURE_NO"/>
+		<result property = "studentPwd" column = "STUDENT_PWD"/>
+		<result property = "studentName" column = "STUDENT_NAME"/>
+		<result property = "address" column = "ADDRESS"/>
+		<result property = "studentTelNo" column = "STUDENT_TELNO"/>
+		<result property = "email" column = "EMAIL"/>
+		<result property = "enrollDate" column = "ENROLL_DATE"/>
+		<result property = "status" column = "STATUS"/>
 	</resultMap>
-	<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
+	<resultMap type= "com.hello.uims.model.DTO.ProfessorDTO" id = "professorResultMap">
+		<id property = "profNo" column = "PROF_NO"/>
+		<result property = "deptCode" column = "DEPT_CODE"/>
+		<result property = "profId" column = "PROF_ID"/>
+		<result property = "profPwd" column = "PROF_PWD"/>
+		<result property = "profName" column = "PROF_NAME"/>
+		<result property = "address" column = "ADDRESS"/>
+		<result property = "profTelNo" column = "PROF_TELNO"/>
+		<result property = "email" column = "EMAIL"/>
+		<result property = "enrollDate" column = "ENROLL_DATE"/>
+		<result property = "status" column = "STATUS"/>
+	</resultMap>
+	<resultMap type="com.hello.uims.model.DTO.GradeDTO"
+		id="gradeResultMap">
+		<result property="lectureName" column="LECTURE_NAME" />
+		<result property="profName" column="PROF_NAME" />
+		<result property="studentNo" column="STUDENT_NO" />
+		<result property="studentName" column="STUDENT_NAME" />
+		<result property="attScore" column="ATT_SCORE" />
+		<result property="assScore" column="ASS_SCORE" />
+		<result property="midScore" column="MID_SCORE" />
+		<result property="finScore" column="FIN_SCORE" />
+		<result property="grade" column="GRADE" />
+	</resultMap>
+	<resultMap type="com.hello.uims.model.DTO.LectureDTO"
+		id="lectureResultMap">
+		<id property="lectureNo" column="LECTURE_NO" />
+		<result property="deptCode" column="DEPT_CODE" />
+		<result property="profName" column="PROF_NAME" />
+		<result property="lectureName" column="LECTURE_NAME" />
+		<result property="credit" column="CREDIT" />
+		<result property="currNo" column="CURR_NO" />
+		<result property="fullNo" column="FULL_NO" />
+		<result property="day" column="DAY" />
+		<result property="time" column="TIME" />
+	</resultMap>
+	<resultMap type="com.hello.uims.model.DTO.EnrollmentDTO"
+		id="enrollmentResultMap">
+		<id property="enrollId" column="ENROLL_ID" />
+		<result property="studentNo" column="STUDENT_NO" />
+		<result property="lectureNo" column="LECTURE_NO" />
+	</resultMap>
+	<select id = "selectLoginStudent" parameterType = "hashmap" resultMap = "studentResultMap">
 		SELECT
-			A.DEPT_CODE
-			A.LECTURE_NO
-			B.PROF_NAME
-			A.LECTURE_NAME
-			A.CREDIT
-			A.CURR_NO
-			A.FULL_NO
-			A.DAY
-			A.TIME
+			   STUDENT_PWD
+		  FROM STUDENT
+		 WHERE STUDENT_ID = #{ studentId }
+	</select>
+	<select id = "selectLoginProfessor" parameterType = "hashmap" resultMap = "professorResultMap">
+		SELECT
+			   PROF_PWD
+		  FROM PROFESSOR
+		 WHERE PROF_ID = #{ professorId }
+	</select>
+	<!-- 회원 가입 -->
+	<insert id = "insertMember" parameterType="hashmap">
+		INSERT INTO STUDENT 
+		(
+		 STUDENT_NO,
+		 DEPT_CODE,
+		 STUDENT_ID, 
+		 STUDENT_PWD,
+		 STUDENT_NAME,
+		 ADDRESS,
+		 STUDENT_TELNO,
+		 EMAIL,
+		 ENROLL_DATE,
+		 STATUS
+		) 
+		VALUES
+		(
+		SEQ_STUDENT_NO.NEXTVAL,
+		 NULL,
+		 #{ studentId },
+		 #{ studentPwd },
+		 #{ studentName },
+		 NULL,
+		 #{ studentTelNo },
+		 NULL,
+		 DEFAULT,
+		 DEFAULT
+		)
+	</insert>
+	<!-- 수강신청 강의목록 조회 -->
+	<select id="selectAllLecture" parameterType="hashmap"
+		resultMap="lectureResultMap">
+		SELECT
+		A.DEPT_CODE,
+		A.LECTURE_NO,
+		A.PROF_NO,
+		B.PROF_NAME,
+		A.LECTURE_NAME,
+		A.CREDIT,
+		A.CURR_NO,
+		A.FULL_NO,
+		A.DAY,
+		A.TIME
 		FROM LECTURE A
 		JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
-		JOIN STUDENT C ON B.DEPT_CODE = C.DEPT_CODE
-		WHERE 1 = 1
-		AND A.DEPT_CODE = 'GEC'
-		AND A.DEPT_CODE =  #{ deptCode }
+		ORDER BY LECTURE_NO
 	</select>
-	<select id = "gradeCheck" parameterType = "_int" resultMap = "gradeResultMap">
+	<!-- 수강신청 -->
+	<insert id="enroll" parameterType="hashmap">
+		INSERT INTO ENROLLMENT
+		VALUES
+		(
+		SEQ_ENROLL_NO.NEXTVAL,
+		#{ studentNo },
+		#{ lectureNo }
+		)
+	</insert>
+	<!-- 수강신청 내역 -->
+	<select id="selectEnroll" parameterType="hashmap"
+		resultMap="lectureResultMap">
 		SELECT
-			   LECTURE_NAME,
-			   PROF_NAME,
-			   STUDENT_NO,
-			   STUDENT_NAME,
-			   ATT_SCORE,
-			   ASS_SCORE,
-			   MID_SCORE,
-			   FIN_SCORE,
-			   GRADE
-	 	  FROM VIEW_GRADE_CHECK
-	 	 WHERE STUDENT_NO = #{ studentNo }
+			   B.DEPT_CODE,
+			   B.LECTURE_NO,
+			   B.PROF_NO,
+			   C.PROF_NAME,
+			   B.LECTURE_NAME,
+			   B.CREDIT,
+			   B.CURR_NO,
+			   B.FULL_NO,
+			   B.DAY,
+			   B.TIME
+		  FROM ENROLLMENT A
+		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
+		  JOIN PROFESSOR C ON B.PROF_NO = C.PROF_NO
+		 WHERE STUDENT_NO = #{ studentNo }
+		 ORDER BY LECTURE_NO
 	</select>
-	<select id = "selectGrade" parameterType = "hashmap" resultMap = "gradeResultMap">
+	<!-- 수강신청 취소 -->
+	<delete id="deleteEnroll" parameterType="hashmap">
+		DELETE FROM ENROLLMENT
+		WHERE STUDENT_NO = #{ studentNo } AND LECTURE_NO = #{ lectureNo }
+	</delete>
+	<select id="selectGradeCheck" parameterType="_int" resultMap="gradeResultMap">
 		SELECT
-			   GRADE_NO,
-			   LECTURE_NO,
-			   PROF_NO,
-			   STUDENT_NO,
-			   ATT_SCORE,
-			   ASS_SCORE,
-			   MID_SCORE,
-			   FIN_SCORE,
-			   GRADE
-	 	  FROM GRADE
-	 	 WHERE PROF_NO = #{ profNo }
-	 	   AND LECTURE_NO = #{ lectureNo }
+		LECTURE_NAME,
+		PROF_NAME,
+		STUDENT_NO,
+		STUDENT_NAME,
+		ATT_SCORE,
+		ASS_SCORE,
+		MID_SCORE,
+		FIN_SCORE,
+		GRADE
+		FROM VIEW_GRADE_CHECK
+		WHERE STUDENT_NO = #{ studentNo }
 	</select>
-	<select id = "selectByProfNo" parameterType = "_int" resultMap = "lectureResultMap">
+	<select id="selectGrade" parameterType="hashmap"
+		resultMap="gradeResultMap">
 		SELECT
-			   LECTURE_NO,
-			   DEPT_CODE,
-			   PROF_NO,
-			   LECTURE_NAME,
-			   CREDIT,
-			   CURR_NO,
-			   FULL_NO,
-			   DAY,
-			   TIME
-	 	  FROM LECTURE
-	 	 WHERE PROF_NO = #{ profNo }
+		GRADE_NO,
+		LECTURE_NO,
+		PROF_NO,
+		STUDENT_NO,
+		ATT_SCORE,
+		ASS_SCORE,
+		MID_SCORE,
+		FIN_SCORE,
+		GRADE
+		FROM GRADE
+		WHERE PROF_NO = #{ profNo }
+		AND LECTURE_NO = #{ lectureNo }
 	</select>
-	<select id = "selectStuGrade" parameterType = "hashmap" resultMap = "enrollmentResultMap">
+	<select id="selectByProfNo" parameterType="_int"
+		resultMap="lectureResultMap">
 		SELECT
-			   A.LECTURE_NO
+		   	   A.DEPT_CODE, 
+			   A.LECTURE_NO, 
+			   A.PROF_NO, 
+			   B.PROF_NAME, 
+			   A.LECTURE_NAME, 
+			   A.CREDIT, 
+			   A.CURR_NO, 
+			   A.FULL_NO, 
+			   A.DAY, 
+			   A.TIME
+	 	  FROM LECTURE A
+	 	  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
+	 	 WHERE A.PROF_NO = #{ profNo }
+	</select>
+	<select id="selectStudentList" parameterType="hashmap"
+		resultMap="enrollmentResultMap">
+		SELECT
+			   A.LECTURE_NO,
 			   A.STUDENT_NO
 		  FROM ENROLLMENT A
-		  JOIN LECTURE B
-		    ON A.LECTURE_NO = B.LECTURE_NO
+		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
-	 	   AND C.PROF_NO = #{ profNo }
+	 	   AND B.PROF_NO = #{ profNo }
 	</select>
-	<insert id = "insertGrade" parameterType = "hashmap">
+	<insert id="insertScores" parameterType="hashmap">
 		INSERT INTO GRADE
+			(
+			GRADE_NO,
+			LECTURE_NO,
+			PROF_NO,
+			STUDENT_NO,
+			ATT_SCORE,
+			ASS_SCORE,
+			MID_SCORE,
+			FIN_SCORE,
+			GRADE
+			)
 			VALUES
-			(SEQ_GRADE_NO, #{ lectureNo }, #{ profNo }, #{ studentNo ), #{ attScore }, #{ assScore }, #{ midScore }, #{ finScore }, DEFAULT)
+			(
+			SEQ_GRADE_NO, 
+			#{ lectureNo }, 
+			#{ profNo }, 
+			#{ studentNo }, 
+			#{ attScore }, 
+			#{ assScore }, 
+			#{ midScore }, 
+			#{ finScore }, 
+			DEFAULT
+			)
 	</insert>
+	<update id="inputFinGrade" parameterType="hashmap">
+		UPDATE GRADE A
+		SET A.GRADE = (SELECT
+                       		 <![CDATA[CASE WHEN B.ATT_SCORE < 7 THEN 'F'
+                           			  WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.05 THEN 'A+'
+                           		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.1 THEN 'A'
+                                      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.15 THEN 'B+'
+                            		  WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.2 THEN 'B'
+                          		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.25 THEN 'C+'
+                            	      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.3 THEN 'C'
+                         		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.35 THEN 'D+']]>
+		ELSE 'D'
+		END;
+		FROM VIEW_GRADE_CHECK B
+		WHERE A.STUDENT_NO = B.STUDENT_NO)
+		WHERE EXISTS(SELECT
+		0
+		FROM VIEW_GRADE_CHECK B
+		WHERE A.STUDENT_NO = B.STUDENT_NO)
+		AND A.LECTURE_NO = #{ lectureNo }
+	</update>
+	<update id="updateGrade" parameterType="hashmap">
+		UPDATE GRADE
+		SET ATT_SCORE = #{ attScore },
+		ASS_SCORE = #{ assScore },
+		MID_SCORE = #{ midScore },
+		FIN_SCORE = #{ finScore }
+		WHERE STUDENT_NO = #{ studentNo }
+		AND LECTURE_NO = #{ lectureNo }
+	</update>
+	<delete id="deleteGrade" parameterType="hashmap">
+		DELETE FROM GRADE
+		WHERE PROF_NO = #{ profNo }
+		AND STUDENT_NO = #{ studentNo }
+		AND LECTURE_NO = #{ lectureNo }
+	</delete>
 </mapper>
