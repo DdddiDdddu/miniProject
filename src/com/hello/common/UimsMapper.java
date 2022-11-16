@@ -1,6 +1,7 @@
 package com.hello.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
-import com.hello.uims.model.DTO.StudentDTO;
+import com.hello.uims.model.DTO.ProfessorDTO;
 
 public interface UimsMapper {
 
@@ -27,10 +28,14 @@ public interface UimsMapper {
 
 	// 수강신청 취소
 	int deleteEnroll(Map<String, String> parameter);
-
+	
+	//학점 부
 	int insertGrade(Map<String, String> parameter);
-
-	StudentDTO selectLogin(Map<String, String> parameter);
+  
+	// 학생 로그인
+	StudentDTO selectLoginStudent(Map<String, String> parameter);
+	// 교수 로그인
+	ProfessorDTO selectLoginProfessor(Map<String, String> parameter);
 
 	// 학생 : 학점 조회
 	ArrayList<GradeDTO> selectGradeCheck(Map<String, String> parameter);
@@ -44,8 +49,8 @@ public interface UimsMapper {
 	// 교수 : 4가지 점수들 입력
 	int insertScores(Map<String, String> parameter);
 
-	// 교수 : A~D, F 학점 입력
-	int inputFinGrade();
+	// 교수 : A ~ D, F 학점 입력
+	int updateFinGrade(Map<String, String> parameter);
 	
 	// 교수 : 학점 관리를 위한 학점 목록 조회
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);
@@ -59,8 +64,11 @@ public interface UimsMapper {
 	// 학생 : 강의 평가 메뉴
 	ArrayList<LectureJugDTO> updateJug(Map<String, String> parameter);
 
-	// 학생 : 강의 평가 하기
-	List<LectureJugDTO> selectJug();
+  //학생 : 강의 평가 저장
+	ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter);
+  
+	// 회원가입
+	int insertMember(StudentDTO parameter);
 
     //학생 : 강의 평가 작성
 	int inputJudgement(Map<String, String> parameter);

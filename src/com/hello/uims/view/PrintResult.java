@@ -26,8 +26,11 @@ public class PrintResult {
 		String successMessage = "";
 
 		switch (successCode) {
-		case "insertGrade":
-			successMessage = "학점 추가에 성공하셨습니다.";
+		case "insertScores":
+			successMessage = "점수 입력에 성공하셨습니다.";
+			break;
+		case "updateFinGrade":
+			successMessage = "학점 부여 성공";
 			break;
 //		case "selectStudentList":
 //			successMessage = "======= 수강생 목록 =======";
@@ -50,8 +53,8 @@ public class PrintResult {
 		case "deleteEnroll":
 			successMessage = "수강신청 취소 성공";
 			break;
-		case "inputJudgement":
-			successMessage = "강의 평가 등록에 성공하셨습니다.";
+		case "insertMember":
+			successMessage = "회원가입이 되었습니다.";
 			break;
 		case "modifyJudgement" :
 			successMessage = "강의 평가 수정에 성공하셨습니다.";
@@ -101,6 +104,16 @@ public class PrintResult {
 		
 	}
 
+	public void printStudent(ArrayList<StudentDTO> list) {
+		System.out.println("================================ 학생 목록 ================================");
+		System.out.println(
+				"학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
+
+		for (StudentDTO student : list)
+			System.out.println(student);
+
+	}
+
 	public void printErrorMessage(String errorCode) {// 각 메소드에서 호출시케이스마다 추가하면서 하자
 
 		String errorMessage = "";
@@ -121,8 +134,11 @@ public class PrintResult {
 		case "selectByProfNo":
 			errorMessage = "강의중인 강의가 없습니다.";
 			break;
-		case "insertGrade":
-			errorMessage = "이미 학점을 부여한 학생입니다.";
+		case "insertScores":
+			errorMessage = "이미 점수를 부여한 학생입니다.";
+			break;
+		case "updateFinGrade":
+			errorMessage = "학점 부여 실패";
 			break;
 		case "selectStudentList":
 			errorMessage = "수강생이 없습니다.";
@@ -141,13 +157,14 @@ public class PrintResult {
 			break;
 		case "selectLecture":
 			errorMessage = "수강신청한 강의가 없습니다.";
-			break; 
+			break;
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
-		case "inputJudgement":
-			errorMessage = "강의 평가 등록 실패.";
+		case "insertMember":
+			errorMessage = "회원가입이 실패 했습니다";
 			break;
+
 		case "modifyJudgement" :
 			errorMessage = "강의 평가 수정 실패.";
 			break;
@@ -160,6 +177,7 @@ public class PrintResult {
 		case "deleteJudgement" : 
 			errorMessage = "강의 평가 삭제 실패.";
 			break;
+
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";
 //			break;
@@ -169,15 +187,13 @@ public class PrintResult {
 
 	}
 
-
 	public void printLogStu(StudentDTO id) {
 		System.out.println(id);
 	}
 
 	public void printErrorLogStu(String string) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
