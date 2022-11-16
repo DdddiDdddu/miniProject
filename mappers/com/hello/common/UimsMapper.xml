@@ -404,7 +404,7 @@
 			A.STU_ONE_JUG
 		  FROM LECTURE_JUG A
 		  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
-		 WHERE B.PROFESSOR_NO = #{ profNo }
+		 WHERE B.PROF_NO = #{ profNo }
 		  
 	</select>
 </mapper>
