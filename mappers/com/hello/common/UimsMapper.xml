@@ -85,7 +85,7 @@
 		SELECT
 			   PROF_PWD
 		  FROM PROFESSOR
-		 WHERE PROF_ID = #{ professorId }
+		 WHERE PROF_ID = #{ profId }
 	</select>
 	<!-- 회원 가입(학생) -->
 	<insert id = "insertStudent" parameterType="hashmap">
@@ -171,11 +171,28 @@
 			   EMAIL = #{ email }
 		 WHERE STUDENT_NO = #{ studentNo }
 	</update>
+	<!-- 학생정보 삭제 -->
 	<delete id="deleteStuId" parameterType="hashmap">
 		DELETE
 		  FROM STUDENT
 		 WHERE STUDENT_NO = #{ studentNo }
 	</delete>
+	<!-- 교수 조회 -->
+	<select id = "selectProfId" parameterType="hashmap"
+		resultMap="professorResultMap">
+		SELECT
+			   PROF_NO,
+			   DEPT_CODE,
+			   PROF_ID,
+			   PROF_PWD,
+			   PROF_NAME,
+			   ADDRESS,
+			   PROF_TELNO,
+			   EMAIL,
+			   STATUS
+		  FROM PROFESSOR
+		 WHERE PROF_ID = #{ profId }
+	</select>
 	<!-- 수강신청 강의목록 조회 -->
 	<select id="selectAllLecture" parameterType="hashmap"
 		resultMap="lectureResultMap">
