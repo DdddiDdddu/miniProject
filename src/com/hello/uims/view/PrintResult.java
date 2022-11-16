@@ -114,7 +114,10 @@ public class PrintResult {
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
-		case "insertMember":
+		case "insertStudent":
+			errorMessage = "회원가입이 실패 했습니다";
+			break;
+		case "insertProfessor":
 			errorMessage = "회원가입이 실패 했습니다";
 			break;
 //		case "delete":
