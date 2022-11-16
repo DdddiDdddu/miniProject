@@ -234,5 +234,57 @@ public class Controller {
 		return student;
 
 	}
+	
+	public ProfessorDTO selectLoginProfessor(Map<String, String> parameter) {
+		
+		ProfessorDTO professor = loginService.selectLoginProfessor(parameter);
+		
+		if (professor == null) {
+			printResult.printErrorMessage("selectLoginProfessor");
+		}
+		
+		return professor;
+	}
+
+
+	public void insertStudent(HashMap<String, String> infoMap) {
+		
+		String studentId = infoMap.get("studentId");
+		String studentPwd = infoMap.get("studentPwd");
+		String studentName = infoMap.get("studentName");
+		String studentTelNo = infoMap.get("studentTelNo");
+		
+		StudentDTO stu = new StudentDTO();
+		stu.setStudentId(studentId);
+		stu.setStudentPwd(studentPwd);
+		stu.setStudentName(studentName);
+		stu.setStudentTelNo(studentTelNo);
+		
+		if (signUpService.insertStudent(stu)) {
+			printResult.printSuccessMessage("insertStudent");
+		}else {
+			printResult.printErrorMessage("insertStudent");
+		}
+	}
+	public void insertProfessor(HashMap<String, String> infoMap) {
+	
+		int profNo = Integer.parseInt(infoMap.get("profNo"));
+		String profPwd = infoMap.get("profPwd");
+		String profName = infoMap.get("profName");
+		String profTelNo = infoMap.get("profTelNo");
+	
+		ProfessorDTO pro = new ProfessorDTO();
+		pro.setProfNo(profNo);
+		pro.setProfPwd(profPwd);
+		pro.setProfName(profName);
+		pro.setProfTelNo(profTelNo);
+	
+		if (signUpService.insertProfessor(pro)) {
+			printResult.printSuccessMessage("insertMember");
+		}else {
+			printResult.printErrorMessage("insertMember");
+		}
+	
+	}
 
 }

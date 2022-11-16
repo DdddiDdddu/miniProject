@@ -60,6 +60,70 @@
 		  FROM STUDENT
 		 WHERE STUDENT_ID = #{ studentId }
 	</select>
+	<select id = "selectLoginProfessor" parameterType = "hashmap" resultMap = "professorResultMap">
+		SELECT
+			   PROF_PWD
+		  FROM PROFESSOR
+		 WHERE PROF_ID = #{ professorId }
+	</select>
+	<!-- 회원 가입(학생) -->
+	<insert id = "insertStudent" parameterType="hashmap">
+		INSERT INTO STUDENT 
+		(
+		 STUDENT_NO,
+		 DEPT_CODE,
+		 STUDENT_ID, 
+		 STUDENT_PWD,
+		 STUDENT_NAME,
+		 ADDRESS,
+		 STUDENT_TELNO,
+		 EMAIL,
+		 ENROLL_DATE,
+		 STATUS
+		) 
+		VALUES
+		(
+		SEQ_STUDENT_NO.NEXTVAL,
+		 NULL,
+		 #{ studentId },
+		 #{ studentPwd },
+		 #{ studentName },
+		 NULL,
+		 #{ studentTelNo },
+		 NULL,
+		 DEFAULT,
+		 DEFAULT
+		)
+	</insert>
+	<!-- 회원 가입(교수) -->
+	<insert id = "insertProfessor" parameterType="hashmap">
+		INSERT INTO PROFESSOR 
+		(
+		 PROF_NO,
+		 DEPT_CODE,
+		 PROF_ID, 
+		 PROF_PWD,
+		 PROF_NAME,
+		 ADDRESS,
+		 PROF_TELNO,
+		 EMAIL,
+		 ENROLL_DATE,
+		 STATUS
+		) 
+		VALUES
+		(
+		SEQ_PROF_NO.NEXTVAL,
+		 NULL,
+		 #{ profId },
+		 #{ profPwd },
+		 #{ profName },
+		 NULL,
+		 #{ profTelNo },
+		 NULL,
+		 DEFAULT,
+		 DEFAULT
+		)
+	</insert>
 	<!-- 수강신청 강의목록 조회 -->
 	<select id="selectAllLecture" parameterType="hashmap"
 		resultMap="lectureResultMap">
