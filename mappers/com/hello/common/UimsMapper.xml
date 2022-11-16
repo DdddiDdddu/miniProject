@@ -182,7 +182,6 @@
 	 	  FROM LECTURE A
 	 	  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
 	 	 WHERE A.PROF_NO = #{ profNo }
-	 	 ORDER BY A.LECTURE_NO
 	</select>
 	<select id="selectStudentList" parameterType="hashmap"
 		resultMap="enrollmentResultMap">

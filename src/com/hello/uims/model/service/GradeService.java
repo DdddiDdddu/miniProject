@@ -9,7 +9,6 @@ import com.hello.common.UimsMapper;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
-import com.hello.uims.model.DTO.LectureJugDTO;
 
 import static com.hello.common.Template.getSqlSession;
 

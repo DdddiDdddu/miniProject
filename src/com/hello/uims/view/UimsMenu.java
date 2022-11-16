@@ -369,7 +369,7 @@ public class UimsMenu {
 				break;
 			}
 		}
-		
+
 	}
 
 	private void updateGrade(Map<String, String> parameter) {

@@ -236,16 +236,15 @@ public class Controller {
 	}
 
 	public void inputJudgement(Map<String, String> parameter) {
-		if (LectureJugService.inputJudgement(parameter))
-			printResult.printSuccessMessage("inputJudgement");
-
-		else
-			printResult.printErrorMessage("inputJudgement");
+//		if (LectureJugService.inputJudgement(parameter))
+//			printResult.printSuccessMessage("inputJudgement");
+//
+//		else
+//			printResult.printErrorMessage("inputJudgement");
 
 	}
 
 	public void modifyJudge() {
-		// TODO Auto-generated method stub
 
 	}
 
