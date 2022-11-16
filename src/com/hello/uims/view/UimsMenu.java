@@ -133,8 +133,9 @@ public class UimsMenu {
 		
 		switch (no) {
 		case 1:
-			while (true) {
+			
 				HashMap<String, String> infoMap = new HashMap<>();
+				con.insertStudent(infoMap);
 				
 				System.out.println("===============================회원가입===================================");
 				System.out.println("아이디를 설정하세요");
@@ -146,11 +147,8 @@ public class UimsMenu {
 				System.out.println("휴대전화번호를 입력하세요");
 				infoMap.put("studentTelNo", sc.nextLine());
 				
-				con.insertStudent(infoMap);
-				
 				break;
-				
-				}
+			
 			
 		case 2:
 			while (true) {
