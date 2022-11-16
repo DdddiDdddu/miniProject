@@ -54,6 +54,15 @@
 		<result property="firstClass" column="FIRST_CLASS" />
 		<result property="secondClass" column="SECOND_CLASS" />
 	</resultMap>
+	<resultMap type="com.hello.uims.model.DTO.LectureJugDTO"
+		id="lectureJugResultMap">
+		<id property="judgementNo" column="JUDGEMENT_NO" />
+		<result property="lectureNo" column="LECTURE_NO" />
+		<result property="studentNo" column="STUDENT_NO" />
+		<result property="profNo" column="PROF_NO" />
+		<result property="stuJugScore" column="STU_JUG_SCORE" />
+		<result property="stuOneJug" column="STU_ONE_JUG" />
+	</resultMap>
 	<select id = "selectLogin" parameterType = "hashmap" resultMap = "studentResultMap">
 		SELECT
 			   STUDENT_PWD
@@ -252,8 +261,21 @@
 		AND STUDENT_NO = #{ studentNo }
 		AND LECTURE_NO = #{ lectureNo }
 	</delete>
+	
+	<!-- 학생이름 보여주기 -->
+	<select id="selectByStudentNo" parameterType="hashmap" resultMap="studentResultMap">
+		SELECT 
+   			STUDENT_NO,
+    		DEPT_CODE,
+    		STUDENT_NAME
+    
+		FROM STUDENT
+	 	 
+	 	WHERE STUDENT_NO = #{ studentNo }
+	</select>
+	<!-- 강의평가 작성부분 -->
 	<insert id="inputJudgement" parameterType="hashmap">
-	INSERT INTO GRADE
+	INSERT INTO LECTURE_JUG
 		(
 		JUDGEMENT_NO,
 		LECTURE_NO,
@@ -264,13 +286,42 @@
 		)
 		VALUES
 		(
-		SEQ_GRADE_NO,
-		#{ judgementNo },
+		SEQ_LECTURE_JUG_NO.NEXTVAL,
 		#{ lectureNo },
 		#{ studentNo },
 		#{ profNo },
-		#{ StuJugScore },
-		#{ StuOneJug },
-		DEFAULT
+		#{ stuJugScore },
+		#{ stuOneJug }
+		)
 	</insert>
+	<!-- 강의 평가 수정 -->
+	<update id="modifyJudgement" parameterType="hashmap">
+		UPDATE LECTURE_JUG
+		SET STU_JUG_SCORE= #{ stuJugScore },
+		STU_ONE_JUG = #{ stuOneJug }
+		WHERE STUDENT_NO = #{ studentNo }
+		AND JUDGEMENT_NO = #{ judgementNo }
+	</update>
+	<!-- 강의 평가 목록 조회 -->
+	<select id="selectJudgement" parameterType="hashmap"
+		resultMap="lectureJugResultMap">
+		SELECT
+			A.JUDGEMENT_NO,
+			A.LECTURE_NO,
+			A.STUDENT_NO,
+			A.PROF_NO,
+			A.STU_JUG_SCORE,
+			A.STU_ONE_JUG
+		  FROM LECTURE_JUG A
+		  JOIN STUDENT B ON A.STUDENT_NO = B.STUDENT_NO
+		 WHERE B.STUDENT_NO = #{ studentNo }
+		  
+	</select>
+	<!-- 강의 평가 삭제 -->
+	<delete id="deleteJudgement" parameterType="hashmap">
+		DELETE FROM LECTURE_JUG
+		WHERE  JUDGEMENT_NO = #{ judgementNo }
+		AND STUDENT_NO = #{ studentNo }
+		
+	</delete>
 </mapper>

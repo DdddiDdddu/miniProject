@@ -172,7 +172,7 @@ public class UimsMenu {
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 지수형");
 			System.out.println("2. 학점관리");
-			System.out.println("3. 종호");
+			System.out.println("3. 강의평가조회");
 			System.out.println("9. 로그아웃");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
@@ -190,7 +190,7 @@ public class UimsMenu {
 				break;
 
 			case 3:
-//				con.lectureJug();
+				viewJudgement(inputProfNo());
 				break;
 
 			case 9:
@@ -205,6 +205,7 @@ public class UimsMenu {
 		} while (true);
 
 	}
+
 
 	private void enrollMenu() {
 
@@ -510,13 +511,26 @@ public class UimsMenu {
 		return parameter;
 
 	}
+	
+	private Map<String, String> inputJudgemnetNo() {
 
+		System.out.println("=========================================================================");
+		System.out.print("강의 평가 번호를 입력하세요. : ");
+		String judgementNo = sc.nextLine();
+
+		Map<String, String> parameter = new HashMap<>();
+		parameter.put("judgementNo", judgementNo);
+
+		return parameter;
+	}
 	private void lectureJug(Map<String, String> parameter) {
 
 		do {
 
 			int no;
-
+			con.selectByStudentNo(parameter);
+			
+			
 			System.out.println("================================ 강의평가 =================================");
 			System.out.println("1. 교수 강의 평가");
 			System.out.println("2. 평가 수정");
@@ -536,10 +550,14 @@ public class UimsMenu {
 				updateJudge(parameter);
 				break;
 			case 2:
-				con.modifyJudge();
+				modifyJudge(parameter);
 				break;
-			case 3: // lectureJugService.deleteJudge(deleteJudge()); break;
-			case 4: // lectureJugService.selectJudge(); break;
+			case 3: 
+				deleteJudge(parameter); 
+				break;
+			case 4: 
+				showJudge(parameter);
+				break;
 
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -550,14 +568,16 @@ public class UimsMenu {
 
 	}
 
-	private void updateJudge(Map<String, String> parameter) {
+	
 
-		con.selectByStudentNo(parameter);
+
+
+	private void updateJudge(Map<String, String> parameter) {
+		System.out.println("강의 평가할 교수의 ");
+		parameter.put("profNo", inputProfNo().get("profNo"));
+		System.out.print("강의 평가할 ");
 		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 		double avg = 0.0;
-
-		System.out.print("과목 번호를 입력하세요. : ");
-		parameter.put("lectureNo", sc.next());
 
 		System.out.println("질문에 알맞게 점수를 입력해주세요");
 		System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
@@ -576,13 +596,82 @@ public class UimsMenu {
 
 		String avgs = Double.toString(avg);
 
-		parameter.put("StuJugScore", avgs);
+		parameter.put("stuJugScore", avgs);
 
 		System.out.println("교수님에게 할 말 한 문장으로 남겨주세요.");
-		parameter.put("StuOneJug", sc.nextLine());
-
+		parameter.put("stuOneJug", sc.nextLine());
+		
+		System.out.println("평가 점수의 평균은 " + avg + "입니다.");
 		con.inputJudgement(parameter);
 
+	}
+	
+	private void modifyJudge(Map<String, String> parameter) {
+		double avg = 0.0;
+		while(true) {
+			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
+			if (list != null && !list.isEmpty()) {
+				System.out.print("강의 평가 수정할 ");
+				parameter.put("judgementNo", inputJudgemnetNo().get("judgementNo"));
+			} else {
+				System.out.println("옳지 않은 강의 평가 번호 입니다 다시 입력해주세요.");
+				
+			}
+			break;
+		}
+		
+
+		System.out.println("질문에 알맞게 점수를 입력해주세요");
+		System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
+		int score1 = sc.nextInt();
+		System.out.println("강의내용은 해당영역의 이론과 지식을 적절히 담고 있는가? (1 ~ 5점으로 입력해주세요)");
+		int score2 = sc.nextInt();
+		System.out.println("담당교수는 학생들의 이해도를 높이기 위하여 최선을 다하였는가? (1 ~ 5점으로 입력해주세요)");
+		int score3 = sc.nextInt();
+		System.out.println("담당교수는 열성적이고 성실하게 강의에 임하였는가? (1 ~ 5점으로 입력해주세요)");
+		int score4 = sc.nextInt();
+		System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
+		int score5 = sc.nextInt();
+		sc.nextLine();
+		
+		avg = (double) (score1 + score2 + score3 + score4 + score5) / 5;
+
+		String avgs = Double.toString(avg);
+
+		parameter.put("stuJugScore", avgs);
+
+		System.out.println("교수님에게 할 말 한 문장으로 다시 남겨주세요.");
+		parameter.put("stuOneJug", sc.nextLine());
+		
+		System.out.println("평가 점수의 평균은 " + avg + "입니다.");
+		con.modifyJudgement(parameter);
+		
+	}
+	private void deleteJudge(Map<String, String> parameter) {
+		
+		while (true) {
+			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
+			if (list != null && !list.isEmpty()) {
+				System.out.print("강의 평가 삭제할 ");
+				parameter.put("judgementNo", inputJudgemnetNo().get("judgementNo"));
+			} else {
+				break;
+			}
+
+			con.deleteJudgement(parameter);
+		
+		}
+	}
+
+	private void showJudge(Map<String, String> parameter) {
+		ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
+		
+	}
+	
+	private void viewJudgement(Map<String, String> inputProfNo) {
+		
+		
+		
 	}
 
 }

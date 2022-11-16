@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
+import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
@@ -52,6 +53,12 @@ public class PrintResult {
 		case "inputJudgement":
 			successMessage = "강의 평가 등록에 성공하셨습니다.";
 			break;
+		case "modifyJudgement" :
+			successMessage = "강의 평가 수정에 성공하셨습니다.";
+			break;
+		case "deleteJudgement" :
+			successMessage = "강의 평가 삭제에 성공했습니다.";
+			break;
 		}
 
 		System.out.println(successMessage);
@@ -79,10 +86,18 @@ public class PrintResult {
 	}
 	public void printStudent(ArrayList<StudentDTO> list) {
 		System.out.println("================================ 학생 목록 ================================");
-		System.out.println("학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
+		System.out.println("학생번호\t       학과코드\t  학생이름");
 
 		for (StudentDTO student : list)
 			System.out.println(student);
+		
+	}
+	public void printJudgement(List<LectureJugDTO> list) {
+		System.out.println("================================ 강의 평가 목록 ================================");
+		System.out.println("               강의평가번호 \t     강의번호\t    학번\t        교수번호\t        평가점수\t        한줄평가");
+		
+		for(LectureJugDTO lectureJug : list)
+			System.out.println(lectureJug);
 		
 	}
 
@@ -133,7 +148,18 @@ public class PrintResult {
 		case "inputJudgement":
 			errorMessage = "강의 평가 등록 실패.";
 			break;
-		
+		case "modifyJudgement" :
+			errorMessage = "강의 평가 수정 실패.";
+			break;
+		case "selectBystudentNo" :
+			errorMessage = "수강중인 강의가 없습니다.";
+			break;
+		case "selectJudgement" :
+			errorMessage = "평가한 강의 평가가 없습니다.";
+			break;
+		case "deleteJudgement" : 
+			errorMessage = "강의 평가 삭제 실패.";
+			break;
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";
 //			break;
