@@ -1,10 +1,8 @@
 package com.hello.uims.model.DTO;
 
 public class GradeDTO {
-	
-	private int lectureNo; // 강의 번호
+
 	private String lectureName; // 강의명
-	private int profNo; //교수 번호
 	private String profName; // 교수 이름
 	private int studentNo; // 학번
 	private String studentName; // 학생 이름
@@ -18,11 +16,9 @@ public class GradeDTO {
 
 	}
 
-	public GradeDTO(int lectureNo, String lectureName, int profNo, String profName, int studentNo, String studentName, int attScore, int assScore,
+	public GradeDTO(String lectureName, String profName, int studentNo, String studentName, int attScore, int assScore,
 			int midScore, int finScore, String grade) {
-		this.lectureNo = lectureNo;
 		this.lectureName = lectureName;
-		this.profNo = profNo;
 		this.profName = profName;
 		this.studentNo = studentNo;
 		this.studentName = studentName;
@@ -32,15 +28,7 @@ public class GradeDTO {
 		this.finScore = finScore;
 		this.grade = grade;
 	}
-	
-	public int getLectureNo() {
-		return lectureNo;
-	}
 
-	public void setLectureNo(int lectureNo) {
-		this.lectureNo = lectureNo;
-	}
-	
 	public String getLectureName() {
 		return lectureName;
 	}
@@ -48,15 +36,7 @@ public class GradeDTO {
 	public void setLectureName(String lectureName) {
 		this.lectureName = lectureName;
 	}
-	
-	public int getProfNo() {
-		return profNo;
-	}
 
-	public void setProfNo(int profNo) {
-		this.profNo = profNo;
-	}
-	
 	public String getProfName() {
 		return profName;
 	}
