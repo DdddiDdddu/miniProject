@@ -175,6 +175,7 @@ public class UimsMenu {
 	}
 
 	public void stuMainMenu(StudentDTO student) { // 학생용 메뉴 화면
+  
 		HashMap<String, String> sm = new HashMap<>();
 		sm.put("studentNo", String.valueOf(student.getStudentNo()));
 		

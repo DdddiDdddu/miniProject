@@ -88,7 +88,7 @@ public interface UimsMapper {
 
 	// 회원가입(교수)
 	int insertProfessor(HashMap<String, String> infoMap);
-	
+  
 	StudentDTO selectStuId(Map<String, String> parameter);
 
 	int updateStuId(Map<String, String> parameter);
