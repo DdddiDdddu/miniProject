@@ -82,14 +82,14 @@ public interface UimsMapper {
 	
 	//학생 : 강의 평가 삭제
 	int deleteJudgement(Map<String, String> parameter);
-	// 학생 : 강의 평가 저장
-	ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter);
-  
+	
 	// 회원가입(학생)
 	int insertStudent(StudentDTO stu);
 
 	// 회원가입(교수)
 	int insertProfessor(ProfessorDTO pro);
+	//교수 : 강의 평가 조회
+	ArrayList<StudentDTO> selectJudgementProf(Map<String, String> inputProfNo);
 
 
 }
