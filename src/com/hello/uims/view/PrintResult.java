@@ -45,6 +45,9 @@ public class PrintResult {
 		case "deleteEnroll":
 			successMessage = "수강신청 취소 성공";
 			break;
+		case "insertMember":
+			successMessage = "회원가입이 되었습니다.";
+			break;
 		}
 
 		System.out.println(successMessage);
@@ -111,6 +114,9 @@ public class PrintResult {
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
+		case "insertMember":
+			errorMessage = "회원가입이 실패 했습니다";
+			break;
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";
 //			break;
@@ -119,15 +125,5 @@ public class PrintResult {
 		System.out.println(errorMessage);
 
 	}
-
-	public void printLogStu(StudentDTO id) {
-		System.out.println(id);
-	}
-
-	public void printErrorLogStu(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

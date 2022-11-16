@@ -2,22 +2,19 @@ package com.hello.uims.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
-
 import com.hello.uims.model.service.LectureJugService;
-
-import com.hello.uims.model.service.LogInService;
+import com.hello.uims.model.service.LoginService;
 import com.hello.uims.model.service.SignUpService;
-
 import com.hello.uims.view.PrintResult;
 
 public class Controller {
@@ -26,14 +23,15 @@ public class Controller {
 	// private final EnrollService enrollService;
 	private GradeService gradeService = new GradeService();
 	// private final LectureJugService lectureJugService;
-	private LogInService loginService = new LogInService();
+	private LoginService loginService = new LoginService();
 	private final EnrollService enrollService;
 	// private final LectureJugService lectureJugService;
-	private final LogInService logInService;
-
+	private final LoginService logInService;
+	private SignUpService signUpService = new SignUpService();
+	
 	public Controller() {
 		enrollService = new EnrollService();
-		logInService = new LogInService();
+		logInService = new LoginService();
 		// lectureJugService = new LectureJugService()
 
 	}
@@ -214,16 +212,49 @@ public class Controller {
 //
 //	}
 
-	public StudentDTO selectLogin(Map<String, String> parameter) {
+	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
-		StudentDTO student = loginService.selectLogin(parameter);
+		StudentDTO student = loginService.selectLoginStudent(parameter);
 
 		if (student == null) {
-			printResult.printErrorMessage("selectLogin");
+			printResult.printErrorMessage("selectLoginStudent");
 		}
 
 		return student;
 
+	}
+	
+	public ProfessorDTO selectLoginProfessor(Map<String, String> parameter) {
+		
+		ProfessorDTO professor = loginService.selectLoginProfessor(parameter);
+		
+		if (professor == null) {
+			printResult.printErrorMessage("selectLoginProfessor");
+		}
+		
+		return professor;
+	}
+
+
+	public void insertMember(HashMap<String, String> infoMap) {
+		
+		String studentId = infoMap.get("studentId");
+		String studentPwd = infoMap.get("studentPwd");
+		String studentName = infoMap.get("studentName");
+		String studentTelNo = infoMap.get("studentTelNo");
+		
+		StudentDTO stu = new StudentDTO();
+		stu.setStudentId(studentId);
+		stu.setStudentPwd(studentPwd);
+		stu.setStudentName(studentName);
+		stu.setStudentTelNo(studentTelNo);
+		
+		if (signUpService.insertMember(stu)) {
+			printResult.printSuccessMessage("insertMember");
+		}else {
+			printResult.printErrorMessage("insertMember");
+		}
+		
 	}
 
 }
