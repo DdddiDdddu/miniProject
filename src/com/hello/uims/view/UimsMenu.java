@@ -1,5 +1,6 @@
 package com.hello.uims.view;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,10 +9,9 @@ import java.util.Scanner;
 import com.hello.uims.controller.Controller;
 import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.service.LectureJugService;
-
-
 import com.hello.uims.model.DTO.EnrollmentDTO;
-import com.hello.uims.model.DTO.GradeDTO;
+import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.LectureJugService;
 
@@ -24,7 +24,6 @@ public class UimsMenu {
 	public void initialMenu() {
 
 		label: do {
-
 			int no;
 
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
@@ -39,15 +38,11 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-
 				logIn();
-
 				break;
 
 			case 2:
-
 				signUp();
-
 				break;
 
 			case 9:
@@ -66,12 +61,11 @@ public class UimsMenu {
 
 	}
 
-
 	public void logIn() {
 
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
-		System.out.println("=========================");
+		System.out.println("=============로그인============");
 		System.out.println("학생이면 1번");
 		System.out.println("교수면 2번");
 		System.out.println("=========================");
@@ -83,13 +77,12 @@ public class UimsMenu {
 		switch (no) {
 		case 1:
 			while (true) {
-				StudentDTO student = con.selectLogin(inputStuId());
+				StudentDTO student = con.selectLoginStudent(inputStuId());
 
-				if (student != null) {
+				if(student != null) {
+					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
 
-					System.out.println("비밀번호를 입력하세요");
-
-					if (student.getStudentPwd().equalsIgnoreCase(sc.nextLine())) {
+					if(student.getStudentPwd().equals(sc.nextLine())) {
 						stuMainMenu();
 						break;
 					} else {
@@ -100,10 +93,32 @@ public class UimsMenu {
 			break;
 
 		case 2:
-			// con.profMainMenu();
+			while (true) {
+				ProfessorDTO professor = con.selectLoginProfessor(inputProId());
+				
+				if(professor != null) {
+					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
+					
+					if(professor.getProfPwd().equals(sc.nextLine())) {
+						profMainMenu();
+						break;
+					}else {
+						System.out.println("비밀번호가 틀렸습니다.");
+					}
+				}
+			}
 			break;
 		}
 
+	}
+
+	private HashMap<String, String> inputProId() {
+	
+		HashMap<String, String> loginMap = new HashMap<>();
+		System.out.println("아이디를 입력하세요");
+		loginMap.put("professorId", sc.nextLine());
+		
+		return loginMap;
 	}
 
 	private HashMap<String, String> inputStuId() {
@@ -111,15 +126,30 @@ public class UimsMenu {
 		HashMap<String, String> loginMap = new HashMap<>();
 		System.out.println("아이디를 입력하세요");
 		loginMap.put("studentId", sc.nextLine());
-
+		
 		return loginMap;
 
 	}
 
 	private void signUp() {
-		// 지수형 회원가입 파트
+  
+	 	  // 지수형 회원가입 파트
+			HashMap<String, String> infoMap = new HashMap<>();
+		
+			System.out.println("===============================회원가입===================================");
+			System.out.println("아이디를 설정하세요");
+			infoMap.put("studentId", sc.nextLine());
+			System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+			infoMap.put("studentPwd", sc.nextLine());
+			System.out.println("이름을 입력하세요");
+			infoMap.put("studentName", sc.nextLine());
+			System.out.println("휴대전화번호를 입력하세요");
+			infoMap.put("studentTelNo", sc.nextLine());
+			
+			con.insertMember(infoMap);
+      
 	}
-
+	
 	public void stuMainMenu() { // 학생용 메뉴 화면
 
 		do {
@@ -250,6 +280,27 @@ public class UimsMenu {
 
 		} while (true);
 
+	}
+
+	// 학번 강의코드 입력
+	public Map<String, String> inputEnroll() {
+
+		Map<String, String> parameter = new HashMap<>();
+
+		System.out.print("학번을 입력해주세요 : ");
+		parameter.put("studentNo", sc.nextLine());
+
+		System.out.print("강의코드를 입력해주세요 : ");
+		parameter.put("lectureNo", sc.nextLine());
+
+		return parameter;
+
+	}
+
+	private void enroll() {
+
+		
+		
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴

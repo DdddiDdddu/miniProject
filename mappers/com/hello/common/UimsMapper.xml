@@ -13,6 +13,18 @@
 		<result property = "enrollDate" column = "ENROLL_DATE"/>
 		<result property = "status" column = "STATUS"/>
 	</resultMap>
+	<resultMap type= "com.hello.uims.model.DTO.ProfessorDTO" id = "professorResultMap">
+		<id property = "profNo" column = "PROF_NO"/>
+		<result property = "deptCode" column = "DEPT_CODE"/>
+		<result property = "profId" column = "PROF_ID"/>
+		<result property = "profPwd" column = "PROF_PWD"/>
+		<result property = "profName" column = "PROF_NAME"/>
+		<result property = "address" column = "ADDRESS"/>
+		<result property = "profTelNo" column = "PROF_TELNO"/>
+		<result property = "email" column = "EMAIL"/>
+		<result property = "enrollDate" column = "ENROLL_DATE"/>
+		<result property = "status" column = "STATUS"/>
+	</resultMap>
 	<resultMap type="com.hello.uims.model.DTO.GradeDTO"
 		id="gradeResultMap">
 		<result property="lectureName" column="LECTURE_NAME" />
@@ -54,12 +66,47 @@
 		<result property="firstClass" column="FIRST_CLASS" />
 		<result property="secondClass" column="SECOND_CLASS" />
 	</resultMap>
-	<select id = "selectLogin" parameterType = "hashmap" resultMap = "studentResultMap">
+	<select id = "selectLoginStudent" parameterType = "hashmap" resultMap = "studentResultMap">
 		SELECT
 			   STUDENT_PWD
 		  FROM STUDENT
 		 WHERE STUDENT_ID = #{ studentId }
 	</select>
+	<select id = "selectLoginProfessor" parameterType = "hashmap" resultMap = "professorResultMap">
+		SELECT
+			   PROF_PWD
+		  FROM PROFESSOR
+		 WHERE PROF_ID = #{ professorId }
+	</select>
+	<!-- 회원 가입 -->
+	<insert id = "insertMember" parameterType="hashmap">
+		INSERT INTO STUDENT 
+		(
+		 STUDENT_NO,
+		 DEPT_CODE,
+		 STUDENT_ID, 
+		 STUDENT_PWD,
+		 STUDENT_NAME,
+		 ADDRESS,
+		 STUDENT_TELNO,
+		 EMAIL,
+		 ENROLL_DATE,
+		 STATUS
+		) 
+		VALUES
+		(
+		SEQ_STUDENT_NO.NEXTVAL,
+		 NULL,
+		 #{ studentId },
+		 #{ studentPwd },
+		 #{ studentName },
+		 NULL,
+		 #{ studentTelNo },
+		 NULL,
+		 DEFAULT,
+		 DEFAULT
+		)
+	</insert>
 	<!-- 수강신청 강의목록 조회 -->
 	<select id="selectAllLecture" parameterType="hashmap"
 		resultMap="lectureResultMap">
