@@ -1,8 +1,6 @@
 package com.hello.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
@@ -35,6 +33,7 @@ public interface UimsMapper {
   
 	// 학생 로그인
 	StudentDTO selectLoginStudent(Map<String, String> parameter);
+	
 	// 교수 로그인
 	ProfessorDTO selectLoginProfessor(Map<String, String> parameter);
 
@@ -90,6 +89,12 @@ public interface UimsMapper {
 	int insertProfessor(ProfessorDTO pro);
 	//교수 : 강의 평가 조회
 	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
+
+	
+
+	
+
+	
 
 
 }

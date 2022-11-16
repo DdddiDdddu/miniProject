@@ -3,7 +3,6 @@ package com.hello.uims.model.service;
 import static com.hello.common.Template.getSqlSession;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
