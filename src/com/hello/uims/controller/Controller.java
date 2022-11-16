@@ -289,7 +289,7 @@ public class Controller {
 	}
 
 
-	public void insertMember(HashMap<String, String> infoMap) {
+	public void insertStudent(HashMap<String, String> infoMap) {
 		
 		String studentId = infoMap.get("studentId");
 		String studentPwd = infoMap.get("studentPwd");
@@ -302,7 +302,26 @@ public class Controller {
 		stu.setStudentName(studentName);
 		stu.setStudentTelNo(studentTelNo);
 		
-		if (signUpService.insertMember(stu)) {
+		if (signUpService.insertStudent(stu)) {
+			printResult.printSuccessMessage("insertStudent");
+		}else {
+			printResult.printErrorMessage("insertStudent");
+		}
+	}
+	public void insertProfessor(HashMap<String, String> infoMap) {
+	
+		int profNo = Integer.parseInt(infoMap.get("profNo"));
+		String profPwd = infoMap.get("profPwd");
+		String profName = infoMap.get("profName");
+		String profTelNo = infoMap.get("profTelNo");
+	
+		ProfessorDTO pro = new ProfessorDTO();
+		pro.setProfNo(profNo);
+		pro.setProfPwd(profPwd);
+		pro.setProfName(profName);
+		pro.setProfTelNo(profTelNo);
+	
+		if (signUpService.insertProfessor(pro)) {
 			printResult.printSuccessMessage("insertMember");
 		}else {
 			printResult.printErrorMessage("insertMember");
@@ -329,6 +348,17 @@ public class Controller {
 			printResult.printJudgement(list);
 		else
 			printResult.printErrorMessage("selectJudgement");
+	
+	}
+	//교수 : 자기 교수번호에 맞는 강의만 조회
+	public void selectJudmentProf(Map<String, String> inputProfNo) {
+		
+		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgementProf(inputProfNo);
+
+		if (list != null && !list.isEmpty())
+			printResult.printJudgementProf(list);
+		else
+			printResult.printErrorMessage("selectJudgementProf");
 		
 		return (list != null && !list.isEmpty())? list : null;
 		

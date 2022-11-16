@@ -62,8 +62,8 @@ public class UimsMenu {
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
 		System.out.println("=============로그인============");
-		System.out.println("학생이면 1번");
-		System.out.println("교수면 2번");
+		System.out.println("학생입니까? 1번");
+		System.out.println("교수입니까? 2번");
 		System.out.println("=========================");
 		System.out.print("메뉴 선택 : ");
 
@@ -128,22 +128,57 @@ public class UimsMenu {
 	}
 
 	private void signUp() {
-  
-	 	  // 지수형 회원가입 파트
-			HashMap<String, String> infoMap = new HashMap<>();
+		// 지수형 회원가입 파트
+		System.out.println("=============회원가입============");
+		System.out.println("학생입니까? 1번");
+		System.out.println("교수입니까? 2번");
+		System.out.println("=========================");
+		System.out.print("메뉴 선택 : ");
+
+		int no = sc.nextInt();
+		sc.nextLine();
 		
-			System.out.println("===============================회원가입===================================");
-			System.out.println("아이디를 설정하세요");
-			infoMap.put("studentId", sc.nextLine());
-			System.out.println("비밀번호를 설정하세요(특수문자 제외)");
-			infoMap.put("studentPwd", sc.nextLine());
-			System.out.println("이름을 입력하세요");
-			infoMap.put("studentName", sc.nextLine());
-			System.out.println("휴대전화번호를 입력하세요");
-			infoMap.put("studentTelNo", sc.nextLine());
+		switch (no) {
+		case 1:
+			while (true) {
+				HashMap<String, String> infoMap = new HashMap<>();
+				
+				System.out.println("===============================회원가입===================================");
+				System.out.println("아이디를 설정하세요");
+				infoMap.put("studentId", sc.nextLine());
+				System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+				infoMap.put("studentPwd", sc.nextLine());
+				System.out.println("이름을 입력하세요");
+				infoMap.put("studentName", sc.nextLine());
+				System.out.println("휴대전화번호를 입력하세요");
+				infoMap.put("studentTelNo", sc.nextLine());
+				
+				con.insertStudent(infoMap);
+				
+				break;
+				
+				}
 			
-			con.insertMember(infoMap);
-      
+		case 2:
+			while (true) {
+
+				HashMap<String, String> infoMap = new HashMap<>();
+			
+				System.out.println("===============================회원가입===================================");
+				System.out.println("아이디를 설정하세요");
+				infoMap.put("professorId", sc.nextLine());
+				System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+				infoMap.put("professorPwd", sc.nextLine());
+				System.out.println("이름을 입력하세요");
+				infoMap.put("professorName", sc.nextLine());
+				System.out.println("휴대전화번호를 입력하세요");
+				infoMap.put("professorTelNo", sc.nextLine());
+				
+				con.insertProfessor(infoMap);
+				break;
+			}
+		}	
+		
 	}
 	
 	public void stuMainMenu() { // 학생용 메뉴 화면
@@ -703,7 +738,6 @@ public class UimsMenu {
 		
 		}
 	}
-
 	private void showJudge(Map<String, String> parameter) {
 		con.selectJudgement(parameter);
 		
@@ -711,7 +745,15 @@ public class UimsMenu {
 	
 	private void viewJudgement(Map<String, String> inputProfNo) {
 		
-		
+		while(true) {
+			con.selectByProfNo(inputProfNo);
+			System.out.print("강의 평가 조회 하고 싶은 ");
+			inputProfNo.put("lectureNo", inputLectureNo().get("lectureNo"));
+			
+			con.selectJudmentProf(inputProfNo);
+			
+			break;
+		}
 		
 	}
 

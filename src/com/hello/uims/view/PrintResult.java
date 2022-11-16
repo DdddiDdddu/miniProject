@@ -10,17 +10,6 @@ import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
 
-//	public void printMenuList(List<MenuDTO> menuList) {
-//
-//		for (MenuDTO menu : menuList)
-//			System.out.println(menu);
-//
-//	}
-//
-//	public void printMenu(MenuDTO menu) {
-//		System.out.println(menu);
-//	}
-//
 	public void printSuccessMessage(String successCode) {
 
 		String successMessage = "";
@@ -32,21 +21,12 @@ public class PrintResult {
 		case "updateFinGrade":
 			successMessage = "학점 부여 성공";
 			break;
-//		case "selectStudentList":
-//			successMessage = "======= 수강생 목록 =======";
-//			break;
 		case "updateGrade":
 			successMessage = "학점 수정에 성공하셨습니다.";
 			break;
 		case "deleteGrade":
 			successMessage = "학점 삭제에 성공하셨습니다.";
 			break;
-//		case "update":
-//			successMessage = "메뉴 수정에 성공하셨습니다.";
-//			break;
-//		case "delete":
-//			successMessage = "메뉴 삭제에 성공하셨습니다.";
-//			break;
 		case "enrollSuccess":
 			successMessage = "수강신청 성공";
 			break;
@@ -104,7 +84,16 @@ public class PrintResult {
 
 		for (StudentDTO student : list)
 			System.out.println(student);
+	}
+	
+	public void printJudgementProf(ArrayList<LectureJugDTO> list) {
 
+		System.out.println("================================ 강의 평가 목록 ================================");
+		System.out.println("               강의평가번호 \t     강의번호\t    학번\t        교수번호\t        평가점수\t        한줄평가");
+		
+		for(LectureJugDTO lectureJug : list)
+			System.out.println(lectureJug);
+		
 	}
 
 	public void printErrorMessage(String errorCode) {// 각 메소드에서 호출시케이스마다 추가하면서 하자
@@ -115,12 +104,6 @@ public class PrintResult {
 		case "selectLogin":
 			errorMessage = "없는 아이디입니다.";
 			break;
-//		case "selectOne":
-//			errorMessage = "메뉴 조회에 실패하셨습니다.";
-//			break;
-//		case "insert":
-//			errorMessage = "신규 메뉴 등록에 실패하셨습니다.";
-//			break;
 		case "gradeCheck":
 			errorMessage = "수강중인 강의가 없거나 학점 조회 기간이 아닙니다.";
 			break;
@@ -145,7 +128,7 @@ public class PrintResult {
 		case "deleteGrade":
 			errorMessage = "수강중인 학생이 아닙니다.";
 			break;
-    case "enrollFail":
+		case "enrollFail":
 			errorMessage = "수강신청 실패";
 			break;
 		case "totalCreditOver":
@@ -163,9 +146,6 @@ public class PrintResult {
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
-		case "insertMember":
-			errorMessage = "회원가입이 실패 했습니다";
-			break;
 		case "modifyJudgement" :
 			errorMessage = "강의 평가 수정 실패.";
 			break;
@@ -177,11 +157,16 @@ public class PrintResult {
 			break;
 		case "deleteJudgement" : 
 			errorMessage = "강의 평가 삭제 실패.";
+		case "insertStudent":
+			errorMessage = "회원가입이 실패 했습니다";
+			break;
+		case "insertProfessor":
+			errorMessage = "회원가입이 실패 했습니다";
+			break;
+		case "selectJudgementProf" :
+			errorMessage = "평가된 강의 평가가 없습니다.";
 			break;
 
-//		case "delete":
-//			errorMessage = "메뉴 삭제에 실패하셨습니다.";
-//			break;
 
 		}
 		System.out.println("========================================================================");
@@ -197,5 +182,7 @@ public class PrintResult {
 		// TODO Auto-generated method stub
 
 	}
+
+	
 
 }

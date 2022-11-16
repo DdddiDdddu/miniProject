@@ -55,6 +55,11 @@ public class LectureJugService {
 		return list;
 	}
 
+	public static ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	public static boolean modifyJudgement(Map<String, String> parameter) {
 		SqlSession sqlSession = getSqlSession();
