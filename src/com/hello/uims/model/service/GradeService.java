@@ -9,7 +9,6 @@ import com.hello.common.UimsMapper;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
-import com.hello.uims.model.DTO.LectureJugDTO;
 
 import static com.hello.common.Template.getSqlSession;
 
@@ -17,16 +16,16 @@ public class GradeService {
 
 	SqlSession sqlSession = null;
 
-	public GradeService() { // 승재형 파트
+	public GradeService() { // 승재 파트
 
 	}
 
 	// 학생 : 학점 조회
-	public ArrayList<GradeDTO> selectGradeCheck(int studentNo) {
+	public ArrayList<GradeDTO> selectGradeCheck(Map<String, String> parameter) {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-		ArrayList<GradeDTO> list = mapper.selectGradeCheck(studentNo);
+		ArrayList<GradeDTO> list = mapper.selectGradeCheck(parameter);
 
 		sqlSession.close();
 
@@ -73,7 +72,7 @@ public class GradeService {
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
-
+		
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 
@@ -84,11 +83,11 @@ public class GradeService {
 		return list;
 	}
 
-	public boolean inputFinGrade(Map<String, String> parameter) {
+	public boolean updateFinGrade(Map<String, String> parameter) {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-		int result = mapper.inputFinGrade(parameter);
+		int result = mapper.updateFinGrade(parameter);
 
 		if (result > 0)
 			sqlSession.commit();
