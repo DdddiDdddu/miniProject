@@ -252,7 +252,7 @@ public class Controller {
 
 	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
-		StudentDTO student = logInService.selectLoginStudent(parameter);
+		StudentDTO student = loginService.selectLoginStudent(parameter);
 
 		if (student == null) {
 			printResult.printErrorMessage("selectLogin");
