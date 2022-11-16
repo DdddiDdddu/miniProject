@@ -22,13 +22,6 @@ public class LectureJugService {
 		
 	}
 
-	
-	public List<LectureJugDTO> updateJudge(Object inputJudge) {
-		
-		return null;
-	}
-
-
 	public List<LectureJugDTO> selectJudge() {
 		SqlSession sqlSession = getSqlSession();
 		
@@ -98,6 +91,45 @@ public class LectureJugService {
 		sqlSession.close();
 		
 		return list;
+	}
+
+
+	public static boolean modifyJudgement(Map<String, String> parameter) {
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		int result = mapper.modifyJudgement(parameter);
+		
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		return (result > 0) ? true : false;
+	}
+
+
+	public static ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+
+		ArrayList<LectureJugDTO> list = mapper.selectJudgement(parameter);
+		
+		sqlSession.close();
+
+		return list;
+	}
+
+	public static boolean deleteJudgement(Map<String, String> parameter) {
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		int result = mapper.deleteJudgement(parameter);
+		
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		return (result > 0) ? true : false;
 	}
 
 

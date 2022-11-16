@@ -52,9 +52,9 @@ public class Controller {
 
 	public void selectByProfNo(Map<String, String> parameter) {
 
-		int profNo = Integer.parseInt(parameter.get("profNo"));
+		
 
-		ArrayList<LectureDTO> list = gradeService.selectByProfNo(profNo);
+		ArrayList<LectureDTO> list = gradeService.selectByProfNo(parameter);
 
 		if (list != null && !list.isEmpty())
 			printResult.printLecture(list);
@@ -236,7 +236,8 @@ public class Controller {
 			printResult.printStudent(list);
 
 		else
-			printResult.printErrorMessage("selectByProfNo");
+			printResult.printErrorMessage("selectBystudentNo");
+
 	}
 
 	public void inputJudgement(Map<String, String> parameter) {
@@ -249,12 +250,9 @@ public class Controller {
 	}
 
 
-	public void modifyJudge() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
+  	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
+
 
 		StudentDTO student = loginService.selectLoginStudent(parameter);
 
@@ -297,6 +295,39 @@ public class Controller {
 			printResult.printErrorMessage("insertMember");
 		}
 		
+	}
+
+
+	public void modifyJudgement(Map<String, String> parameter) {
+		
+		if (LectureJugService.modifyJudgement(parameter))
+			printResult.printSuccessMessage("modifyJudgement");
+		else
+			printResult.printErrorMessage("modifyJudgement");
+		
+	}
+
+
+	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
+		
+		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgement(parameter);
+
+		if (list != null && !list.isEmpty())
+			printResult.printJudgement(list);
+		else
+			printResult.printErrorMessage("selectJudgement");
+		
+		return (list != null && !list.isEmpty())? list : null;
+		
+	}
+
+
+	public void deleteJudgement(Map<String, String> parameter) {
+
+		if (LectureJugService.deleteJudgement(parameter))
+			printResult.printSuccessMessage("deleteJudgement");
+		else
+			printResult.printErrorMessage("deleteJudgement");
 	}
 
 }

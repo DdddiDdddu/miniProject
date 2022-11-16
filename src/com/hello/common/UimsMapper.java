@@ -70,10 +70,16 @@ public interface UimsMapper {
 	// 회원가입
 	int insertMember(StudentDTO parameter);
 
-  //학생 : 강의 평가 작성
+    //학생 : 강의 평가 작성
 	int inputJudgement(Map<String, String> parameter);
 	
-  //학생 : 강의 목록 조회
+    //학생 : 강의 목록 조회
 	ArrayList<StudentDTO> selectByStudentNo(int studentNo);
+	//학생 : 강의 평가 수정
+	int modifyJudgement(Map<String, String> parameter);
+	//학생 : 강의 평가 목록 조회
+	ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter);
+	//학생 : 강의 평가 삭제
+	int deleteJudgement(Map<String, String> parameter);
 
 }
