@@ -9,32 +9,13 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.hello.common.UimsMapper;
-import com.hello.uims.model.DTO.GradeDTO;
-import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
 public class LectureJugService {
 	
 	public LectureJugService() { // 종호씨 파트 
-		SqlSession sqlSession = null;
-		
-		
 	}
-
-	public List<LectureJugDTO> selectJudge() {
-		SqlSession sqlSession = getSqlSession();
-		
-		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-		
-		List<LectureJugDTO> lectureJugList = mapper.selectJug();
-		
-		sqlSession.close();
-		
-		return lectureJugList;
-		
-	}
-
 
 	public static ArrayList<LectureJugDTO> selectLectureNo(Map<String, String> parameter) {
 		SqlSession sqlSession = getSqlSession();
@@ -47,23 +28,6 @@ public class LectureJugService {
 		return list;
 	}
 
-<<<<<<< HEAD
-
-	public static ArrayList<LectureDTO> selectByLectureNo(int lectureNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-//	public static ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter) {
-//		SqlSession sqlSession = getSqlSession();
-//		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-//		
-//		ArrayList<LectureJugDTO> list = mapper.inputJudgement(parameter);
-//		
-//		sqlSession.close();
-//	}
-=======
 	public static boolean inputJudgement(Map<String, String> parameter) {
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -79,8 +43,6 @@ public class LectureJugService {
 		
 		return (result > 0) ? true : false;
 	}
->>>>>>> refs/heads/master
-
 
 	public static ArrayList<StudentDTO> selectByStudentNo(int studentNo) {
 		SqlSession sqlSession = getSqlSession();

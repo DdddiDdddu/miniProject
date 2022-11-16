@@ -87,14 +87,7 @@ public class PrintResult {
 			System.out.println(lecture);
 
 	}
-	public void printStudent(ArrayList<StudentDTO> list) {
-		System.out.println("================================ 학생 목록 ================================");
-		System.out.println("학생번호\t       학과코드\t  학생이름");
 
-		for (StudentDTO student : list)
-			System.out.println(student);
-		
-	}
 	public void printJudgement(List<LectureJugDTO> list) {
 		System.out.println("================================ 강의 평가 목록 ================================");
 		System.out.println("               강의평가번호 \t     강의번호\t    학번\t        교수번호\t        평가점수\t        한줄평가");
