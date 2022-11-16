@@ -515,6 +515,23 @@ public class UimsMenu {
 
 //		con.inputJudgement(parameter);
 
+	private void showJudge(Map<String, String> parameter) {
+		con.selectJudgement(parameter);
+		
+	}
+	
+	private void viewJudgement(Map<String, String> inputProfNo) {
+		
+		while(true) {
+			con.selectByProfNo(inputProfNo);
+			System.out.print("강의 평가 조회 하고 싶은 ");
+			inputProfNo.put("lectureNo", inputLectureNo().get("lectureNo"));
+			
+			con.selectJudmentProf(inputProfNo);
+			
+			break;
+		}
+		
 	}
 
 }
