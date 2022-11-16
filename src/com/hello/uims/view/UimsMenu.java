@@ -265,6 +265,7 @@ public class UimsMenu {
 
 	}
 
+	// 수강신청 메뉴
 	public void enrollMenu() {
 
 		do {
@@ -272,9 +273,10 @@ public class UimsMenu {
 
 			System.out.println("================================ 수강신청 =================================");
 			System.out.println("1. 강의목록 조회");
-			System.out.println("2. 수강신청");
-			System.out.println("3. 수강신청 내역");
-			System.out.println("4. 수강신청 취소");
+			System.out.println("2. 강의목록 검색");
+			System.out.println("3. 수강신청");
+			System.out.println("4. 수강신청 내역");
+			System.out.println("5. 수강신청 취소");
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
@@ -284,16 +286,19 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				con.selectAllLecture();
+				con.selectAllLecture(); // 강의목록 조회
 				break;
 			case 2:
-				con.enroll(inputEnroll());
+//				con.selectSearch(); // 검색기능 추가
 				break;
 			case 3:
-				con.selectEnroll(inputStudentNo());
+				con.enroll(inputEnroll()); // 수강신청
 				break;
 			case 4:
-				con.deleteEnroll(inputEnroll());
+				con.selectEnroll(inputStudentNo()); // 수강신청 내역
+				break;
+			case 5:
+				con.deleteEnroll(inputEnroll()); // 수강신청 취소 
 				break;
 			case 9:
 				return;
