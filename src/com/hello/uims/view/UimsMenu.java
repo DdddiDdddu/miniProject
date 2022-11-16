@@ -19,7 +19,7 @@ public class UimsMenu {
 
 	public void initialMenu() {
 
-		label: do {
+		do {
 			int no;
 
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
@@ -45,7 +45,7 @@ public class UimsMenu {
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
 					sc.close();
-					break label;
+					return;
 				}
 
 			default:
@@ -189,7 +189,7 @@ public class UimsMenu {
 			System.out.println("2. 수강신청 메뉴");
 			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
-			System.out.println("5. 로그아웃");
+			System.out.println("5. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
@@ -214,8 +214,7 @@ public class UimsMenu {
 				break;
 
 			case 5:
-				initialMenu();
-				break;
+				return;
 
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -256,8 +255,7 @@ public class UimsMenu {
 				break;
 
 			case 9:
-				initialMenu();
-				break;
+				return;
 
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -290,29 +288,22 @@ public class UimsMenu {
 			case 1:
 				con.selectAllLecture();
 				break;
-
 			case 2:
 				con.enroll(inputEnroll());
 				break;
-
 			case 3:
 				con.selectEnroll(inputStudentNo());
 				break;
-				
 			case 4:
 				con.deleteEnroll(inputEnroll());
 				break;
-
 			case 9:
 				return;
-
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-
 		} while (true);
-
 	}
 
 	// 학번 강의코드 입력
@@ -327,7 +318,6 @@ public class UimsMenu {
 		parameter.put("lectureNo", sc.nextLine());
 
 		return parameter;
-
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
@@ -361,8 +351,7 @@ public class UimsMenu {
 				deleteGrade(parameter);
 				break;
 			case 4:
-				profMainMenu();
-				break;
+				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
@@ -635,7 +624,8 @@ public class UimsMenu {
 			case 4: 
 				showJudge(parameter);
 				break;
-
+			case 9:
+				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
