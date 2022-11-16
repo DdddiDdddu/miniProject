@@ -67,7 +67,7 @@ public class PrintResult {
 
 	public void printJudgement(List<LectureJugDTO> list) {
 		System.out.println("================================ 강의 평가 목록 ================================");
-		System.out.println("               강의평가번호 \t     강의번호\t    학번\t        교수번호\t        평가점수\t        한줄평가");
+		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
 		
 		for(LectureJugDTO lectureJug : list)
 			System.out.println(lectureJug);
@@ -76,7 +76,7 @@ public class PrintResult {
 	public void printStudent(ArrayList<StudentDTO> list) {
 		System.out.println("================================ 학생 목록 ================================");
 		System.out.println(
-				"학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
+				"학생번호\t            학과코드\t      학생아이디\t       학생비밀번호\t    학생이름 \t    학생주소\t        학생전화번호\t  학생이메일       입학일          재학상태");
 
 		for (StudentDTO student : list)
 			System.out.println(student);
@@ -85,10 +85,14 @@ public class PrintResult {
 	public void printJudgementProf(ArrayList<LectureJugDTO> list) {
 
 		System.out.println("================================ 강의 평가 목록 ================================");
-		System.out.println("               강의평가번호 \t     강의번호\t    학번\t        교수번호\t        평가점수\t        한줄평가");
+		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
+		
 		
 		for(LectureJugDTO lectureJug : list)
 			System.out.println(lectureJug);
+      
+		System.out.println("강의 평가 조회가 완료됐습니다. 통합관리시스템으로 넘어갑니다.");
+		
 	}
 
 	public void printErrorMessage(String errorCode) {// 각 메소드에서 호출시케이스마다 추가하면서 하자

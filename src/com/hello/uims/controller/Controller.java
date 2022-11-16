@@ -24,7 +24,6 @@ public class Controller {
 	// private final EnrollService enrollService;
 	private GradeService gradeService = new GradeService();
 	// private final LectureJugService lectureJugService;
-	private LoginService loginService = new LoginService();
 	private final EnrollService enrollService;
 	// private final LectureJugService lectureJugService;
 	private final LoginService logInService;
@@ -267,7 +266,7 @@ public class Controller {
 
   	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
-		StudentDTO student = loginService.selectLoginStudent(parameter);
+		StudentDTO student = logInService.selectLoginStudent(parameter);
 
 		if (student == null) {
 			printResult.printErrorMessage("selectLoginStudent");
@@ -279,7 +278,7 @@ public class Controller {
 	
 	public ProfessorDTO selectLoginProfessor(Map<String, String> parameter) {
 		
-		ProfessorDTO professor = loginService.selectLoginProfessor(parameter);
+		ProfessorDTO professor = logInService.selectLoginProfessor(parameter);
 		
 		if (professor == null) {
 			printResult.printErrorMessage("selectLoginProfessor");
@@ -348,6 +347,7 @@ public class Controller {
 			printResult.printJudgement(list);
 		else
 			printResult.printErrorMessage("selectJudgement");
+      
 		return list;
 	
 	}
