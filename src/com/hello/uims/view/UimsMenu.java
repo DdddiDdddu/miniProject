@@ -79,7 +79,7 @@ public class UimsMenu {
 					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
 
 					if (student.getStudentPwd().equals(sc.nextLine())) {
-						stuMainMenu();
+						stuMainMenu(student);
 						break;
 					} else {
 						System.out.println("비밀번호가 틀렸습니다.");
@@ -174,7 +174,7 @@ public class UimsMenu {
 		}
 	}
 
-	public void stuMainMenu() { // 학생용 메뉴 화면
+	public void stuMainMenu(StudentDTO student) { // 학생용 메뉴 화면
 
 		do {
 			int no;

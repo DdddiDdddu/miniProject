@@ -1,15 +1,16 @@
 package com.hello.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.DTO.TimeTableDTO;
-import com.hello.uims.model.DTO.ProfessorDTO;
 
 public interface UimsMapper {
 
@@ -87,15 +88,12 @@ public interface UimsMapper {
 
 	// 회원가입(교수)
 	int insertProfessor(HashMap<String, String> infoMap);
-	//교수 : 강의 평가 조회
-	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
 
 	StudentDTO selectStuId(Map<String, String> parameter);
 
 	int updateStuId(Map<String, String> parameter);
 
 	int deleteStuId(Map<String, String> parameter);
-
 
 	// 교수 : 강의 평가 조회
 	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
