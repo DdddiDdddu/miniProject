@@ -700,7 +700,7 @@ public class UimsMenu {
 			}
 
 			con.deleteJudgement(parameter);
-			break;
+		
 		}
 	}
 
@@ -711,8 +711,17 @@ public class UimsMenu {
 	
 	private void viewJudgement(Map<String, String> inputProfNo) {
 		
+		while(true) {
+			con.selectByProfNo(inputProfNo);
+			System.out.print("강의 평가 조회 하고 싶은 ");
+			inputProfNo.put("lectureNo", inputLectureNo().get("lectureNo"));
+			
+			con.selectJudmentProf(inputProfNo);
+			
+			break;
+		}
 		
-		
+	
 	}
 
 }

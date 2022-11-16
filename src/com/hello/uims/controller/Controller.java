@@ -349,9 +349,9 @@ public class Controller {
 		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgementProf(inputProfNo);
 
 		if (list != null && !list.isEmpty())
-			printResult.printJudgement(list);
+			printResult.printJudgementProf(list);
 		else
-			printResult.printErrorMessage("selectJudgement");
+			printResult.printErrorMessage("selectJudgementProf");
 		
 		return (list != null && !list.isEmpty())? list : null;
 		
