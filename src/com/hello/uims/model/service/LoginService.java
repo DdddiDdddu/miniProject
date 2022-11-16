@@ -35,4 +35,50 @@ public class LoginService {
 
 		return professor;
 	}
+
+	public StudentDTO selectStuId(Map<String, String> parameter) {
+
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+
+		StudentDTO student = mapper.selectStuId(parameter);
+
+		sqlSession.close();
+
+		return student;
+	}
+
+	public boolean updateStuId(Map<String, String> parameter) {
+
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+
+		int result = mapper.updateStuId(parameter);
+
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		sqlSession.close();
+
+		return (result > 0) ? true : false;
+	}
+
+	public boolean deleteStuId(Map<String, String> parameter) {
+		
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		
+		int result = mapper.deleteStuId(parameter);
+		
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+		
+		sqlSession.close();
+		
+		return (result > 0)? true : false;
+	}
 }

@@ -141,41 +141,37 @@ public class UimsMenu {
 		switch (no) {
 		case 1:
 
-			HashMap<String, String> infoMap = new HashMap<>();
-			con.insertStudent(infoMap);
+			HashMap<String, String> infoStuMap = new HashMap<>();
 
 			System.out.println("===============================회원가입===================================");
 			System.out.println("아이디를 설정하세요");
-			infoMap.put("studentId", sc.nextLine());
+			infoStuMap.put("studentId", sc.nextLine());
 			System.out.println("비밀번호를 설정하세요(특수문자 제외)");
-			infoMap.put("studentPwd", sc.nextLine());
+			infoStuMap.put("studentPwd", sc.nextLine());
 			System.out.println("이름을 입력하세요");
-			infoMap.put("studentName", sc.nextLine());
+			infoStuMap.put("studentName", sc.nextLine());
 			System.out.println("휴대전화번호를 입력하세요");
-			infoMap.put("studentTelNo", sc.nextLine());
+			infoStuMap.put("studentTelNo", sc.nextLine());
 
+			con.insertStudent(infoStuMap);
 			break;
+		case 2:
 
-//		case 2:
-//			while (true) {
-//
-//				HashMap<String, String> infoMap = new HashMap<>();
-//			
-//				System.out.println("===============================회원가입===================================");
-//				System.out.println("아이디를 설정하세요");
-//				infoMap.put("professorId", sc.nextLine());
-//				System.out.println("비밀번호를 설정하세요(특수문자 제외)");
-//				infoMap.put("professorPwd", sc.nextLine());
-//				System.out.println("이름을 입력하세요");
-//				infoMap.put("professorName", sc.nextLine());
-//				System.out.println("휴대전화번호를 입력하세요");
-//				infoMap.put("professorTelNo", sc.nextLine());
-//				
-//				con.insertProfessor(infoMap);
-//				break;
-//			}
+			HashMap<String, String> infoProMap = new HashMap<>();
+
+			System.out.println("===============================회원가입===================================");
+			System.out.println("아이디를 설정하세요");
+			infoProMap.put("profId", sc.nextLine());
+			System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+			infoProMap.put("profPwd", sc.nextLine());
+			System.out.println("이름을 입력하세요");
+			infoProMap.put("profName", sc.nextLine());
+			System.out.println("휴대전화번호를 입력하세요");
+			infoProMap.put("profTelNo", sc.nextLine());
+
+			con.insertProfessor(infoProMap);
+			break;
 		}
-
 	}
 
 	public void stuMainMenu() { // 학생용 메뉴 화면
@@ -197,7 +193,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-//				con.myPage();
+				myPage();
 				break;
 
 			case 2:
@@ -222,6 +218,56 @@ public class UimsMenu {
 
 		} while (true);
 
+	}
+
+	private void myPage() {
+		while (true) {
+			System.out.println("=========================== 마이페이지 ===========================");
+			System.out.println("1. 조회");
+			System.out.println("2. 수정");
+			System.out.println("3. 탈퇴");
+			System.out.println("9. 돌아가기");
+			System.out.println("=========================================================================");
+			System.out.print("메뉴 선택 : ");
+
+			int no;
+			no = sc.nextInt();
+			sc.nextLine();
+
+			switch (no) {
+			case 1:
+				con.selectStuId(inputStuId());
+				break;
+			case 2:
+				updateStuId(inputStudentNo());
+				break;
+			case 3:
+				con.deleteStuId(inputStudentNo());
+				return;
+			case 9:
+				System.out.println("이전 메뉴로 돌아갑니다.");
+				return;
+			default:
+				System.out.println("잘못입력하셨습니다.");
+				break;
+			}
+
+		}
+
+	}
+
+	private void updateStuId(Map<String, String> parameter) {
+		
+		System.out.println("수정할 비밀번호를 입력하세요");
+		parameter.put("studentPwd", sc.nextLine());
+		System.out.println("수정할 주소를 입력하세요");
+		parameter.put("address", sc.nextLine());
+		System.out.println("수정할 전화번호를 입력하세요");
+		parameter.put("studentTelNo", sc.nextLine());
+		System.out.println("수정할 이메일을 입력하세요");
+		parameter.put("email", sc.nextLine());
+		
+		con.updateStuId(parameter);
 	}
 
 	public void profMainMenu() { // 교수용 메뉴 화면
@@ -328,7 +374,7 @@ public class UimsMenu {
 			System.out.println("1. 학점 부여");
 			System.out.println("2. 학점 수정");
 			System.out.println("3. 학점 삭제");
-			System.out.println("4. 돌아가기");
+			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
