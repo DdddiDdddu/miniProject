@@ -39,17 +39,20 @@ public class EnrollService {
 		boolean duplication = false;
 		boolean timeDuplication = false;
 
-		// 등록 성공 여부		// 수강신청
+		// 등록 성공 여부
 		int enrollResult = mapper.enroll(parameter);
-		
-		// 강의 중복 여부 
-		System.out.println("신청한 강의" + parameter.get("lectureNo")); // 테스트
-		
+
 		// 수강신청 내역
 		ArrayList<LectureDTO> lectureList = mapper.selectEnroll(parameter);
+		
+		// 강의 중복 여부
+		for (int i = 0; i < lectureList.size() - 1; i++) {
+			System.out.println("인덱스" + lectureList.get(i).getLectureNo());
+			if (lectureList.get(i).getLectureNo() == Integer.parseInt(parameter.get("lectureNo"))) {
+				duplication = true;
+			}
 
-		duplication = lectureList.contains(parameter.get("lectureNo"));
-		System.out.println("수강신청한 강의중 포함하고있는지?" + duplication);
+		}
 
 		// 시간표를 ArrayList로 받아옴
 		ArrayList<TimeTableDTO> timeList = mapper.timeTable(parameter);
@@ -60,13 +63,14 @@ public class EnrollService {
 		// 강의시간 중복 여부, 수강가능 학점 카운트
 		for (TimeTableDTO time : timeList) {
 
-			System.out.println(time.getEnrollId());
-			System.out.println(time.getStudentNo());
-			System.out.println(time.getLectureNo());
-			System.out.println(time.getDay());
-			System.out.println(time.getFirstClass());
-			System.out.println(time.getSecondClass());
-			System.out.println(time.getCredit());
+			// 테스트
+//			System.out.println(time.getEnrollId());
+//			System.out.println(time.getStudentNo());
+//			System.out.println(time.getLectureNo());
+//			System.out.println(time.getDay());
+//			System.out.println(time.getFirstClass());
+//			System.out.println(time.getSecondClass());
+//			System.out.println(time.getCredit());
 
 			if (timeTables[time.getDay()][time.getFirstClass()] == 0)
 				timeTables[time.getDay()][time.getFirstClass()] = time.getLectureNo();
@@ -78,29 +82,21 @@ public class EnrollService {
 			else
 				timeDuplication = true;
 
+			// 수강학점 카운트
 			totalCredit += time.getCredit();
 
-//			for (TimeTableDTO inTime : timeList) {
-//				if (time != inTime) {
-//					if (time.getLectureNo() == inTime.getLectureNo()) {
-//
-//						duplication = true;
-//
-//					}
-//				}
-//			}
 		}
 
-		// 테스트 
-		System.out.println("수강신청 결과" + enrollResult);
-		System.out.println("강의 중복여부" + duplication);
-		System.out.println("시간 중복여부" + timeDuplication);
-		System.out.println("수강학점" + totalCredit);
+		// 테스트
+//		System.out.println("수강신청 결과" + enrollResult);
+//		System.out.println("강의 중복여부" + duplication);
+//		System.out.println("시간 중복여부" + timeDuplication);
+//		System.out.println("수강학점" + totalCredit);
 
 		if (enrollResult > 0 && !duplication && !timeDuplication && totalCredit <= 18) {
 			sqlSession.commit();
 			sqlSession.close();
-
+			
 			return "enrollSuccess";
 
 		} else if (duplication) {
@@ -148,6 +144,7 @@ public class EnrollService {
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
 
+		// 수강신청 취소 성공 여부
 		int result = mapper.deleteEnroll(parameter);
 
 		if (result > 0)

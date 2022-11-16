@@ -8,13 +8,13 @@ import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.DTO.TimeTableDTO;
-import com.hello.uims.model.DTO.ProfessorDTO;
 
 public interface UimsMapper {
 
-	// 전체 강의목록 조회
+	// 강의목록 조회
 	ArrayList<LectureDTO> selectAllLecture();
 
 	// 수강신청
@@ -94,7 +94,6 @@ public interface UimsMapper {
 
 	// 삭제(학생)
 	int deleteStuId(Map<String, String> parameter);
-
 
 	// 교수 : 강의 평가 조회
 	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
