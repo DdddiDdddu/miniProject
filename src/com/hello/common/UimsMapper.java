@@ -27,7 +27,8 @@ public interface UimsMapper {
 
 	// 수강신청 취소
 	int deleteEnroll(Map<String, String> parameter);
-
+	
+	//학점 부
 	int insertGrade(Map<String, String> parameter);
 
 	StudentDTO selectLogin(Map<String, String> parameter);
@@ -44,8 +45,8 @@ public interface UimsMapper {
 	// 교수 : 4가지 점수들 입력
 	int insertScores(Map<String, String> parameter);
 
-	// 교수 : A~D, F 학점 입력
-	int inputFinGrade();
+	// 교수 : A ~ D, F 학점 입력
+	int updateFinGrade(Map<String, String> parameter);
 	
 	// 교수 : 학점 관리를 위한 학점 목록 조회
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);

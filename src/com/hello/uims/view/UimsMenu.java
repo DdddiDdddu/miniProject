@@ -269,7 +269,7 @@ public class UimsMenu {
 			switch (no) {
 			case 1:
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
-				insertGrade(parameter);
+				insertScores(parameter);
 				break;
 			case 2:
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
@@ -289,7 +289,7 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	private void insertGrade(Map<String, String> parameter) {
+	private void insertScores(Map<String, String> parameter) {
 
 		String attScore;
 		String assScore;
@@ -355,20 +355,20 @@ public class UimsMenu {
 
 			System.out.println("=========================================================================");
 			System.out.println("학점을 추가로 입력하시겠습니까? (y/n)");
-			if ('y' == sc.nextLine().charAt(0)) {
+			if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
 				index2++;
 				if (index2 == size) {
+					con.updateFinGrade(parameter);
 					System.out.println("모든 학생의 학점을 부여했습니다. 학점 관리 메뉴로 돌아갑니다.");
 					break;
 				}
 				continue;
 			} else {
+				con.updateFinGrade(parameter);
+				System.out.println("학점 관리 메뉴로 돌아갑니다.");
 				break;
 			}
 		}
-//		if (totStu > 0) {
-//			con.inputFinGrade();
-//		}
 
 	}
 
@@ -433,14 +433,11 @@ public class UimsMenu {
 
 			con.updateGrade(parameter);
 
-//			if (currNo != 0) {
-//				con.inputFinGrade();
-//			}
-
 			System.out.println("추가로 수정하시겠습니까? (y/n)");
-			if ('y' == sc.nextLine().charAt(0)) {
+			if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
 				continue;
 			} else {
+				con.updateFinGrade(parameter);
 				System.out.println("학점 관리 메뉴로 돌아갑니다.");
 				break;
 			}
@@ -462,12 +459,12 @@ public class UimsMenu {
 
 			con.deleteGrade(parameter);
 
-//			con.inputFinGrade(parameter);
 			System.out.println("추가로 삭제하시겠습니까? (y/n)");
-			if ('y' == sc.nextLine().charAt(0)) {
+			if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
 				continue;
 			} else {
 				System.out.println("학점 관리 메뉴로 돌아갑니다.");
+				con.updateFinGrade(parameter);
 				break;
 			}
 		}

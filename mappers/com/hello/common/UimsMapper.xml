@@ -130,20 +130,23 @@
 	</select>
 	<select id="selectGradeCheck" parameterType="hashmap" resultMap="gradeResultMap">
 		SELECT
-		A.LECTURE_NAME,
-		A.PROF_NAME,
-		A.STUDENT_NO,
-		A.STUDENT_NAME,
-		A.ATT_SCORE,
-		A.ASS_SCORE,
-		A.MID_SCORE,
-		A.FIN_SCORE,
-		A.GRADE
-		FROM VIEW_GRADE_CHECK A
-		JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
-		WHERE A.STUDENT_NO = #{ studentNo }
+			   A.LECTURE_NAME,
+		   	   A.PROF_NAME,
+			   A.STUDENT_NO,
+			   A.STUDENT_NAME,
+			   A.ATT_SCORE,
+			   A.ASS_SCORE,
+			   A.MID_SCORE,
+			   A.FIN_SCORE,
+			   A.GRADE
+		  FROM VIEW_GRADE_CHECK A
+		  JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
+		 WHERE A.STUDENT_NO = #{ studentNo }
 		<if test = "profNo != null">
 			AND B.PROF_NO = #{ profNo }
+		</if>
+		<if test = "lectureNo != null">
+			AND B.LECTURE_NO = #{ lectureNo }
 		</if>
 	</select>
 	<select id="selectGrade" parameterType="hashmap"
@@ -159,7 +162,7 @@
 			   A.FIN_SCORE,
 			   A.GRADE
 		  FROM VIEW_GRADE_CHECK A
-		  JOIN GRADE B ON A.GRADE_NO = B.GRADE_NO
+		  JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
 		 WHERE B.PROF_NO = #{ profNo }
 		   AND B.LECTURE_NO = #{ lectureNo }
 	</select>
@@ -189,6 +192,7 @@
 		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
 	 	   AND B.PROF_NO = #{ profNo }
+	 	 ORDER BY A.STUDENT_NO
 	</select>
 	<insert id="insertScores" parameterType="hashmap">
 		INSERT INTO GRADE
@@ -216,26 +220,12 @@
 			DEFAULT
 			)
 	</insert>
-	<update id="inputFinGrade" parameterType="hashmap">
+	<update id="updateFinGrade" parameterType="hashmap">
 		UPDATE GRADE A
-		SET A.GRADE = (SELECT
-                   		 <![CDATA[CASE WHEN B.ATT_SCORE < 7 THEN 'F']]>
-                         <![CDATA[WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.05 THEN 'A+']]>
-                       	 <![CDATA[WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.1 THEN 'A']]>
-                         <![CDATA[WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.15 THEN 'B+']]>
-                 		 <![CDATA[WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.2 THEN 'B']]>
-                         <![CDATA[WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.25 THEN 'C+']]>
-                         <![CDATA[WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.3 THEN 'C']]>
-                         <![CDATA[WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.35 THEN 'D+']]>
-								  ELSE 'D'
-								  END;
-		FROM VIEW_GRADE_CHECK B
-		WHERE A.STUDENT_NO = B.STUDENT_NO)
-		WHERE EXISTS(SELECT
-		0
-		FROM VIEW_GRADE_CHECK B
-		WHERE A.STUDENT_NO = B.STUDENT_NO)
-		AND A.LECTURE_NO = #{ lectureNo }
+		   SET A.GRADE = #{	grade }
+		 WHERE A.STUDENT_NO = #{ studentNo }
+		   AND A.LECTURE_NO = #{ lectureNo }
+		   AND A.PROF_NO = #{ profNo }
 	</update>
 	<update id="updateGrade" parameterType="hashmap">
 		UPDATE GRADE

@@ -54,6 +54,23 @@ public class LectureJugService {
 		return list;
 	}
 
+<<<<<<< HEAD
+
+	public static ArrayList<LectureDTO> selectByLectureNo(int lectureNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+//	public static ArrayList<LectureJugDTO> inputJudgement(Map<String, String> parameter) {
+//		SqlSession sqlSession = getSqlSession();
+//		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+//		
+//		ArrayList<LectureJugDTO> list = mapper.inputJudgement(parameter);
+//		
+//		sqlSession.close();
+//	}
+=======
 	public static boolean inputJudgement(Map<String, String> parameter) {
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -69,6 +86,7 @@ public class LectureJugService {
 		
 		return (result > 0) ? true : false;
 	}
+>>>>>>> refs/heads/master
 
 
 	public static ArrayList<StudentDTO> selectByStudentNo(int studentNo) {
