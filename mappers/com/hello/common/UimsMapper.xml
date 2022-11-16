@@ -77,12 +77,14 @@
 	</resultMap>
 	<select id = "selectLoginStudent" parameterType = "hashmap" resultMap = "studentResultMap">
 		SELECT
+			   STUDENT_NO,
 			   STUDENT_PWD
 		  FROM STUDENT
 		 WHERE STUDENT_ID = #{ studentId }
 	</select>
 	<select id = "selectLoginProfessor" parameterType = "hashmap" resultMap = "professorResultMap">
 		SELECT
+			   PROF_NO,
 			   PROF_PWD
 		  FROM PROFESSOR
 		 WHERE PROF_ID = #{ professorId }

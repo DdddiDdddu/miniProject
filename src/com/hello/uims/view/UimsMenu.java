@@ -74,7 +74,7 @@ public class UimsMenu {
 		case 1:
 			while (true) {
 				StudentDTO student = con.selectLoginStudent(inputStuId());
-
+				
 				if (student != null) {
 					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
 
@@ -96,7 +96,7 @@ public class UimsMenu {
 					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
 
 					if (professor.getProfPwd().equals(sc.nextLine())) {
-						profMainMenu();
+						profMainMenu(professor);
 						break;
 					} else {
 						System.out.println("비밀번호가 틀렸습니다.");
@@ -175,7 +175,10 @@ public class UimsMenu {
 	}
 
 	public void stuMainMenu(StudentDTO student) { // 학생용 메뉴 화면
-
+  
+		HashMap<String, String> sm = new HashMap<>();
+		sm.put("studentNo", String.valueOf(student.getStudentNo()));
+		
 		do {
 			int no;
 
@@ -195,22 +198,17 @@ public class UimsMenu {
 			case 1:
 				myPage();
 				break;
-
 			case 2:
 				enrollMenu();
 				break;
-
 			case 3:
-				con.selectGradeCheck(inputStudentNo());
+				con.selectGradeCheck(sm);
 				break;
-
 			case 4:
-				lectureJug(inputStudentNo());
+				lectureJug(sm);
 				break;
-
 			case 5:
 				return;
-
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
@@ -270,8 +268,10 @@ public class UimsMenu {
 		con.updateStuId(parameter);
 	}
 
-	public void profMainMenu() { // 교수용 메뉴 화면
-		// 이거도 일단 임시로 복붙한거라 다들 자기 파트 부분 수정해 죠 해 줘
+	public void profMainMenu(ProfessorDTO professor) { // 교수용 메뉴 화면
+		HashMap<String, String> pm = new HashMap<>();
+		pm.put("profNo", String.valueOf(professor.getProfNo()));
+		
 		do {
 			int no;
 
@@ -290,25 +290,19 @@ public class UimsMenu {
 			case 1:
 //				con.myPage();
 				break;
-
 			case 2:
-				manageGrade(inputProfNo());
+				manageGrade(pm);
 				break;
-
 			case 3:
-				viewJudgement(inputProfNo());
+				viewJudgement(pm);
 				break;
-
 			case 9:
 				return;
-
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-
 		} while (true);
-
 	}
 
 	// 수강신청 메뉴
@@ -720,6 +714,7 @@ public class UimsMenu {
 	private void modifyJudge(Map<String, String> parameter) {
 		double avg = 0.0;
 		while (true) {
+			
 			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
 			if (list != null && !list.isEmpty()) {
 				System.out.println("=========================================================================");
