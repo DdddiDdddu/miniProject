@@ -351,7 +351,7 @@ public class Controller {
 	
 	}
 	//교수 : 자기 교수번호에 맞는 강의만 조회
-	public void selectJudmentProf(Map<String, String> inputProfNo) {
+	public ArrayList<LectureJugDTO> selectJudmentProf(Map<String, String> inputProfNo) {
 		
 		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgementProf(inputProfNo);
 
