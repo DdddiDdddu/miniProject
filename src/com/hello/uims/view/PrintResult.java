@@ -1,5 +1,6 @@
 package com.hello.uims.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hello.uims.model.DTO.GradeDTO;
@@ -72,6 +73,14 @@ public class PrintResult {
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
 
+	}
+	public void printStudent(ArrayList<StudentDTO> list) {
+		System.out.println("=========================================================================");
+		System.out.println("학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
+
+		for (StudentDTO student : list)
+			System.out.println(student);
+		
 	}
 
 	public void printErrorMessage(String errorCode) {// 각 메소드에서 호출시케이스마다 추가하면서 하자

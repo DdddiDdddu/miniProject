@@ -42,6 +42,7 @@
 		<id property="lectureNo" column="LECTURE_NO" />
 		<result property="deptCode" column="DEPT_CODE" />
 		<result property="profName" column="PROF_NAME" />
+		<result property="profNo" column="PROF_NO" />
 		<result property="lectureName" column="LECTURE_NAME" />
 		<result property="credit" column="CREDIT" />
 		<result property="currNo" column="CURR_NO" />
@@ -54,6 +55,16 @@
 		<id property="enrollId" column="ENROLL_ID" />
 		<result property="studentNo" column="STUDENT_NO" />
 		<result property="lectureNo" column="LECTURE_NO" />
+	</resultMap>
+	<!-- 확인 -->
+	<resultMap type="com.hello.uims.model.DTO.EnrollmentDTO"
+		id="timeTableResultMap">
+		<id property="enrollId" column="ENROLL_ID" />
+		<result property="studentNo" column="STUDENT_NO" />
+		<result property="lectureNo" column="LECTURE_NO" />
+		<result property="day" column="DAY" />
+		<result property="firstClass" column="FIRST_CLASS" />
+		<result property="secondClass" column="SECOND_CLASS" />
 	</resultMap>
 	<select id = "selectLoginStudent" parameterType = "hashmap" resultMap = "studentResultMap">
 		SELECT
@@ -125,30 +136,45 @@
 		)
 	</insert>
 	<!-- 수강신청 내역 -->
-	<select id="selectEnroll" parameterType="hashmap"
-		resultMap="lectureResultMap">
+	<select id="selectEnroll" parameterType="hashmap" resultMap="lectureResultMap">
 		SELECT
-			   B.DEPT_CODE,
-			   B.LECTURE_NO,
-			   B.PROF_NO,
-			   C.PROF_NAME,
-			   B.LECTURE_NAME,
-			   B.CREDIT,
-			   B.CURR_NO,
-			   B.FULL_NO,
-			   B.DAY,
-			   B.TIME
-		  FROM ENROLLMENT A
-		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
-		  JOIN PROFESSOR C ON B.PROF_NO = C.PROF_NO
-		 WHERE STUDENT_NO = #{ studentNo }
-		 ORDER BY LECTURE_NO
+		B.DEPT_CODE,
+		B.LECTURE_NO,
+		B.PROF_NO,
+		C.PROF_NAME,
+		B.LECTURE_NAME,
+		B.CREDIT,
+		B.CURR_NO,
+		B.FULL_NO,
+		B.DAY,
+		B.TIME
+		FROM ENROLLMENT A
+		JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
+		JOIN PROFESSOR C ON B.PROF_NO = C.PROF_NO
+		WHERE 1 = 1
+		AND STUDENT_NO = #{ studentNo }
+		ORDER BY LECTURE_NO
 	</select>
 	<!-- 수강신청 취소 -->
 	<delete id="deleteEnroll" parameterType="hashmap">
-		DELETE FROM ENROLLMENT
-		WHERE STUDENT_NO = #{ studentNo } AND LECTURE_NO = #{ lectureNo }
+		DELETE 
+		FROM ENROLLMENT
+		WHERE 1 = 1
+		AND STUDENT_NO = #{ studentNo } 
+		AND LECTURE_NO = #{ lectureNo }
 	</delete>
+	<!-- 시간표 -->
+	<select id="timeTable" parameterType="hashmap" resultMap="timeTableResultMap">
+		SELECT
+			A.STUDENT_NO, 
+			A.LECTURE_NO, 
+			A.DAY, 
+			A.FIRST_CLASS, 
+			A.SECOND_CLASS
+		FROM V_ENROLLMENT_LECTURE A
+		WHERE 1 = 1
+		AND A.STUDENT_NO = #{ studentNo }
+	</select>
 	<select id="selectGradeCheck" parameterType="_int" resultMap="gradeResultMap">
 		SELECT
 		LECTURE_NAME,
@@ -268,4 +294,25 @@
 		AND STUDENT_NO = #{ studentNo }
 		AND LECTURE_NO = #{ lectureNo }
 	</delete>
+	<insert id="inputJudgement" parameterType="hashmap">
+	INSERT INTO GRADE
+		(
+		JUDGEMENT_NO,
+		LECTURE_NO,
+		STUDENT_NO,
+		PROF_NO,
+		STU_JUG_SCORE,
+		STU_ONE_JUG
+		)
+		VALUES
+		(
+		SEQ_GRADE_NO,
+		#{ judgementNo },
+		#{ lectureNo },
+		#{ studentNo },
+		#{ profNo },
+		#{ StuJugScore },
+		#{ StuOneJug },
+		DEFAULT
+	</insert>
 </mapper>
