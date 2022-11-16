@@ -147,7 +147,7 @@ public class Controller {
 		}
 	}
 
-	// 수강신청 강의목록
+	// 강의목록 조회
 	public void selectAllLecture() {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
@@ -156,35 +156,29 @@ public class Controller {
 			printResult.printLecture(lectureList);
 		else
 			printResult.printErrorMessage("selectLecture");
-
 	}
 
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
+		// 수강신청 결과별 출력메세지 
 		switch (enrollService.enroll(parameter)) {
 		case "enrollSuccess":
 			printResult.printSuccessMessage("enrollSuccess");
 			break;
-
 		case "totalCreditOver":
 			printResult.printErrorMessage("totalCreditOver");
 			break;
-
 		case "enrollFail":
 			printResult.printErrorMessage("enrollFail");
 			break;
-
 		case "timeDuplication":
 			printResult.printErrorMessage("timeDuplication");
 			break;
-
 		case "duplication":
 			printResult.printErrorMessage("duplication");
 			break;
-
 		}
-
 	}
 
 	// 수강신청 내역
@@ -196,7 +190,6 @@ public class Controller {
 			printResult.printLecture(lectureList);
 		else
 			printResult.printErrorMessage("selectEnroll");
-
 	}
 
 	// 수강신청 취소
@@ -206,7 +199,6 @@ public class Controller {
 			printResult.printSuccessMessage("deleteEnroll");
 		else
 			printResult.printErrorMessage("deleteEnroll");
-
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
@@ -227,7 +219,6 @@ public class Controller {
 			printResult.printSuccessMessage("updateGrade");
 		else
 			printResult.printErrorMessage("updateGrade");
-
 	}
 
 	public void deleteGrade(Map<String, String> parameter) {
@@ -236,7 +227,6 @@ public class Controller {
 			printResult.printSuccessMessage("deleteGrade");
 		else
 			printResult.printErrorMessage("deleteGrade");
-
 	}
 
 	public void selectByStudentNo(Map<String, String> parameter) {
@@ -250,7 +240,6 @@ public class Controller {
 
 		else
 			printResult.printErrorMessage("selectBystudentNo");
-
 	}
 
 	public void inputJudgement(Map<String, String> parameter) {
@@ -259,7 +248,6 @@ public class Controller {
 
 		else
 			printResult.printErrorMessage("inputJudgement");
-
 	}
 
 	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
@@ -271,7 +259,6 @@ public class Controller {
 		}
 
 		return student;
-
 	}
 
 	public ProfessorDTO selectLoginProfessor(Map<String, String> parameter) {
@@ -305,7 +292,7 @@ public class Controller {
 		}
 	}
 
-	public void insertProfessor(HashMap<String, String> infoMap) {
+  public void insertProfessor(HashMap<String, String> infoMap) {
 
 //		int profNo = Integer.parseInt(infoMap.get("profNo"));
 //		String profPwd = infoMap.get("profPwd");

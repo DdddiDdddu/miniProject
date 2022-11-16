@@ -13,7 +13,7 @@ import com.hello.uims.model.DTO.ProfessorDTO;
 
 public interface UimsMapper {
 
-	// 전체 강의목록 조회
+	// 강의목록 조회
 	ArrayList<LectureDTO> selectAllLecture();
 
 	// 수강신청

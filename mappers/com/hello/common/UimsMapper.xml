@@ -176,7 +176,7 @@
 		  FROM STUDENT
 		 WHERE STUDENT_NO = #{ studentNo }
 	</delete>
-	<!-- 수강신청 강의목록 조회 -->
+	<!-- 강의목록 조회 -->
 	<select id="selectAllLecture" parameterType="hashmap"
 		resultMap="lectureResultMap">
 		SELECT
@@ -360,16 +360,13 @@
 		AND STUDENT_NO = #{ studentNo }
 		AND LECTURE_NO = #{ lectureNo }
 	</delete>
-	
 	<!-- 학생이름 보여주기 -->
 	<select id="selectByStudentNo" parameterType="hashmap" resultMap="studentResultMap">
 		SELECT 
    			STUDENT_NO,
     		DEPT_CODE,
     		STUDENT_NAME
-    
 		FROM STUDENT
-	 	 
 	 	WHERE STUDENT_NO = #{ studentNo }
 	</select>
 	<!-- 강의평가 작성부분 -->
@@ -414,14 +411,12 @@
 		  FROM LECTURE_JUG A
 		  JOIN STUDENT B ON A.STUDENT_NO = B.STUDENT_NO
 		 WHERE B.STUDENT_NO = #{ studentNo }
-		  
 	</select>
 	<!-- 강의 평가 삭제 -->
 	<delete id="deleteJudgement" parameterType="hashmap">
 		DELETE FROM LECTURE_JUG
 		WHERE  JUDGEMENT_NO = #{ judgementNo }
 		AND STUDENT_NO = #{ studentNo }
-		
 	</delete>
 	<!-- 교수 : 강의 평가 목록 조회 -->
 	<select id="selectJudgementProf" parameterType="hashmap"
@@ -436,6 +431,5 @@
 		  FROM LECTURE_JUG A
 		  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
 		 WHERE B.PROF_NO = #{ profNo }
-		  
 	</select>
 </mapper>
