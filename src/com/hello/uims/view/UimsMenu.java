@@ -19,7 +19,7 @@ public class UimsMenu {
 
 	public void initialMenu() {
 
-		label: do {
+		do {
 			int no;
 
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
@@ -45,7 +45,7 @@ public class UimsMenu {
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
 					sc.close();
-					break label;
+					return;
 				}
 
 			default:
@@ -75,10 +75,10 @@ public class UimsMenu {
 			while (true) {
 				StudentDTO student = con.selectLoginStudent(inputStuId());
 
-				if(student != null) {
+				if (student != null) {
 					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
 
-					if(student.getStudentPwd().equals(sc.nextLine())) {
+					if (student.getStudentPwd().equals(sc.nextLine())) {
 						stuMainMenu();
 						break;
 					} else {
@@ -91,14 +91,14 @@ public class UimsMenu {
 		case 2:
 			while (true) {
 				ProfessorDTO professor = con.selectLoginProfessor(inputProId());
-				
-				if(professor != null) {
+
+				if (professor != null) {
 					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
-					
-					if(professor.getProfPwd().equals(sc.nextLine())) {
+
+					if (professor.getProfPwd().equals(sc.nextLine())) {
 						profMainMenu();
 						break;
-					}else {
+					} else {
 						System.out.println("비밀번호가 틀렸습니다.");
 					}
 				}
@@ -109,11 +109,11 @@ public class UimsMenu {
 	}
 
 	private HashMap<String, String> inputProId() {
-	
+
 		HashMap<String, String> loginMap = new HashMap<>();
 		System.out.println("아이디를 입력하세요");
 		loginMap.put("professorId", sc.nextLine());
-		
+
 		return loginMap;
 	}
 
@@ -122,7 +122,7 @@ public class UimsMenu {
 		HashMap<String, String> loginMap = new HashMap<>();
 		System.out.println("아이디를 입력하세요");
 		loginMap.put("studentId", sc.nextLine());
-		
+
 		return loginMap;
 
 	}
@@ -137,26 +137,25 @@ public class UimsMenu {
 
 		int no = sc.nextInt();
 		sc.nextLine();
-		
+
 		switch (no) {
 		case 1:
-			
-				HashMap<String, String> infoMap = new HashMap<>();
-				con.insertStudent(infoMap);
-				
-				System.out.println("===============================회원가입===================================");
-				System.out.println("아이디를 설정하세요");
-				infoMap.put("studentId", sc.nextLine());
-				System.out.println("비밀번호를 설정하세요(특수문자 제외)");
-				infoMap.put("studentPwd", sc.nextLine());
-				System.out.println("이름을 입력하세요");
-				infoMap.put("studentName", sc.nextLine());
-				System.out.println("휴대전화번호를 입력하세요");
-				infoMap.put("studentTelNo", sc.nextLine());
-				
-				break;
-			
-			
+
+			HashMap<String, String> infoMap = new HashMap<>();
+			con.insertStudent(infoMap);
+
+			System.out.println("===============================회원가입===================================");
+			System.out.println("아이디를 설정하세요");
+			infoMap.put("studentId", sc.nextLine());
+			System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+			infoMap.put("studentPwd", sc.nextLine());
+			System.out.println("이름을 입력하세요");
+			infoMap.put("studentName", sc.nextLine());
+			System.out.println("휴대전화번호를 입력하세요");
+			infoMap.put("studentTelNo", sc.nextLine());
+
+			break;
+
 //		case 2:
 //			while (true) {
 //
@@ -175,10 +174,10 @@ public class UimsMenu {
 //				con.insertProfessor(infoMap);
 //				break;
 //			}
-		}	
-		
+		}
+
 	}
-	
+
 	public void stuMainMenu() { // 학생용 메뉴 화면
 
 		do {
@@ -214,8 +213,7 @@ public class UimsMenu {
 				break;
 
 			case 5:
-				initialMenu();
-				break;
+				return;
 
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -256,8 +254,7 @@ public class UimsMenu {
 				break;
 
 			case 9:
-				initialMenu();
-				break;
+				return;
 
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -267,7 +264,6 @@ public class UimsMenu {
 		} while (true);
 
 	}
-
 
 	public void enrollMenu() {
 
@@ -298,7 +294,7 @@ public class UimsMenu {
 			case 3:
 				con.selectEnroll(inputStudentNo());
 				break;
-				
+
 			case 4:
 				con.deleteEnroll(inputEnroll());
 				break;
@@ -360,9 +356,8 @@ public class UimsMenu {
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 				deleteGrade(parameter);
 				break;
-			case 4:
-				profMainMenu();
-				break;
+			case 9:
+				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
@@ -588,7 +583,7 @@ public class UimsMenu {
 		return parameter;
 
 	}
-	
+
 	private Map<String, String> inputJudgemnetNo() {
 
 		System.out.println("=========================================================================");
@@ -600,14 +595,14 @@ public class UimsMenu {
 
 		return parameter;
 	}
+
 	private void lectureJug(Map<String, String> parameter) {
 
 		do {
 
 			int no;
 			con.selectByStudentNo(parameter);
-			
-			
+
 			System.out.println("================================ 강의평가 =================================");
 			System.out.println("1. 교수 강의 평가");
 			System.out.println("2. 평가 수정");
@@ -629,13 +624,14 @@ public class UimsMenu {
 			case 2:
 				modifyJudge(parameter);
 				break;
-			case 3: 
-				deleteJudge(parameter); 
+			case 3:
+				deleteJudge(parameter);
 				break;
-			case 4: 
+			case 4:
 				showJudge(parameter);
 				break;
-
+			case 9:
+				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
@@ -673,26 +669,25 @@ public class UimsMenu {
 
 		System.out.println("교수님에게 할 말 한 문장으로 남겨주세요.");
 		parameter.put("stuOneJug", sc.nextLine());
-		
+
 		System.out.println("평가 점수의 평균은 " + avg + "입니다.");
 		con.inputJudgement(parameter);
 
 	}
-	
+
 	private void modifyJudge(Map<String, String> parameter) {
 		double avg = 0.0;
-		while(true) {
+		while (true) {
 			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
 			if (list != null && !list.isEmpty()) {
 				System.out.print("강의 평가 수정할 ");
 				parameter.put("judgementNo", inputJudgemnetNo().get("judgementNo"));
 			} else {
 				System.out.println("옳지 않은 강의 평가 번호 입니다 다시 입력해주세요.");
-				
+
 			}
 			break;
 		}
-		
 
 		System.out.println("질문에 알맞게 점수를 입력해주세요");
 		System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
@@ -706,7 +701,7 @@ public class UimsMenu {
 		System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
 		int score5 = sc.nextInt();
 		sc.nextLine();
-		
+
 		avg = (double) (score1 + score2 + score3 + score4 + score5) / 5;
 
 		String avgs = Double.toString(avg);
@@ -715,13 +710,14 @@ public class UimsMenu {
 
 		System.out.println("교수님에게 할 말 한 문장으로 다시 남겨주세요.");
 		parameter.put("stuOneJug", sc.nextLine());
-		
+
 		System.out.println("평가 점수의 평균은 " + avg + "입니다.");
 		con.modifyJudgement(parameter);
-		
+
 	}
+
 	private void deleteJudge(Map<String, String> parameter) {
-		
+
 		while (true) {
 			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
 			if (list != null && !list.isEmpty()) {
@@ -732,27 +728,27 @@ public class UimsMenu {
 			}
 
 			con.deleteJudgement(parameter);
-		
+
 		}
 	}
-	
+
 	private void showJudge(Map<String, String> parameter) {
 		con.selectJudgement(parameter);
-		
+
 	}
-	
+
 	private void viewJudgement(Map<String, String> inputProfNo) {
-		
-		while(true) {
+
+		while (true) {
 			con.selectByProfNo(inputProfNo);
 			System.out.print("강의 평가 조회 하고 싶은 ");
 			inputProfNo.put("lectureNo", inputLectureNo().get("lectureNo"));
-			
+
 			con.selectJudmentProf(inputProfNo);
-			
+
 			break;
 		}
-		
+
 	}
 
 }
