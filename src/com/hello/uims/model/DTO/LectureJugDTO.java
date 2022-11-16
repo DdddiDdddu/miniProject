@@ -73,8 +73,8 @@ public class LectureJugDTO {
 	}
 
 	public String toString() {
-		return "LectureJugDTO [judgementNo=" + judgementNo + ", lectureNo=" + lectureNo + ", studentNo=" + studentNo
-				+ ", profNo=" + profNo + ", stuJugScore=" + stuJugScore + ", stuOneJug=" + stuOneJug + "]";
+		return judgementNo + "                " + lectureNo + "        " + profNo + "      " + 
+				studentNo + "     " + stuJugScore + "        " +stuOneJug;
 	}
 	
 	

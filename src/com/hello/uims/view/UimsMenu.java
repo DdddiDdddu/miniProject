@@ -184,7 +184,7 @@ public class UimsMenu {
 			System.out.println("2. 수강신청 메뉴");
 			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
-			System.out.println("5. 로그아웃");
+			System.out.println("5. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
@@ -332,29 +332,22 @@ public class UimsMenu {
 			case 1:
 				con.selectAllLecture();
 				break;
-
 			case 2:
 				con.enroll(inputEnroll());
 				break;
-
 			case 3:
 				con.selectEnroll(inputStudentNo());
 				break;
-
 			case 4:
 				con.deleteEnroll(inputEnroll());
 				break;
-
 			case 9:
 				return;
-
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-
 		} while (true);
-
 	}
 
 	// 학번 강의코드 입력
@@ -369,7 +362,6 @@ public class UimsMenu {
 		parameter.put("lectureNo", sc.nextLine());
 
 		return parameter;
-
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
@@ -382,7 +374,7 @@ public class UimsMenu {
 			System.out.println("1. 학점 부여");
 			System.out.println("2. 학점 수정");
 			System.out.println("3. 학점 삭제");
-			System.out.println("4. 돌아가기");
+			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
@@ -402,7 +394,7 @@ public class UimsMenu {
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 				deleteGrade(parameter);
 				break;
-			case 4:
+			case 9:
 				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -599,14 +591,13 @@ public class UimsMenu {
 
 		Map<String, String> parameter = new HashMap<>();
 		parameter.put("studentNo", studentNo);
-
+		
 		return parameter;
 
 	}
 
 	private Map<String, String> inputProfNo() {
-
-		System.out.println("=========================================================================");
+		
 		System.out.print("교수 번호를 입력하세요. : ");
 		String profNo = sc.nextLine();
 
@@ -619,7 +610,6 @@ public class UimsMenu {
 
 	private Map<String, String> inputLectureNo() {
 
-		System.out.println("=========================================================================");
 		System.out.print("강의 번호를 입력하세요. : ");
 		String lectureNo = sc.nextLine();
 
@@ -632,7 +622,6 @@ public class UimsMenu {
 
 	private Map<String, String> inputJudgemnetNo() {
 
-		System.out.println("=========================================================================");
 		System.out.print("강의 평가 번호를 입력하세요. : ");
 		String judgementNo = sc.nextLine();
 
@@ -688,12 +677,14 @@ public class UimsMenu {
 	}
 
 	private void updateJudge(Map<String, String> parameter) {
-		System.out.println("강의 평가할 교수의 ");
+		System.out.println("=========================================================================");
+		System.out.print("강의 평가할 교수의 ");
 		parameter.put("profNo", inputProfNo().get("profNo"));
+		System.out.println("=========================================================================");
 		System.out.print("강의 평가할 ");
 		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 		double avg = 0.0;
-
+		
 		System.out.println("질문에 알맞게 점수를 입력해주세요");
 		System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
 		int score1 = sc.nextInt();
@@ -726,6 +717,7 @@ public class UimsMenu {
 		while (true) {
 			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
 			if (list != null && !list.isEmpty()) {
+				System.out.println("=========================================================================");
 				System.out.print("강의 평가 수정할 ");
 				parameter.put("judgementNo", inputJudgemnetNo().get("judgementNo"));
 			} else {
@@ -767,6 +759,7 @@ public class UimsMenu {
 		while (true) {
 			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
 			if (list != null && !list.isEmpty()) {
+				System.out.println("=========================================================================");
 				System.out.print("강의 평가 삭제할 ");
 				parameter.put("judgementNo", inputJudgemnetNo().get("judgementNo"));
 			} else {
@@ -774,6 +767,8 @@ public class UimsMenu {
 			}
 
 			con.deleteJudgement(parameter);
+
+			break;
 
 		}
 	}
@@ -787,7 +782,8 @@ public class UimsMenu {
 
 		while (true) {
 			con.selectByProfNo(inputProfNo);
-			System.out.print("강의 평가 조회 하고 싶은 ");
+			System.out.println("=========================================================================");
+			System.out.println("강의 평가 조회 하고 싶은 ");
 			inputProfNo.put("lectureNo", inputLectureNo().get("lectureNo"));
 
 			con.selectJudmentProf(inputProfNo);

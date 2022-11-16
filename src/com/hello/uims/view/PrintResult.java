@@ -48,7 +48,6 @@ public class PrintResult {
 		}
 
 		System.out.println(successMessage);
-
 	}
 
 	public void printGrade(List<GradeDTO> list) {
@@ -58,7 +57,6 @@ public class PrintResult {
 
 		for (GradeDTO grade : list)
 			System.out.println(grade);
-
 	}
 
 	public void printLecture(List<LectureDTO> list) {
@@ -68,22 +66,20 @@ public class PrintResult {
 
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
-
 	}
 
 	public void printJudgement(List<LectureJugDTO> list) {
 		System.out.println("================================ 강의 평가 목록 ================================");
-		System.out.println("               강의평가번호 \t     강의번호\t    학번\t        교수번호\t        평가점수\t        한줄평가");
+		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
 		
 		for(LectureJugDTO lectureJug : list)
 			System.out.println(lectureJug);
-		
 	}
 
 	public void printStudent(ArrayList<StudentDTO> list) {
 		System.out.println("================================ 학생 목록 ================================");
 		System.out.println(
-				"학생번호\t       학과코드\t    학생아이디\t     학생비밀번호\t  학생이름 \t  학생주소\t 학생전화번호\t   학생이메일    입학일     재학상태");
+				"학생번호\t            학과코드\t      학생아이디\t       학생비밀번호\t    학생이름 \t    학생주소\t        학생전화번호\t  학생이메일       입학일          재학상태");
 
 		for (StudentDTO student : list)
 			System.out.println(student);
@@ -92,10 +88,13 @@ public class PrintResult {
 	public void printJudgementProf(ArrayList<LectureJugDTO> list) {
 
 		System.out.println("================================ 강의 평가 목록 ================================");
-		System.out.println("               강의평가번호 \t     강의번호\t    학번\t        교수번호\t        평가점수\t        한줄평가");
+		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
+		
 		
 		for(LectureJugDTO lectureJug : list)
 			System.out.println(lectureJug);
+      
+		System.out.println("강의 평가 조회가 완료됐습니다. 통합관리시스템으로 넘어갑니다.");
 		
 	}
 
@@ -170,12 +169,9 @@ public class PrintResult {
 		case "selectJudgementProf" :
 			errorMessage = "평가된 강의 평가가 없습니다.";
 			break;
-
-
 		}
 		System.out.println("========================================================================");
 		System.out.println(errorMessage);
-
 	}
 
 	public void printLogStu(StudentDTO id) {
@@ -183,10 +179,6 @@ public class PrintResult {
 	}
 
 	public void printErrorLogStu(String string) {
-		// TODO Auto-generated method stub
 
 	}
-
-	
-
 }
