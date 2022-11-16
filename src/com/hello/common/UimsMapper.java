@@ -35,6 +35,7 @@ public interface UimsMapper {
   
 	// 학생 로그인
 	StudentDTO selectLoginStudent(Map<String, String> parameter);
+	
 	// 교수 로그인
 	ProfessorDTO selectLoginProfessor(Map<String, String> parameter);
 
@@ -90,6 +91,12 @@ public interface UimsMapper {
 	int insertProfessor(ProfessorDTO pro);
 	//교수 : 강의 평가 조회
 	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
+
+	
+
+	
+
+	
 
 
 }

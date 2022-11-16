@@ -34,7 +34,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				logIn();
+				login();
 				break;
 
 			case 2:
@@ -57,7 +57,7 @@ public class UimsMenu {
 
 	}
 
-	public void logIn() {
+	public void login() {
 
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
@@ -140,8 +140,9 @@ public class UimsMenu {
 		
 		switch (no) {
 		case 1:
-			while (true) {
+			
 				HashMap<String, String> infoMap = new HashMap<>();
+				con.insertStudent(infoMap);
 				
 				System.out.println("===============================회원가입===================================");
 				System.out.println("아이디를 설정하세요");
@@ -153,30 +154,27 @@ public class UimsMenu {
 				System.out.println("휴대전화번호를 입력하세요");
 				infoMap.put("studentTelNo", sc.nextLine());
 				
-				con.insertStudent(infoMap);
-				
 				break;
-				
-				}
 			
-		case 2:
-			while (true) {
-
-				HashMap<String, String> infoMap = new HashMap<>();
 			
-				System.out.println("===============================회원가입===================================");
-				System.out.println("아이디를 설정하세요");
-				infoMap.put("professorId", sc.nextLine());
-				System.out.println("비밀번호를 설정하세요(특수문자 제외)");
-				infoMap.put("professorPwd", sc.nextLine());
-				System.out.println("이름을 입력하세요");
-				infoMap.put("professorName", sc.nextLine());
-				System.out.println("휴대전화번호를 입력하세요");
-				infoMap.put("professorTelNo", sc.nextLine());
-				
-				con.insertProfessor(infoMap);
-				break;
-			}
+//		case 2:
+//			while (true) {
+//
+//				HashMap<String, String> infoMap = new HashMap<>();
+//			
+//				System.out.println("===============================회원가입===================================");
+//				System.out.println("아이디를 설정하세요");
+//				infoMap.put("professorId", sc.nextLine());
+//				System.out.println("비밀번호를 설정하세요(특수문자 제외)");
+//				infoMap.put("professorPwd", sc.nextLine());
+//				System.out.println("이름을 입력하세요");
+//				infoMap.put("professorName", sc.nextLine());
+//				System.out.println("휴대전화번호를 입력하세요");
+//				infoMap.put("professorTelNo", sc.nextLine());
+//				
+//				con.insertProfessor(infoMap);
+//				break;
+//			}
 		}	
 		
 	}
