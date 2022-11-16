@@ -1,15 +1,15 @@
 package com.hello.uims.view;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import com.hello.uims.controller.Controller;
-import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
-import com.hello.uims.model.DTO.ProfessorDTO;
+import com.hello.uims.model.service.LectureJugService;
+import com.hello.uims.model.DTO.EnrollmentDTO;
+import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.LectureJugService;
 
@@ -21,6 +21,7 @@ public class UimsMenu {
 	public void initialMenu() {
 
 		label: do {
+
 			int no;
 
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
@@ -35,7 +36,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				login();
+				logIn();
 				break;
 			case 2:
 				signUp();
@@ -53,7 +54,7 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	public void login() {
+	public void logIn() {
 		// 학생용 교수용 나누나?? 나눌거면 메인메뉴도 교수용거 하나 만들어야겠다
 		// 이거는 제대로 됬나 확인하려고 일단 임시로 이렇게 해둔거고 지수형이 추가해줘용
 		System.out.println("=============로그인============");
@@ -68,12 +69,13 @@ public class UimsMenu {
 		switch (no) {
 		case 1:
 			while (true) {
-				StudentDTO student = con.selectLoginStudent(inputStuId());
+				StudentDTO student = con.selectLogin(inputStuId());
 
-				if(student != null) {
-					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
+				if (student != null) {
 
-					if(student.getStudentPwd().equals(sc.nextLine())) {
+					System.out.println("비밀번호를 입력하세요");
+
+					if (student.getStudentPwd().equalsIgnoreCase(sc.nextLine())) {
 						stuMainMenu();
 						break;
 					} else {
@@ -83,31 +85,9 @@ public class UimsMenu {
 			}
 			break;
 		case 2:
-			while (true) {
-				ProfessorDTO professor = con.selectLoginProfessor(inputProId());
-				
-				if(professor != null) {
-					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
-					
-					if(professor.getProfPwd().equals(sc.nextLine())) {
-						profMainMenu();
-						break;
-					}else {
-						System.out.println("비밀번호가 틀렸습니다.");
-					}
-				}
-			}
+			// con.profMainMenu();
 			break;
 		}
-	}
-
-	private HashMap<String, String> inputProId() {
-	
-		HashMap<String, String> loginMap = new HashMap<>();
-		System.out.println("아이디를 입력하세요");
-		loginMap.put("professorId", sc.nextLine());
-		
-		return loginMap;
 	}
 
 	private HashMap<String, String> inputStuId() {
@@ -115,7 +95,7 @@ public class UimsMenu {
 		HashMap<String, String> loginMap = new HashMap<>();
 		System.out.println("아이디를 입력하세요");
 		loginMap.put("studentId", sc.nextLine());
-		
+
 		return loginMap;
 
 	}
@@ -174,7 +154,6 @@ public class UimsMenu {
 		
 	}
 
-	
 	public void stuMainMenu() { // 학생용 메뉴 화면
 
 		do {
@@ -182,7 +161,7 @@ public class UimsMenu {
 
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 마이페이지");
-			System.out.println("2. 수강신청");
+			System.out.println("2. 수강신청 메뉴");
 			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
 			System.out.println("5. 로그아웃");
@@ -312,12 +291,6 @@ public class UimsMenu {
 
 		return parameter;
 
-	}
-
-	private void enroll() {
-
-		
-		
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴

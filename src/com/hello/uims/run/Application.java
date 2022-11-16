@@ -13,6 +13,7 @@ public class Application {
 		// 수강신청 테스트
 //		menu.logIn();
 		
+//		menu.stuMainMenu();
+		
 	}
-
 }

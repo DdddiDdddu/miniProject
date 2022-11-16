@@ -1,20 +1,17 @@
 package com.hello.uims.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
-import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.EnrollService;
 import com.hello.uims.model.service.GradeService;
 import com.hello.uims.model.service.LectureJugService;
-import com.hello.uims.model.service.LoginService;
-import com.hello.uims.model.service.SignUpService;
+import com.hello.uims.model.service.LogInService;
 import com.hello.uims.view.PrintResult;
 
 public class Controller {
@@ -23,19 +20,17 @@ public class Controller {
 	// private final EnrollService enrollService;
 	private GradeService gradeService = new GradeService();
 	// private final LectureJugService lectureJugService;
-	private LoginService loginService = new LoginService();
+	private LogInService loginService = new LogInService();
 	private final EnrollService enrollService;
 	// private final LectureJugService lectureJugService;
-	private final LoginService logInService;
-	private SignUpService signUpService = new SignUpService();
-	
+	private final LogInService logInService;
+
 	public Controller() {
 		enrollService = new EnrollService();
-		logInService = new LoginService();
+		logInService = new LogInService();
 		// lectureJugService = new LectureJugService()
 
 	}
-
 
 	public void selectGradeCheck(Map<String, String> parameter) {
 
@@ -113,10 +108,28 @@ public class Controller {
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
-		if (enrollService.enroll(parameter))
-			printResult.printSuccessMessage("enroll");
-		else
-			printResult.printErrorMessage("enroll");
+		switch (enrollService.enroll(parameter)) {
+		case "enrollSuccess":
+			printResult.printSuccessMessage("enrollSuccess");
+			break;
+
+		case "totalCreditOver":
+			printResult.printErrorMessage("totalCreditOver");
+			break;
+
+		case "enrollFail":
+			printResult.printErrorMessage("enrollFail");
+			break;
+
+		case "timeDuplication":
+			printResult.printErrorMessage("timeDuplication");
+			break;
+
+		case "duplication":
+			printResult.printErrorMessage("duplication");
+			break;
+
+		}
 
 	}
 
@@ -188,13 +201,11 @@ public class Controller {
 //
 //	}
 
-
 	public ArrayList<LectureJugDTO> selectLectureNo(Map<String, String> parameter) {
 		ArrayList<LectureJugDTO> list = LectureJugService.selectLectureNo(parameter);
 
 		return list;
 	}
-
 
 //	public void selectLecture() {
 //
@@ -206,18 +217,18 @@ public class Controller {
 //		else
 //			printResult.printErrorMessage("selectLecture");
 //	}
-	
+
 //	public void inputJudgement(Map<String, String> parameter) {
 //		ArrayList<LectureJugDTO> list = LectureJugService.inputJudgement(parameter);
 //
 //	}
 
-	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
+	public StudentDTO selectLogin(Map<String, String> parameter) {
 
-		StudentDTO student = loginService.selectLoginStudent(parameter);
+		StudentDTO student = loginService.selectLogin(parameter);
 
 		if (student == null) {
-			printResult.printErrorMessage("selectLoginStudent");
+			printResult.printErrorMessage("selectLogin");
 		}
 
 		return student;
