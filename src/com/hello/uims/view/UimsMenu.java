@@ -15,7 +15,6 @@ import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 import com.hello.uims.model.service.LectureJugService;
 
-
 public class UimsMenu {
 
 	private static Scanner sc = new Scanner(System.in);
@@ -47,7 +46,7 @@ public class UimsMenu {
 
 			case 9:
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
-				if ('y' == sc.next().toLowerCase().charAt(0)) {
+				if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
 					sc.close();
 					break label;
 				}
@@ -177,7 +176,7 @@ public class UimsMenu {
 				break;
 
 			case 3:
-				con.gradeCheck(inputStudentNo());
+				con.selectGradeCheck(inputStudentNo());
 				break;
 
 			case 4:
@@ -197,7 +196,7 @@ public class UimsMenu {
 
 	}
 
-	private void profMainMenu() { // 교수용 메뉴 화면
+	public void profMainMenu() { // 교수용 메뉴 화면
 		// 이거도 일단 임시로 복붙한거라 다들 자기 파트 부분 수정해 죠 해 줘
 		do {
 			int no;
@@ -258,7 +257,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				con.selectLecture();
+//				con.selectLecture();
 //				enroll();
 				break;
 
@@ -305,12 +304,10 @@ public class UimsMenu {
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
 
-		con.selectByProfNo(parameter);
-		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
-
 		int no;
 
 		do {
+			con.selectByProfNo(parameter);
 			System.out.println("================================ 학점 관리 ================================");
 			System.out.println("1. 학점 부여");
 			System.out.println("2. 학점 수정");
@@ -324,88 +321,210 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				insertGrade(parameter);
+				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
+				insertScores(parameter);
 				break;
-
 			case 2:
-//				con.updateGrade(inputLectureNo());
+				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
+				updateGrade(parameter);
 				break;
-
 			case 3:
-//				con.deleteGrade(inputLectureNo());
+				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
+				deleteGrade(parameter);
 				break;
-
 			case 4:
 				profMainMenu();
 				break;
-
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-
 		} while (true);
 	}
 
-	private void insertGrade(Map<String, String> parameter) {
+	private void insertScores(Map<String, String> parameter) {
 
+		String attScore;
+		String assScore;
+		String midScore;
+		String finScore;
 		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
-		parameter.put("currNo", Integer.toString(enroll.size()));
-		System.out.println("================================ 학생 목록 ================================");
 
-//		HashMap<String, Integer> gradeMap = new HashMap<>();
-
-		for (EnrollmentDTO enrollmentDTO : enroll) {
-			System.out.println(enrollmentDTO);
-
-			System.out.print("학번을 입력하세요. : ");
-			parameter.put("studentNo", sc.next());
-			System.out.print("출석 점수를 입력하세요. : ");
-			parameter.put("attScore", sc.next());
-			System.out.print("과제 점수를 입력하세요. : ");
-			parameter.put("assScore", sc.next());
-			System.out.print("중간 점수를 입력하세요. : ");
-			parameter.put("midScore", sc.next());
-			System.out.print("기말 점수를 입력하세요. : ");
-			parameter.put("finScore", sc.next());
+		int index1 = 0;
+		int index2 = 1;
+		int size = enroll.size();
+		while (index1 < size) {
+			System.out.println("================================ 수강생 목록 ================================");
+			while (index1 < size) {
+				System.out.println(enroll.get(index1).getStudentNo());
+				index1++;
+			}
+			System.out.println("=========================================================================");
+			index1 = index2;
+			System.out.print("학점을 입력할 학생의 ");
+			parameter.put("studentNo", inputStudentNo().get("studentNo"));
+			System.out.println("=========================================================================");
+			while (true) {
+				System.out.print("출석 점수를 입력하세요. (0 ~ 10) : ");
+				attScore = sc.nextLine();
+				if (Integer.parseInt(attScore) < 0 || Integer.parseInt(attScore) > 10) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 10의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("attScore", attScore);
+			while (true) {
+				System.out.print("과제 점수를 입력하세요. (0 ~ 30) : ");
+				assScore = sc.nextLine();
+				if (Integer.parseInt(assScore) < 0 || Integer.parseInt(assScore) > 30) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 30의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("assScore", assScore);
+			while (true) {
+				System.out.print("중간고사 점수를 입력하세요. (0 ~ 30) : ");
+				midScore = sc.nextLine();
+				if (Integer.parseInt(midScore) < 0 || Integer.parseInt(midScore) > 30) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 30의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("midScore", midScore);
+			while (true) {
+				System.out.print("기말고사 점수를 입력하세요. (0 ~ 30) : ");
+				finScore = sc.nextLine();
+				if (Integer.parseInt(finScore) < 0 || Integer.parseInt(finScore) > 30) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 30의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("finScore", finScore);
 			con.insertScores(parameter);
-		}
 
-		if (enroll != null && !enroll.isEmpty()) {
-			con.inputFinGrade(parameter);
+			System.out.println("=========================================================================");
+			System.out.println("학점을 추가로 입력하시겠습니까? (y/n)");
+			if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
+				index2++;
+				if (index2 == size) {
+					con.updateFinGrade(parameter);
+					System.out.println("모든 학생의 학점을 부여했습니다. 학점 관리 메뉴로 돌아갑니다.");
+					break;
+				}
+				continue;
+			} else {
+				con.updateFinGrade(parameter);
+				System.out.println("학점 관리 메뉴로 돌아갑니다.");
+				break;
+			}
 		}
 
 	}
 
 	private void updateGrade(Map<String, String> parameter) {
 
-		con.selectGrade(parameter);
+		String attScore;
+		String assScore;
+		String midScore;
+		String finScore;
 
-		parameter.put("studentNo", inputStudentNo().get("studentNo"));
-		System.out.println("================================ 학점 수정 ================================");
-		System.out.print("출석 점수를 입력하세요. : ");
-		parameter.put("attScore", sc.nextLine());
-		System.out.print("과제 점수를 입력하세요. : ");
-		parameter.put("assScore", sc.nextLine());
-		System.out.print("중간고사 점수를 입력하세요. : ");
-		parameter.put("midScore", sc.nextLine());
-		System.out.print("기말고사 점수를 입력하세요. : ");
-		parameter.put("finScore", sc.nextLine());
+		while (true) {
+			ArrayList<GradeDTO> list = con.selectGrade(parameter);
 
-		con.updateGrade(parameter);
+			if (list != null && !list.isEmpty()) {
+				System.out.println("=========================================================================");
+				System.out.print("수정할 학생의 ");
+				parameter.put("studentNo", inputStudentNo().get("studentNo"));
+			} else {
+				break;
+			}
+			System.out.println("================================ 학점 수정 ================================");
+			while (true) {
+				System.out.print("출석 점수를 입력하세요. (0 ~ 10) : ");
+				attScore = sc.nextLine();
+				if (Integer.parseInt(attScore) < 0 || Integer.parseInt(attScore) > 10) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 10의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("attScore", attScore);
+			while (true) {
+				System.out.print("과제 점수를 입력하세요. (0 ~ 30) : ");
+				assScore = sc.nextLine();
+				if (Integer.parseInt(assScore) < 0 || Integer.parseInt(assScore) > 30) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 30의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("assScore", assScore);
+			while (true) {
+				System.out.print("중간고사 점수를 입력하세요. (0 ~ 30) : ");
+				midScore = sc.nextLine();
+				if (Integer.parseInt(midScore) < 0 || Integer.parseInt(midScore) > 30) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 30의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("midScore", midScore);
+			while (true) {
+				System.out.print("기말고사 점수를 입력하세요. (0 ~ 30) : ");
+				finScore = sc.nextLine();
+				if (Integer.parseInt(finScore) < 0 || Integer.parseInt(finScore) > 30) {
+					System.out.println("잘못된 값을 입력했습니다. 0 ~ 30의 점수를 입력해주세요.");
+				} else {
+					break;
+				}
+			}
+			parameter.put("finScore", finScore);
 
+			con.updateGrade(parameter);
+
+			System.out.println("추가로 수정하시겠습니까? (y/n)");
+			if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
+				continue;
+			} else {
+				con.updateFinGrade(parameter);
+				System.out.println("학점 관리 메뉴로 돌아갑니다.");
+				break;
+			}
+		}
 	}
 
 	private void deleteGrade(Map<String, String> parameter) {
 
+		while (true) {
+			ArrayList<GradeDTO> list = con.selectGrade(parameter);
 
-		} while (true);
+			if (list != null && !list.isEmpty()) {
+				System.out.println("=========================================================================");
+				System.out.print("학점을 삭제할 학생의 ");
+				parameter.put("studentNo", inputStudentNo().get("studentNo"));
+			} else {
+				break;
+			}
 
+			con.deleteGrade(parameter);
+
+			System.out.println("추가로 삭제하시겠습니까? (y/n)");
+			if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
+				continue;
+			} else {
+				System.out.println("학점 관리 메뉴로 돌아갑니다.");
+				con.updateFinGrade(parameter);
+				break;
+			}
+		}
 	}
 
 	private Map<String, String> inputStudentNo() {
 
-		System.out.println("=========================================================================");
 		System.out.print("학번을 입력하세요. : ");
 		String studentNo = sc.nextLine();
 
@@ -442,11 +561,7 @@ public class UimsMenu {
 
 	}
 
-
-
-
 	private void lectureJug(Map<String, String> parameter) {
-
 
 		do {
 
@@ -470,17 +585,17 @@ public class UimsMenu {
 			case 1:
 				updateJudge(parameter);
 				break;
-			case 2: con.modifyJudge(); break;
+			case 2:
+				con.modifyJudge();
+				break;
 			case 3: // lectureJugService.deleteJudge(deleteJudge()); break;
 			case 4: // lectureJugService.selectJudge(); break;
+
+			default:
+				System.out.println("잘못 입력하셨습니다.");
+				break;
 			}
 
-
-				default:
-					System.out.println("잘못 입력하셨습니다.");
-					break;
-				}
-			}
 		} while (true);
 
 	}
