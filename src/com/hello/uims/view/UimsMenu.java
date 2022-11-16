@@ -271,16 +271,16 @@ public class UimsMenu {
 	}
 
 
-	private void enrollMenu() {
+	public void enrollMenu() {
 
 		do {
-
 			int no;
 
 			System.out.println("================================ 수강신청 =================================");
-			System.out.println("1. 수강신청");
-			System.out.println("2. 수강신청 내역");
-			System.out.println("3. 수강신청 취소");
+			System.out.println("1. 강의목록 조회");
+			System.out.println("2. 수강신청");
+			System.out.println("3. 수강신청 내역");
+			System.out.println("4. 수강신청 취소");
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
@@ -290,16 +290,19 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-//				con.selectLecture();
-//				enroll();
+				con.selectAllLecture();
 				break;
 
 			case 2:
-//				con.selectEnroll();
+				con.enroll(inputEnroll());
 				break;
 
 			case 3:
-//				con.deleteEnroll(inputEnrollId());
+				con.selectEnroll(inputStudentNo());
+				break;
+				
+			case 4:
+				con.deleteEnroll(inputEnroll());
 				break;
 
 			case 9:
@@ -644,10 +647,6 @@ public class UimsMenu {
 
 	}
 
-	
-
-
-
 	private void updateJudge(Map<String, String> parameter) {
 		System.out.println("강의 평가할 교수의 ");
 		parameter.put("profNo", inputProfNo().get("profNo"));
@@ -738,6 +737,7 @@ public class UimsMenu {
 		
 		}
 	}
+	
 	private void showJudge(Map<String, String> parameter) {
 		con.selectJudgement(parameter);
 		
