@@ -65,9 +65,6 @@ public interface UimsMapper {
 	// 학생 : 강의 평가 메뉴
 	ArrayList<LectureJugDTO> updateJug(Map<String, String> parameter);
 
-	// 회원가입
-	int insertMember(StudentDTO parameter);
-
 	// 학생 : 강의 평가 작성
 	int inputJudgement(Map<String, String> parameter);
 
@@ -88,14 +85,20 @@ public interface UimsMapper {
 
 	// 회원가입(교수)
 	int insertProfessor(HashMap<String, String> infoMap);
-  
+	
+	// 조회(학생)
 	StudentDTO selectStuId(Map<String, String> parameter);
-
+	
+	// 수정(학생)
 	int updateStuId(Map<String, String> parameter);
 
+	// 삭제(학생)
 	int deleteStuId(Map<String, String> parameter);
 
 	// 교수 : 강의 평가 조회
 	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
+
+	// 조회(교수)
+	ProfessorDTO selectProfId(Map<String, String> parameter);
 
 }

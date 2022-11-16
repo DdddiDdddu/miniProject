@@ -90,7 +90,7 @@ public class UimsMenu {
 
 		case 2:
 			while (true) {
-				ProfessorDTO professor = con.selectLoginProfessor(inputProId());
+				ProfessorDTO professor = con.selectLoginProfessor(inputProfId());
 
 				if (professor != null) {
 					System.out.println("비밀번호를 입력하세요(대소문자 구분합니다)");
@@ -108,11 +108,11 @@ public class UimsMenu {
 
 	}
 
-	private HashMap<String, String> inputProId() {
+	private HashMap<String, String> inputProfId() {
 
 		HashMap<String, String> loginMap = new HashMap<>();
 		System.out.println("아이디를 입력하세요");
-		loginMap.put("professorId", sc.nextLine());
+		loginMap.put("profId", sc.nextLine());
 
 		return loginMap;
 	}
@@ -196,7 +196,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				myPage();
+				myPageStudent();
 				break;
 			case 2:
 				enrollMenu();
@@ -218,7 +218,7 @@ public class UimsMenu {
 
 	}
 
-	private void myPage() {
+	private void myPageStudent() {
 		while (true) {
 			System.out.println("=========================== 마이페이지 ===========================");
 			System.out.println("1. 조회");
@@ -276,7 +276,7 @@ public class UimsMenu {
 			int no;
 
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
-			System.out.println("1. 지수형");
+			System.out.println("1. 마이페이지");
 			System.out.println("2. 학점관리");
 			System.out.println("3. 강의평가조회");
 			System.out.println("9. 로그아웃");
@@ -288,7 +288,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-//				con.myPage();
+				myPageProfessor();
 				break;
 			case 2:
 				manageGrade(pm);
@@ -303,6 +303,48 @@ public class UimsMenu {
 				break;
 			}
 		} while (true);
+	}
+	
+	private void myPageProfessor() {
+		while (true) {
+			System.out.println("=========================== 마이페이지 ===========================");
+			System.out.println("1. 조회");
+			System.out.println("2. 수정");
+			System.out.println("3. 탈퇴");
+			System.out.println("9. 돌아가기");
+			System.out.println("=========================================================================");
+			System.out.print("메뉴 선택 : ");
+
+			int no;
+			no = sc.nextInt();
+			sc.nextLine();
+
+			switch (no) {
+			case 1:
+				con.selectProfId(inputProfId());
+				break;
+			case 2:
+				updateProfId(inputProfNo());
+				break;
+			case 3:
+				con.deleteProfId(inputProfNo());
+				return;
+			case 9:
+				System.out.println("이전 메뉴로 돌아갑니다.");
+				return;
+			default:
+				System.out.println("잘못입력하셨습니다.");
+				break;
+			}
+
+		}
+
+	}
+
+
+	private void updateProfId(Map<String, String> inputProfNo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// 수강신청 메뉴

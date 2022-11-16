@@ -6,6 +6,7 @@ import java.util.List;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
+import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
@@ -174,11 +175,24 @@ public class PrintResult {
 		System.out.println(errorMessage);
 	}
 
-	public void printLogStu(StudentDTO id) {
-		System.out.println(id);
+//	public void printLogStu(StudentDTO id) {
+//		System.out.println(id);
+//	}
+//
+//	public void printErrorLogStu(String string) {
+//
+//	}
+
+	public void printProfessor(ArrayList<ProfessorDTO> list) {
+		
+		System.out.println("================================ 교수 목록 ================================");
+		System.out.println(
+				"교수번호\t            학과코드\t      교수아이디\t       교수비밀번호\t    교수이름 \t    교수주소\t        교수전화번호\t  교수이메일       입학일          재학상태");
+
+		for (ProfessorDTO professor : list)
+			System.out.println(professor);
+		
 	}
 
-	public void printErrorLogStu(String string) {
 
-	}
 }
