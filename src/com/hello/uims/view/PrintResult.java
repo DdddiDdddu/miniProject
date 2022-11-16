@@ -39,7 +39,7 @@ public class PrintResult {
 //		case "delete":
 //			successMessage = "메뉴 삭제에 성공하셨습니다.";
 //			break;
-		case "enroll":
+		case "enrollSuccess":
 			successMessage = "수강신청 성공";
 			break;
 		case "deleteEnroll":
@@ -102,15 +102,26 @@ public class PrintResult {
 			break;
 		case "updateGrade":
 			errorMessage = "수강중인 학생이 아닙니다.";
-		case "enroll":
+		case "enrollFail":
 			errorMessage = "수강신청 실패";
+			break;
+		case "totalCreditOver":
+			errorMessage = "수강신청 실패 : 수강학점 초과";
+			break;
+		case "timeDuplication":
+			errorMessage = "수강신청 실패 : 시간이 중복되는 강의";
+			break;
+		case "duplication":
+			errorMessage = "수강신청 실패 : 이미 수강신청한 강의";
 			break;
 		case "selectLecture":
 			errorMessage = "수강신청한 강의가 없습니다.";
-			break; 
+			break;
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
+
+//			enrollFail":totalCreditOver\":enrollSuccess\":
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";
 //			break;
@@ -126,8 +137,7 @@ public class PrintResult {
 
 	public void printErrorLogStu(String string) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

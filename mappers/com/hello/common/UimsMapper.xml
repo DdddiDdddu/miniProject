@@ -44,8 +44,7 @@
 		<result property="studentNo" column="STUDENT_NO" />
 		<result property="lectureNo" column="LECTURE_NO" />
 	</resultMap>
-	<!-- 확인 -->
-	<resultMap type="com.hello.uims.model.DTO.EnrollmentDTO"
+	<resultMap type="com.hello.uims.model.DTO.TimeTableDTO"
 		id="timeTableResultMap">
 		<id property="enrollId" column="ENROLL_ID" />
 		<result property="studentNo" column="STUDENT_NO" />
@@ -53,6 +52,7 @@
 		<result property="day" column="DAY" />
 		<result property="firstClass" column="FIRST_CLASS" />
 		<result property="secondClass" column="SECOND_CLASS" />
+		<result property="credit" column="CREDIT" />
 	</resultMap>
 	<select id = "selectLogin" parameterType = "hashmap" resultMap = "studentResultMap">
 		SELECT
@@ -119,11 +119,13 @@
 	<!-- 시간표 -->
 	<select id="timeTable" parameterType="hashmap" resultMap="timeTableResultMap">
 		SELECT
+			A.ENROLL_ID,
 			A.STUDENT_NO, 
 			A.LECTURE_NO, 
 			A.DAY, 
 			A.FIRST_CLASS, 
-			A.SECOND_CLASS
+			A.SECOND_CLASS,
+			A.CREDIT
 		FROM V_ENROLLMENT_LECTURE A
 		WHERE 1 = 1
 		AND A.STUDENT_NO = #{ studentNo }
