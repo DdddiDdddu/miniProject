@@ -535,7 +535,7 @@ public class UimsMenu {
 			case 2:
 				con.modifyJudge();
 				break;
-			case 3: // lectureJugService.deleteJudge(deleteJudge()); break;
+//			case 3:  lectureJugService.deleteJudge(deleteJudge()); break;
 			case 4: // lectureJugService.selectJudge(); break;
 
 			default:

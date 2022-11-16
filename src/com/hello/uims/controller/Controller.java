@@ -225,7 +225,7 @@ public class Controller {
 
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 
-		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
+//		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
 
 		if (list != null && !list.isEmpty())
 			printResult.printStudent(list);

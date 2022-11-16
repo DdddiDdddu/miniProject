@@ -64,7 +64,7 @@ public class PrintResult {
 	public void printGrade(List<GradeDTO> list) {
 
 		System.out.println("================================ 학점 목록 ================================");
-		System.out.println("강의명\t교수명\t학번\t학생명\t출석점수\t과제점수\t중간점수\t기말점수\t학점");
+		System.out.println("강의명\t교수명\t학번\t학생명\t출석점수\t과제점수\t중간점수\t기말점수 \t학점");
 
 		for (GradeDTO grade : list)
 			System.out.println(grade);

@@ -16,7 +16,7 @@ public class GradeService {
 
 	SqlSession sqlSession = null;
 
-	public GradeService() { // 승재형 파트
+	public GradeService() { // 승재 파트
 
 	}
 

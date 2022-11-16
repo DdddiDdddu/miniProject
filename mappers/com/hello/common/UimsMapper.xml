@@ -130,18 +130,18 @@
 	</select>
 	<select id="selectGradeCheck" parameterType="hashmap" resultMap="gradeResultMap">
 		SELECT
-		A.LECTURE_NAME,
-		A.PROF_NAME,
-		A.STUDENT_NO,
-		A.STUDENT_NAME,
-		A.ATT_SCORE,
-		A.ASS_SCORE,
-		A.MID_SCORE,
-		A.FIN_SCORE,
-		A.GRADE
-		FROM VIEW_GRADE_CHECK A
-		JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
-		WHERE A.STUDENT_NO = #{ studentNo }
+			   A.LECTURE_NAME,
+		   	   A.PROF_NAME,
+			   A.STUDENT_NO,
+			   A.STUDENT_NAME,
+			   A.ATT_SCORE,
+			   A.ASS_SCORE,
+			   A.MID_SCORE,
+			   A.FIN_SCORE,
+			   A.GRADE
+		  FROM VIEW_GRADE_CHECK A
+		  JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
+		 WHERE A.STUDENT_NO = #{ studentNo }
 		<if test = "profNo != null">
 			AND B.PROF_NO = #{ profNo }
 		</if>

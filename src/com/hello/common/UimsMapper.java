@@ -45,7 +45,7 @@ public interface UimsMapper {
 	// 교수 : 4가지 점수들 입력
 	int insertScores(Map<String, String> parameter);
 
-	// 교수 : A~D, F 학점 입력
+	// 교수 : A ~ D, F 학점 입력
 	int updateFinGrade(Map<String, String> parameter);
 	
 	// 교수 : 학점 관리를 위한 학점 목록 조회
