@@ -47,7 +47,7 @@ public class PrintResult {
 //		case "delete":
 //			successMessage = "메뉴 삭제에 성공하셨습니다.";
 //			break;
-		case "enrollSuccess":
+		case "enroll":
 			successMessage = "수강신청 성공";
 			break;
 		case "deleteEnroll":
@@ -145,17 +145,8 @@ public class PrintResult {
 		case "deleteGrade":
 			errorMessage = "수강중인 학생이 아닙니다.";
 			break;
-    case "enrollFail":
+		case "enroll":
 			errorMessage = "수강신청 실패";
-			break;
-		case "totalCreditOver":
-			errorMessage = "수강신청 실패 : 수강학점 초과";
-			break;
-		case "timeDuplication":
-			errorMessage = "수강신청 실패 : 시간이 중복되는 강의";
-			break;
-		case "duplication":
-			errorMessage = "수강신청 실패 : 이미 수강신청한 강의";
 			break;
 		case "selectLecture":
 			errorMessage = "수강신청한 강의가 없습니다.";
@@ -166,6 +157,7 @@ public class PrintResult {
 		case "insertMember":
 			errorMessage = "회원가입이 실패 했습니다";
 			break;
+
 		case "modifyJudgement" :
 			errorMessage = "강의 평가 수정 실패.";
 			break;
@@ -182,7 +174,6 @@ public class PrintResult {
 //		case "delete":
 //			errorMessage = "메뉴 삭제에 실패하셨습니다.";
 //			break;
-
 		}
 		System.out.println("========================================================================");
 		System.out.println(errorMessage);
