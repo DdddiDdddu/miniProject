@@ -1,4 +1,13 @@
 package com.hello.uims.model.service;
+import static com.hello.common.Template.getSqlSession;
+
+//import java.util.HashMap;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.hello.common.UimsMapper;
+import com.hello.uims.model.DTO.StudentDTO;
+
 
 public class SignUpService {
 
