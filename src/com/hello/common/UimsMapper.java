@@ -89,7 +89,7 @@ public interface UimsMapper {
 	// 회원가입(교수)
 	int insertProfessor(ProfessorDTO pro);
 	//교수 : 강의 평가 조회
-	ArrayList<StudentDTO> selectJudgementProf(Map<String, String> inputProfNo);
+	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
 
 
 }

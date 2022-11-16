@@ -56,8 +56,14 @@ public class LectureJugService {
 	}
 
 	public static ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo) {
-		// TODO Auto-generated method stub
-		return null;
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+		
+		ArrayList<LectureJugDTO> list = mapper.selectJudgementProf(inputProfNo);
+
+		sqlSession.close();
+		
+		return list;
 	}
 
 
