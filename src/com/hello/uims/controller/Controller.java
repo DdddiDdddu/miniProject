@@ -1,6 +1,7 @@
 package com.hello.uims.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,12 +37,9 @@ public class Controller {
 
 	}
 
-
 	public void selectGradeCheck(Map<String, String> parameter) {
 
-		int studentNo = Integer.parseInt(parameter.get("studentNo"));
-
-		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(studentNo);
+		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(parameter);
 
 		if (list != null && !list.isEmpty())
 			printResult.printGrade(list);
@@ -53,9 +51,7 @@ public class Controller {
 
 	public void selectByProfNo(Map<String, String> parameter) {
 
-		int profNo = Integer.parseInt(parameter.get("profNo"));
-
-		ArrayList<LectureDTO> list = gradeService.selectByProfNo(profNo);
+		ArrayList<LectureDTO> list = gradeService.selectByProfNo(parameter);
 
 		if (list != null && !list.isEmpty())
 			printResult.printLecture(list);
@@ -67,11 +63,14 @@ public class Controller {
 
 	public void insertScores(Map<String, String> parameter) {
 
-		if (gradeService.insertScores(parameter))
-			printResult.printSuccessMessage("insertGrade");
+		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(parameter);
 
-		else
-			printResult.printErrorMessage("insertGrade");
+		if (list != null && !list.isEmpty()) {
+			printResult.printErrorMessage("insertScores");
+		} else {
+			if (gradeService.insertScores(parameter))
+				printResult.printSuccessMessage("insertScores");
+		}
 
 	}
 
@@ -88,14 +87,65 @@ public class Controller {
 
 	}
 
-	public void inputFinGrade(Map<String, String> parameter) {
+	public void updateFinGrade(Map<String, String> parameter) {
 
-		if (gradeService.inputFinGrade(parameter))
+		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
+		ArrayList<GradeDTO> list2 = new ArrayList<>();
+		GradeDTO grade;
+		int totScore = 0;
+		int result = 0;
 
-			printResult.printSuccessMessage("inputFinGrade");
-		else
-			printResult.printErrorMessage("inputFinGrade");
+		for (int i = 0; i < list.size(); i++) {
+			grade = new GradeDTO();
+			totScore = list.get(i).getAttScore() + list.get(i).getAssScore() + list.get(i).getMidScore()
+					+ list.get(i).getFinScore();
+			grade.setAttScore(list.get(i).getAttScore());
+			grade.setAssScore(totScore);
+			grade.setStudentNo(list.get(i).getStudentNo());
+			list2.add(grade);
+		}
 
+		list2.sort(new Comparator<GradeDTO>() {
+			@Override
+			public int compare(GradeDTO o1, GradeDTO o2) {
+
+				return o1.getAssScore() >= o2.getAssScore() ? -1 : 1;
+			}
+		});
+
+		for (int i = 0; i < list2.size(); i++) {
+
+			parameter.put("studentNo", Integer.toString(list2.get(i).getStudentNo()));
+			if (list2.get(i).getAttScore() < 7) {
+				parameter.put("grade", "F");
+			} else if (i <= list2.size() * 0.1) {
+				parameter.put("grade", "A+");
+			} else if (i <= list2.size() * 0.2) {
+				parameter.put("grade", "A");
+			} else if (i <= list2.size() * 0.3) {
+				parameter.put("grade", "B+");
+			} else if (i <= list2.size() * 0.4) {
+				parameter.put("grade", "B");
+			} else if (i <= list2.size() * 0.5) {
+				parameter.put("grade", "C+");
+			} else if (i <= list2.size() * 0.6) {
+				parameter.put("grade", "C");
+			} else if (i <= list2.size() * 0.7) {
+				parameter.put("grade", "D+");
+			} else {
+				parameter.put("grade", "D");
+			}
+
+			if (gradeService.updateFinGrade(parameter)) {
+				result++;
+			}
+		}
+
+		if (result == list2.size()) {
+			printResult.printSuccessMessage("updateFinGrade");
+		} else {
+			printResult.printErrorMessage("updateFinGrade");
+		}
 	}
 
 	// 수강신청 강의목록
@@ -113,10 +163,28 @@ public class Controller {
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
-		if (enrollService.enroll(parameter))
-			printResult.printSuccessMessage("enroll");
-		else
-			printResult.printErrorMessage("enroll");
+		switch (enrollService.enroll(parameter)) {
+		case "enrollSuccess":
+			printResult.printSuccessMessage("enrollSuccess");
+			break;
+
+		case "totalCreditOver":
+			printResult.printErrorMessage("totalCreditOver");
+			break;
+
+		case "enrollFail":
+			printResult.printErrorMessage("enrollFail");
+			break;
+
+		case "timeDuplication":
+			printResult.printErrorMessage("timeDuplication");
+			break;
+
+		case "duplication":
+			printResult.printErrorMessage("duplication");
+			break;
+
+		}
 
 	}
 
@@ -142,11 +210,7 @@ public class Controller {
 
 	}
 
-	public void lectureJug() {
-
-	}
-
-	public void selectGrade(Map<String, String> parameter) {
+	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
 
 		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
 
@@ -154,7 +218,8 @@ public class Controller {
 			printResult.printGrade(list);
 		else
 			printResult.printErrorMessage("selectGrade");
-
+		
+		return (list != null && !list.isEmpty())? list : null;
 	}
 
 	public void updateGrade(Map<String, String> parameter) {
@@ -167,52 +232,40 @@ public class Controller {
 	}
 
 	public void deleteGrade(Map<String, String> parameter) {
-
+		
 		if (gradeService.deleteGrade(parameter))
 			printResult.printSuccessMessage("deleteGrade");
 		else
 			printResult.printErrorMessage("deleteGrade");
 
 	}
+  
+	public void selectByStudentNo(Map<String, String> parameter) {
 
-//	public void selectByLectureNo(Map<String, String> parameter) {
-//		int lectureNo = Integer.parseInt(parameter.get("lectureNo"));
-//
-//		ArrayList<LectureJugDTO> list = LectureJugService.selectByLectureNo(lectureNo);
-//
-//		if (list != null && !list.isEmpty()) {
-//			printResult.printLecture(list);
-//		} else {
-//			printResult.printErrorMessage("selectByProfNo");
-//		}
-//
-//	}
+		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 
+		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
 
-	public ArrayList<LectureJugDTO> selectLectureNo(Map<String, String> parameter) {
-		ArrayList<LectureJugDTO> list = LectureJugService.selectLectureNo(parameter);
+		if (list != null && !list.isEmpty())
+			printResult.printStudent(list);
 
-		return list;
+		else
+			printResult.printErrorMessage("selectBystudentNo");
+
+	}
+
+	public void inputJudgement(Map<String, String> parameter) {
+		if (LectureJugService.inputJudgement(parameter))
+			printResult.printSuccessMessage("inputJudgement");
+
+		else
+			printResult.printErrorMessage("inputJudgement");
+		
 	}
 
 
-//	public void selectLecture() {
-//
-//		List<LectureDTO> lectureList = EnrollService.selectLecture();
-//
-//		if (lectureList != null)
-//			printResult.printLecture(lectureList);
-//
-//		else
-//			printResult.printErrorMessage("selectLecture");
-//	}
-	
-//	public void inputJudgement(Map<String, String> parameter) {
-//		ArrayList<LectureJugDTO> list = LectureJugService.inputJudgement(parameter);
-//
-//	}
 
-	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
+  	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
 		StudentDTO student = loginService.selectLoginStudent(parameter);
 
@@ -273,7 +326,51 @@ public class Controller {
 		}else {
 			printResult.printErrorMessage("insertMember");
 		}
+		
+	}
+
+
+	public void modifyJudgement(Map<String, String> parameter) {
+		
+		if (LectureJugService.modifyJudgement(parameter))
+			printResult.printSuccessMessage("modifyJudgement");
+		else
+			printResult.printErrorMessage("modifyJudgement");
+		
+	}
+
+
+	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
+		
+		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgement(parameter);
+
+		if (list != null && !list.isEmpty())
+			printResult.printJudgement(list);
+		else
+			printResult.printErrorMessage("selectJudgement");
 	
+	}
+	//교수 : 자기 교수번호에 맞는 강의만 조회
+	public void selectJudmentProf(Map<String, String> inputProfNo) {
+		
+		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgementProf(inputProfNo);
+
+		if (list != null && !list.isEmpty())
+			printResult.printJudgementProf(list);
+		else
+			printResult.printErrorMessage("selectJudgementProf");
+		
+		return (list != null && !list.isEmpty())? list : null;
+		
+	}
+
+
+	public void deleteJudgement(Map<String, String> parameter) {
+
+		if (LectureJugService.deleteJudgement(parameter))
+			printResult.printSuccessMessage("deleteJudgement");
+		else
+			printResult.printErrorMessage("deleteJudgement");
 	}
 
 }
