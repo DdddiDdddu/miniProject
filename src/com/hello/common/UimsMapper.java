@@ -18,7 +18,7 @@ public interface UimsMapper {
 
 	// 수강신청
 	int enroll(Map<String, String> parameter);
-	
+
 	// 강의시간 조회
 	ArrayList<TimeTableDTO> timeTable(Map<String, String> parameter);
 
@@ -27,19 +27,19 @@ public interface UimsMapper {
 
 	// 수강신청 취소
 	int deleteEnroll(Map<String, String> parameter);
-	
-	//학점 부
+
+	// 학점 부여
 	int insertGrade(Map<String, String> parameter);
-  
+
 	// 학생 로그인
 	StudentDTO selectLoginStudent(Map<String, String> parameter);
-	
+
 	// 교수 로그인
 	ProfessorDTO selectLoginProfessor(Map<String, String> parameter);
 
 	// 학생 : 학점 조회
 	ArrayList<GradeDTO> selectGradeCheck(Map<String, String> parameter);
-	
+
 	// 교수 : 강의 목록 조회
 	ArrayList<LectureDTO> selectByProfNo(Map<String, String> parameter);
 
@@ -51,7 +51,7 @@ public interface UimsMapper {
 
 	// 교수 : A ~ D, F 학점 입력
 	int updateFinGrade(Map<String, String> parameter);
-	
+
 	// 교수 : 학점 관리를 위한 학점 목록 조회
 	ArrayList<GradeDTO> selectGrade(Map<String, String> parameter);
 
@@ -67,34 +67,28 @@ public interface UimsMapper {
 	// 회원가입
 	int insertMember(StudentDTO parameter);
 
-    //학생 : 강의 평가 작성
+	// 학생 : 강의 평가 작성
 	int inputJudgement(Map<String, String> parameter);
-	
-    //학생 : 강의 목록 조회
+
+	// 학생 : 강의 목록 조회
 	ArrayList<StudentDTO> selectByStudentNo(int studentNo);
-	
-	//학생 : 강의 평가 수정
+
+	// 학생 : 강의 평가 수정
 	int modifyJudgement(Map<String, String> parameter);
-	
-	//학생 : 강의 평가 목록 조회
+
+	// 학생 : 강의 평가 목록 조회
 	ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter);
-	
-	//학생 : 강의 평가 삭제
+
+	// 학생 : 강의 평가 삭제
 	int deleteJudgement(Map<String, String> parameter);
-	
+
 	// 회원가입(학생)
 	int insertStudent(StudentDTO stu);
 
 	// 회원가입(교수)
 	int insertProfessor(ProfessorDTO pro);
-	//교수 : 강의 평가 조회
+
+	// 교수 : 강의 평가 조회
 	ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo);
-
-	
-
-	
-
-	
-
 
 }

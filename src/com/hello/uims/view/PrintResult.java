@@ -45,7 +45,6 @@ public class PrintResult {
 		}
 
 		System.out.println(successMessage);
-
 	}
 
 	public void printGrade(List<GradeDTO> list) {
@@ -55,7 +54,6 @@ public class PrintResult {
 
 		for (GradeDTO grade : list)
 			System.out.println(grade);
-
 	}
 
 	public void printLecture(List<LectureDTO> list) {
@@ -65,7 +63,6 @@ public class PrintResult {
 
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
-
 	}
 
 	public void printJudgement(List<LectureJugDTO> list) {
@@ -74,7 +71,6 @@ public class PrintResult {
 		
 		for(LectureJugDTO lectureJug : list)
 			System.out.println(lectureJug);
-		
 	}
 
 	public void printStudent(ArrayList<StudentDTO> list) {
@@ -94,6 +90,7 @@ public class PrintResult {
 		
 		for(LectureJugDTO lectureJug : list)
 			System.out.println(lectureJug);
+      
 		System.out.println("강의 평가 조회가 완료됐습니다. 통합관리시스템으로 넘어갑니다.");
 		
 	}
@@ -159,6 +156,7 @@ public class PrintResult {
 			break;
 		case "deleteJudgement" : 
 			errorMessage = "강의 평가 삭제 실패.";
+			break;
 		case "insertStudent":
 			errorMessage = "회원가입이 실패 했습니다";
 			break;
@@ -168,12 +166,9 @@ public class PrintResult {
 		case "selectJudgementProf" :
 			errorMessage = "평가된 강의 평가가 없습니다.";
 			break;
-
-
 		}
 		System.out.println("========================================================================");
 		System.out.println(errorMessage);
-
 	}
 
 	public void printLogStu(StudentDTO id) {
@@ -181,10 +176,6 @@ public class PrintResult {
 	}
 
 	public void printErrorLogStu(String string) {
-		// TODO Auto-generated method stub
 
 	}
-
-	
-
 }

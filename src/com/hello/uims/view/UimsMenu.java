@@ -188,7 +188,7 @@ public class UimsMenu {
 			System.out.println("2. 수강신청 메뉴");
 			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
-			System.out.println("5. 로그아웃");
+			System.out.println("5. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
@@ -286,29 +286,22 @@ public class UimsMenu {
 			case 1:
 				con.selectAllLecture();
 				break;
-
 			case 2:
 				con.enroll(inputEnroll());
 				break;
-
 			case 3:
 				con.selectEnroll(inputStudentNo());
 				break;
-
 			case 4:
 				con.deleteEnroll(inputEnroll());
 				break;
-
 			case 9:
 				return;
-
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
 			}
-
 		} while (true);
-
 	}
 
 	// 학번 강의코드 입력
@@ -323,7 +316,6 @@ public class UimsMenu {
 		parameter.put("lectureNo", sc.nextLine());
 
 		return parameter;
-
 	}
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
@@ -628,10 +620,7 @@ public class UimsMenu {
 				showJudge(parameter);
 				break;
 			case 9:
-
-				stuMainMenu();
-				break;
-        
+				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;

@@ -82,8 +82,4 @@ public class TimeTableDTO {
 		this.secondClass = secondClass;
 	}
 
-//	public String toString() { // 확인 
-//		return "[studentNo=" + studentNo + ", lectureNo=" + lectureNo + "]";
-//	}
-
 }
