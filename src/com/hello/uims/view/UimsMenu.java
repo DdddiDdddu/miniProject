@@ -700,7 +700,7 @@ public class UimsMenu {
 			}
 
 			con.deleteJudgement(parameter);
-		
+			break;
 		}
 	}
 

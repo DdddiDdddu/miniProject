@@ -343,5 +343,18 @@ public class Controller {
 		else
 			printResult.printErrorMessage("deleteJudgement");
 	}
+	//교수 : 자기 교수번호에 맞는 강의만 조회
+	public void selectJudmentProf(Map<String, String> inputProfNo) {
+		
+		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgementProf(inputProfNo);
+
+		if (list != null && !list.isEmpty())
+			printResult.printJudgement(list);
+		else
+			printResult.printErrorMessage("selectJudgement");
+		
+		return (list != null && !list.isEmpty())? list : null;
+		
+	}
 
 }

@@ -94,5 +94,10 @@ public class LectureJugService {
 		return (result > 0) ? true : false;
 	}
 
+	public static ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
