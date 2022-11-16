@@ -224,7 +224,7 @@
 		 WHERE B.PROF_NO = #{ profNo }
 		   AND B.LECTURE_NO = #{ lectureNo }
 	</select>
-	<select id="selectByProfNo" parameterType="_int"
+	<select id="selectByProfNo" parameterType="hashmap"
 		resultMap="lectureResultMap">
 		SELECT
 		   	   A.DEPT_CODE, 

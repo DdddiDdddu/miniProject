@@ -52,8 +52,6 @@ public class Controller {
 
 	public void selectByProfNo(Map<String, String> parameter) {
 
-		
-
 		ArrayList<LectureDTO> list = gradeService.selectByProfNo(parameter);
 
 		if (list != null && !list.isEmpty())
