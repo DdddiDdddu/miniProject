@@ -1,19 +1,16 @@
 package com.hello.uims.view;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import com.hello.uims.controller.Controller;
-import com.hello.uims.model.DTO.LectureJugDTO;
-import com.hello.uims.model.service.LectureJugService;
 import com.hello.uims.model.DTO.EnrollmentDTO;
+import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
-import com.hello.uims.model.service.LectureJugService;
 
 public class UimsMenu {
 

@@ -33,11 +33,11 @@ public class GradeService {
 	}
 
 	// 교수 : 자기가 강의중인 강의 목록 조회
-	public ArrayList<LectureDTO> selectByProfNo(int profNo) {
+	public ArrayList<LectureDTO> selectByProfNo(Map<String, String> parameter) {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
-		ArrayList<LectureDTO> list = mapper.selectByProfNo(profNo);
+		ArrayList<LectureDTO> list = mapper.selectByProfNo(parameter);
 
 		sqlSession.close();
 
