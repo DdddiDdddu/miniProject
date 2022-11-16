@@ -24,15 +24,14 @@ public class Controller {
 	// private final EnrollService enrollService;
 	private GradeService gradeService = new GradeService();
 	// private final LectureJugService lectureJugService;
-	private LoginService loginService = new LoginService();
 	private final EnrollService enrollService;
 	// private final LectureJugService lectureJugService;
-	private final LoginService logInService;
+	private final LoginService loginService;
 	private SignUpService signUpService = new SignUpService();
-	
+
 	public Controller() {
 		enrollService = new EnrollService();
-		logInService = new LoginService();
+		loginService = new LoginService();
 		// lectureJugService = new LectureJugService()
 
 	}
@@ -218,8 +217,8 @@ public class Controller {
 			printResult.printGrade(list);
 		else
 			printResult.printErrorMessage("selectGrade");
-		
-		return (list != null && !list.isEmpty())? list : null;
+
+		return (list != null && !list.isEmpty()) ? list : null;
 	}
 
 	public void updateGrade(Map<String, String> parameter) {
@@ -232,14 +231,14 @@ public class Controller {
 	}
 
 	public void deleteGrade(Map<String, String> parameter) {
-		
+
 		if (gradeService.deleteGrade(parameter))
 			printResult.printSuccessMessage("deleteGrade");
 		else
 			printResult.printErrorMessage("deleteGrade");
 
 	}
-  
+
 	public void selectByStudentNo(Map<String, String> parameter) {
 
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
@@ -260,110 +259,107 @@ public class Controller {
 
 		else
 			printResult.printErrorMessage("inputJudgement");
-		
+
 	}
 
-
-
-  	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
+	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
 		StudentDTO student = loginService.selectLoginStudent(parameter);
 
 		if (student == null) {
-			printResult.printErrorMessage("selectLoginStudent");
+			printResult.printErrorMessage("selectLogin");
 		}
 
 		return student;
 
 	}
-	
+
 	public ProfessorDTO selectLoginProfessor(Map<String, String> parameter) {
-		
+
 		ProfessorDTO professor = loginService.selectLoginProfessor(parameter);
-		
+
 		if (professor == null) {
-			printResult.printErrorMessage("selectLoginProfessor");
+			printResult.printErrorMessage("selectLogin");
 		}
-		
+
 		return professor;
 	}
 
-
 	public void insertStudent(HashMap<String, String> infoMap) {
-		
-		String studentId = infoMap.get("studentId");
-		String studentPwd = infoMap.get("studentPwd");
-		String studentName = infoMap.get("studentName");
-		String studentTelNo = infoMap.get("studentTelNo");
-		
-		StudentDTO stu = new StudentDTO();
-		stu.setStudentId(studentId);
-		stu.setStudentPwd(studentPwd);
-		stu.setStudentName(studentName);
-		stu.setStudentTelNo(studentTelNo);
-		
-		if (signUpService.insertStudent(stu)) {
+
+//		String studentId = infoMap.get("studentId");
+//		String studentPwd = infoMap.get("studentPwd");
+//		String studentName = infoMap.get("studentName");
+//		String studentTelNo = infoMap.get("studentTelNo");
+//		
+//		StudentDTO stu = new StudentDTO();
+//		stu.setStudentId(studentId);
+//		stu.setStudentPwd(studentPwd);
+//		stu.setStudentName(studentName);
+//		stu.setStudentTelNo(studentTelNo);
+
+		if (signUpService.insertStudent(infoMap)) {
 			printResult.printSuccessMessage("insertStudent");
-		}else {
+		} else {
 			printResult.printErrorMessage("insertStudent");
 		}
 	}
+
 	public void insertProfessor(HashMap<String, String> infoMap) {
-	
-		int profNo = Integer.parseInt(infoMap.get("profNo"));
-		String profPwd = infoMap.get("profPwd");
-		String profName = infoMap.get("profName");
-		String profTelNo = infoMap.get("profTelNo");
-	
-		ProfessorDTO pro = new ProfessorDTO();
-		pro.setProfNo(profNo);
-		pro.setProfPwd(profPwd);
-		pro.setProfName(profName);
-		pro.setProfTelNo(profTelNo);
-	
-		if (signUpService.insertProfessor(pro)) {
-			printResult.printSuccessMessage("insertMember");
-		}else {
-			printResult.printErrorMessage("insertMember");
+
+//		int profNo = Integer.parseInt(infoMap.get("profNo"));
+//		String profPwd = infoMap.get("profPwd");
+//		String profName = infoMap.get("profName");
+//		String profTelNo = infoMap.get("profTelNo");
+//	
+//		ProfessorDTO pro = new ProfessorDTO();
+//		pro.setProfNo(profNo);
+//		pro.setProfPwd(profPwd);
+//		pro.setProfName(profName);
+//		pro.setProfTelNo(profTelNo);
+
+		if (signUpService.insertProfessor(infoMap)) {
+			printResult.printSuccessMessage("insertProfessor");
+		} else {
+			printResult.printErrorMessage("insertProfessor");
 		}
-		
+
 	}
 
-
 	public void modifyJudgement(Map<String, String> parameter) {
-		
+
 		if (LectureJugService.modifyJudgement(parameter))
 			printResult.printSuccessMessage("modifyJudgement");
 		else
 			printResult.printErrorMessage("modifyJudgement");
-		
+
 	}
 
-
 	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
-		
+
 		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgement(parameter);
 
 		if (list != null && !list.isEmpty())
 			printResult.printJudgement(list);
 		else
 			printResult.printErrorMessage("selectJudgement");
-	
+		return list;
+
 	}
-	//교수 : 자기 교수번호에 맞는 강의만 조회
+
+	// 교수 : 자기 교수번호에 맞는 강의만 조회
 	public ArrayList<LectureJugDTO> selectJudmentProf(Map<String, String> inputProfNo) {
-		
+
 		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgementProf(inputProfNo);
 
 		if (list != null && !list.isEmpty())
 			printResult.printJudgementProf(list);
 		else
 			printResult.printErrorMessage("selectJudgementProf");
-		
-		return (list != null && !list.isEmpty())? list : null;
-		
-	}
 
+		return (list != null && !list.isEmpty()) ? list : null;
+
+	}
 
 	public void deleteJudgement(Map<String, String> parameter) {
 
@@ -371,6 +367,37 @@ public class Controller {
 			printResult.printSuccessMessage("deleteJudgement");
 		else
 			printResult.printErrorMessage("deleteJudgement");
+	}
+
+	public void selectStuId(Map<String, String> parameter) {
+
+		StudentDTO student = loginService.selectStuId(parameter);
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		list.add(student);
+		
+		if (student != null)
+			printResult.printStudent(list);
+		else
+			printResult.printErrorMessage("selectStuId");
+
+	}
+
+	public void updateStuId(Map<String, String> parameter) {
+		
+		if (loginService.updateStuId(parameter))
+			printResult.printSuccessMessage("updateStudId");
+		else
+			printResult.printErrorMessage("updateStuId");
+		
+	}
+
+	public void deleteStuId(Map<String, String> parameter) {
+		
+		if (loginService.deleteStuId(parameter))
+			printResult.printSuccessMessage("deleteStuId");
+		else
+			printResult.printErrorMessage("deleteStuId");
+
 	}
 
 }

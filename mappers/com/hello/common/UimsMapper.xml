@@ -145,6 +145,37 @@
 		 DEFAULT
 		)
 	</insert>
+	<!-- 학생 조회 -->
+	<select id = "selectStuId" parameterType="hashmap"
+		resultMap="studentResultMap">
+		SELECT 
+			   STUDENT_NO,
+			   DEPT_CODE,
+			   STUDENT_ID,
+			   STUDENT_PWD,
+			   STUDENT_NAME,
+			   ADDRESS,
+			   STUDENT_TELNO,
+			   EMAIL,
+			   ENROLL_DATE,
+			   STATUS
+		  FROM STUDENT
+		 WHERE STUDENT_ID = #{ studentId }  
+	</select>
+	<!-- 학생정보 수정 -->
+	<update id = "updateStuId" parameterType="hashmap">
+		UPDATE STUDENT
+		   SET STUDENT_PWD = #{ studentPwd },
+		   	   ADDRESS = #{ address },
+		   	   STUDENT_TELNO = #{ studentTelNo },
+			   EMAIL = #{ email }
+		 WHERE STUDENT_NO = #{ studentNo }
+	</update>
+	<delete id="deleteStuId" parameterType="hashmap">
+		DELETE
+		  FROM STUDENT
+		 WHERE STUDENT_NO = #{ studentNo }
+	</delete>
 	<!-- 수강신청 강의목록 조회 -->
 	<select id="selectAllLecture" parameterType="hashmap"
 		resultMap="lectureResultMap">

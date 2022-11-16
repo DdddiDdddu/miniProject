@@ -33,7 +33,7 @@ public class PrintResult {
 		case "deleteEnroll":
 			successMessage = "수강신청 취소 성공";
 			break;
-		case "insertMember":
+		case "insertStudent":
 			successMessage = "회원가입이 되었습니다.";
 			break;
 		case "modifyJudgement" :
@@ -41,6 +41,9 @@ public class PrintResult {
 			break;
 		case "deleteJudgement" :
 			successMessage = "강의 평가 삭제에 성공했습니다.";
+			break;
+		case "insertProfessor":
+			successMessage = "회원가입이 되었습니다.";
 			break;
 		}
 
@@ -157,6 +160,7 @@ public class PrintResult {
 			break;
 		case "deleteJudgement" : 
 			errorMessage = "강의 평가 삭제 실패.";
+			break;
 		case "insertStudent":
 			errorMessage = "회원가입이 실패 했습니다";
 			break;
