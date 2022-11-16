@@ -1,11 +1,9 @@
 package com.hello.uims.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
-import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
@@ -26,20 +24,14 @@ public class PrintResult {
 		String successMessage = "";
 
 		switch (successCode) {
-		case "insertScores":
-			successMessage = "점수 입력에 성공하셨습니다.";
-			break;
-		case "updateFinGrade":
-			successMessage = "학점 부여 성공";
+		case "insertGrade":
+			successMessage = "학점 추가에 성공하셨습니다.";
 			break;
 //		case "selectStudentList":
 //			successMessage = "======= 수강생 목록 =======";
 //			break;
 		case "updateGrade":
 			successMessage = "학점 수정에 성공하셨습니다.";
-			break;
-		case "deleteGrade":
-			successMessage = "학점 삭제에 성공하셨습니다.";
 			break;
 //		case "update":
 //			successMessage = "메뉴 수정에 성공하셨습니다.";
@@ -53,15 +45,6 @@ public class PrintResult {
 		case "deleteEnroll":
 			successMessage = "수강신청 취소 성공";
 			break;
-		case "insertMember":
-			successMessage = "회원가입이 되었습니다.";
-			break;
-		case "modifyJudgement" :
-			successMessage = "강의 평가 수정에 성공하셨습니다.";
-			break;
-		case "deleteJudgement" :
-			successMessage = "강의 평가 삭제에 성공했습니다.";
-			break;
 		}
 
 		System.out.println(successMessage);
@@ -70,7 +53,7 @@ public class PrintResult {
 
 	public void printGrade(List<GradeDTO> list) {
 
-		System.out.println("================================ 학점 목록 ================================");
+		System.out.println("========================================================================");
 		System.out.println("강의명\t교수명\t학번\t학생명\t출석점수\t과제점수\t중간점수\t기말점수\t학점");
 
 		for (GradeDTO grade : list)
@@ -80,7 +63,7 @@ public class PrintResult {
 
 	public void printLecture(List<LectureDTO> list) {
 
-		System.out.println("================================ 강의 목록 ================================");
+		System.out.println("=========================================================================");
 		System.out.println("학과코드\t       강의번호\t    교수명\t 교수번호\t  강의명\t\t\t 수강학점\t   수강인원    정원인원     요일    시간");
 
 		for (LectureDTO lecture : list)
@@ -138,10 +121,7 @@ public class PrintResult {
 		case "selectByProfNo":
 			errorMessage = "강의중인 강의가 없습니다.";
 			break;
-		case "insertScores":
-			errorMessage = "이미 점수를 부여한 학생입니다.";
-			break;
-		case "updateFinGrade":
+		case "insertGrade":
 			errorMessage = "학점 부여 실패";
 			break;
 		case "selectStudentList":
@@ -174,20 +154,11 @@ public class PrintResult {
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
-		case "insertMember":
+		case "insertStudent":
 			errorMessage = "회원가입이 실패 했습니다";
 			break;
-		case "modifyJudgement" :
-			errorMessage = "강의 평가 수정 실패.";
-			break;
-		case "selectBystudentNo" :
-			errorMessage = "수강중인 강의가 없습니다.";
-			break;
-		case "selectJudgement" :
-			errorMessage = "평가한 강의 평가가 없습니다.";
-			break;
-		case "deleteJudgement" : 
-			errorMessage = "강의 평가 삭제 실패.";
+		case "insertProfessor":
+			errorMessage = "회원가입이 실패 했습니다";
 			break;
 		case "selectJudgementProf" :
 			errorMessage = "평가된 강의 평가가 없습니다.";

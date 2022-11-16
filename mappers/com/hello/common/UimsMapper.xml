@@ -13,18 +13,6 @@
 		<result property = "enrollDate" column = "ENROLL_DATE"/>
 		<result property = "status" column = "STATUS"/>
 	</resultMap>
-	<resultMap type= "com.hello.uims.model.DTO.ProfessorDTO" id = "professorResultMap">
-		<id property = "profNo" column = "PROF_NO"/>
-		<result property = "deptCode" column = "DEPT_CODE"/>
-		<result property = "profId" column = "PROF_ID"/>
-		<result property = "profPwd" column = "PROF_PWD"/>
-		<result property = "profName" column = "PROF_NAME"/>
-		<result property = "address" column = "ADDRESS"/>
-		<result property = "profTelNo" column = "PROF_TELNO"/>
-		<result property = "email" column = "EMAIL"/>
-		<result property = "enrollDate" column = "ENROLL_DATE"/>
-		<result property = "status" column = "STATUS"/>
-	</resultMap>
 	<resultMap type="com.hello.uims.model.DTO.GradeDTO"
 		id="gradeResultMap">
 		<result property="lectureName" column="LECTURE_NAME" />
@@ -66,16 +54,7 @@
 		<result property="secondClass" column="SECOND_CLASS" />
 		<result property="credit" column="CREDIT" />
 	</resultMap>
-	<resultMap type="com.hello.uims.model.DTO.LectureJugDTO"
-		id="lectureJugResultMap">
-		<id property="judgementNo" column="JUDGEMENT_NO" />
-		<result property="lectureNo" column="LECTURE_NO" />
-		<result property="studentNo" column="STUDENT_NO" />
-		<result property="profNo" column="PROF_NO" />
-		<result property="stuJugScore" column="STU_JUG_SCORE" />
-		<result property="stuOneJug" column="STU_ONE_JUG" />
-	</resultMap>
-	<select id = "selectLoginStudent" parameterType = "hashmap" resultMap = "studentResultMap">
+	<select id = "selectLogin" parameterType = "hashmap" resultMap = "studentResultMap">
 		SELECT
 			   STUDENT_PWD
 		  FROM STUDENT
@@ -87,8 +66,8 @@
 		  FROM PROFESSOR
 		 WHERE PROF_ID = #{ professorId }
 	</select>
-	<!-- 회원 가입 -->
-	<insert id = "insertMember" parameterType="hashmap">
+	<!-- 회원 가입(학생) -->
+	<insert id = "insertStudent" parameterType="hashmap">
 		INSERT INTO STUDENT 
 		(
 		 STUDENT_NO,
@@ -111,6 +90,35 @@
 		 #{ studentName },
 		 NULL,
 		 #{ studentTelNo },
+		 NULL,
+		 DEFAULT,
+		 DEFAULT
+		)
+	</insert>
+	<!-- 회원 가입(교수) -->
+	<insert id = "insertProfessor" parameterType="hashmap">
+		INSERT INTO PROFESSOR 
+		(
+		 PROF_NO,
+		 DEPT_CODE,
+		 PROF_ID, 
+		 PROF_PWD,
+		 PROF_NAME,
+		 ADDRESS,
+		 PROF_TELNO,
+		 EMAIL,
+		 ENROLL_DATE,
+		 STATUS
+		) 
+		VALUES
+		(
+		SEQ_PROF_NO.NEXTVAL,
+		 NULL,
+		 #{ profId },
+		 #{ profPwd },
+		 #{ profName },
+		 NULL,
+		 #{ profTelNo },
 		 NULL,
 		 DEFAULT,
 		 DEFAULT
@@ -182,49 +190,41 @@
 			A.FIRST_CLASS, 
 			A.SECOND_CLASS,
 			A.CREDIT
-		FROM VIEW_ENROLLMENT_LECTURE A
+		FROM V_ENROLLMENT_LECTURE A
 		WHERE 1 = 1
 		AND A.STUDENT_NO = #{ studentNo }
 	</select>
-	<select id="selectGradeCheck" parameterType="hashmap" resultMap="gradeResultMap">
+	<select id="selectGradeCheck" parameterType="_int" resultMap="gradeResultMap">
 		SELECT
-			   A.LECTURE_NAME,
-		   	   A.PROF_NAME,
-			   A.STUDENT_NO,
-			   A.STUDENT_NAME,
-			   A.ATT_SCORE,
-			   A.ASS_SCORE,
-			   A.MID_SCORE,
-			   A.FIN_SCORE,
-			   A.GRADE
-		  FROM VIEW_GRADE_CHECK A
-		  JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
-		 WHERE A.STUDENT_NO = #{ studentNo }
-		<if test = "profNo != null">
-			AND B.PROF_NO = #{ profNo }
-		</if>
-		<if test = "lectureNo != null">
-			AND B.LECTURE_NO = #{ lectureNo }
-		</if>
+		LECTURE_NAME,
+		PROF_NAME,
+		STUDENT_NO,
+		STUDENT_NAME,
+		ATT_SCORE,
+		ASS_SCORE,
+		MID_SCORE,
+		FIN_SCORE,
+		GRADE
+		FROM VIEW_GRADE_CHECK
+		WHERE STUDENT_NO = #{ studentNo }
 	</select>
 	<select id="selectGrade" parameterType="hashmap"
 		resultMap="gradeResultMap">
 		SELECT
-			   A.LECTURE_NAME,
-			   A.PROF_NAME,
-			   A.STUDENT_NO,
-			   A.STUDENT_NAME,
-			   A.ATT_SCORE,
-			   A.ASS_SCORE,
-			   A.MID_SCORE,
-			   A.FIN_SCORE,
-			   A.GRADE
-		  FROM VIEW_GRADE_CHECK A
-		  JOIN GRADE B ON A.STUDENT_NO = B.STUDENT_NO
-		 WHERE B.PROF_NO = #{ profNo }
-		   AND B.LECTURE_NO = #{ lectureNo }
+		GRADE_NO,
+		LECTURE_NO,
+		PROF_NO,
+		STUDENT_NO,
+		ATT_SCORE,
+		ASS_SCORE,
+		MID_SCORE,
+		FIN_SCORE,
+		GRADE
+		FROM GRADE
+		WHERE PROF_NO = #{ profNo }
+		AND LECTURE_NO = #{ lectureNo }
 	</select>
-	<select id="selectByProfNo" parameterType="hashmap"
+	<select id="selectByProfNo" parameterType="_int"
 		resultMap="lectureResultMap">
 		SELECT
 		   	   A.DEPT_CODE, 
@@ -250,7 +250,6 @@
 		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
 	 	   AND B.PROF_NO = #{ profNo }
-	 	 ORDER BY A.STUDENT_NO
 	</select>
 	<insert id="insertScores" parameterType="hashmap">
 		INSERT INTO GRADE
@@ -267,7 +266,7 @@
 			)
 			VALUES
 			(
-			SEQ_GRADE_NO.NEXTVAL, 
+			SEQ_GRADE_NO, 
 			#{ lectureNo }, 
 			#{ profNo }, 
 			#{ studentNo }, 
@@ -278,12 +277,26 @@
 			DEFAULT
 			)
 	</insert>
-	<update id="updateFinGrade" parameterType="hashmap">
+	<update id="inputFinGrade" parameterType="hashmap">
 		UPDATE GRADE A
-		   SET A.GRADE = #{	grade }
-		 WHERE A.STUDENT_NO = #{ studentNo }
-		   AND A.LECTURE_NO = #{ lectureNo }
-		   AND A.PROF_NO = #{ profNo }
+		SET A.GRADE = (SELECT
+                       		 <![CDATA[CASE WHEN B.ATT_SCORE < 7 THEN 'F'
+                           			  WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.05 THEN 'A+'
+                           		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.1 THEN 'A'
+                                      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.15 THEN 'B+'
+                            		  WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.2 THEN 'B'
+                          		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.25 THEN 'C+'
+                            	      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.3 THEN 'C'
+                         		      WHEN RANK() OVER(ORDER BY B.TOT_SCORE DESC) <= #{ currNo } * 0.35 THEN 'D+']]>
+		ELSE 'D'
+		END;
+		FROM VIEW_GRADE_CHECK B
+		WHERE A.STUDENT_NO = B.STUDENT_NO)
+		WHERE EXISTS(SELECT
+		0
+		FROM VIEW_GRADE_CHECK B
+		WHERE A.STUDENT_NO = B.STUDENT_NO)
+		AND A.LECTURE_NO = #{ lectureNo }
 	</update>
 	<update id="updateGrade" parameterType="hashmap">
 		UPDATE GRADE
@@ -299,68 +312,5 @@
 		WHERE PROF_NO = #{ profNo }
 		AND STUDENT_NO = #{ studentNo }
 		AND LECTURE_NO = #{ lectureNo }
-	</delete>
-	
-	<!-- 학생이름 보여주기 -->
-	<select id="selectByStudentNo" parameterType="hashmap" resultMap="studentResultMap">
-		SELECT 
-   			STUDENT_NO,
-    		DEPT_CODE,
-    		STUDENT_NAME
-    
-		FROM STUDENT
-	 	 
-	 	WHERE STUDENT_NO = #{ studentNo }
-	</select>
-	<!-- 강의평가 작성부분 -->
-	<insert id="inputJudgement" parameterType="hashmap">
-	INSERT INTO LECTURE_JUG
-		(
-		JUDGEMENT_NO,
-		LECTURE_NO,
-		STUDENT_NO,
-		PROF_NO,
-		STU_JUG_SCORE,
-		STU_ONE_JUG
-		)
-		VALUES
-		(
-		SEQ_LECTURE_JUG_NO.NEXTVAL,
-		#{ lectureNo },
-		#{ studentNo },
-		#{ profNo },
-		#{ stuJugScore },
-		#{ stuOneJug }
-		)
-	</insert>
-	<!-- 강의 평가 수정 -->
-	<update id="modifyJudgement" parameterType="hashmap">
-		UPDATE LECTURE_JUG
-		SET STU_JUG_SCORE= #{ stuJugScore },
-		STU_ONE_JUG = #{ stuOneJug }
-		WHERE STUDENT_NO = #{ studentNo }
-		AND JUDGEMENT_NO = #{ judgementNo }
-	</update>
-	<!-- 강의 평가 목록 조회 -->
-	<select id="selectJudgement" parameterType="hashmap"
-		resultMap="lectureJugResultMap">
-		SELECT
-			A.JUDGEMENT_NO,
-			A.LECTURE_NO,
-			A.STUDENT_NO,
-			A.PROF_NO,
-			A.STU_JUG_SCORE,
-			A.STU_ONE_JUG
-		  FROM LECTURE_JUG A
-		  JOIN STUDENT B ON A.STUDENT_NO = B.STUDENT_NO
-		 WHERE B.STUDENT_NO = #{ studentNo }
-		  
-	</select>
-	<!-- 강의 평가 삭제 -->
-	<delete id="deleteJudgement" parameterType="hashmap">
-		DELETE FROM LECTURE_JUG
-		WHERE  JUDGEMENT_NO = #{ judgementNo }
-		AND STUDENT_NO = #{ studentNo }
-		
 	</delete>
 </mapper>
