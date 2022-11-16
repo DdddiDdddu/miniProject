@@ -88,7 +88,7 @@ public class EnrollService {
 //			System.out.println(time.getFirstClass());
 //			System.out.println(time.getSecondClass());
 //			System.out.println(time.getCredit());
-			// 커밋안됨 ㅁㅁㅁAaa
+			// 커밋안됨 ㅁㅁㅁAaaa
 
 			if (timeTables[time.getDay()][time.getFirstClass()] == 0)
 				timeTables[time.getDay()][time.getFirstClass()] = time.getLectureNo();
