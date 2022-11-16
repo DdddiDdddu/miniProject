@@ -16,7 +16,6 @@ public class UimsMenu {
 	public void initialMenu() {
 
 		do {
-
 			int no;
 			
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
@@ -191,7 +190,7 @@ public class UimsMenu {
 			switch (no) {
 			case 1:
 				con.selectLecture();
-//				enroll();
+				enroll();
 				break;
 				
 			case 2:
@@ -211,6 +210,12 @@ public class UimsMenu {
 			}
 
 		} while (true);
+		
+	}
+
+	private void enroll() {
+
+		
 		
 	}
 

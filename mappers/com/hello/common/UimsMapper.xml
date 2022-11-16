@@ -28,7 +28,7 @@
 		<result property = "studentId" column = "STUDENT_ID"/>
 		<result property = "lectureNo" column = "LECTURE_NO"/>
 	</resultMap>
-<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
+	<select id = "selectLecture" parameterType = "hashmap" resultMap = "lectureResultMap">
 		SELECT
 			A.DEPT_CODE
 			A.LECTURE_NO
