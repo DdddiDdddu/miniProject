@@ -377,9 +377,12 @@ public class Controller {
 		
 	}
 
-	public void deleteProfId(Map<String, String> inputProfNo) {
-		// TODO Auto-generated method stub
+	public void updateProfId(Map<String, String> parameter) {
 		
+		if (loginService.updateProfId(parameter))
+			printResult.printSuccessMessage("updateProfId");
+		else
+			printResult.printErrorMessage("updateProfId");
 	}
 
 

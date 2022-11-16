@@ -46,6 +46,12 @@ public class PrintResult {
 		case "insertProfessor":
 			successMessage = "회원가입이 되었습니다.";
 			break;
+		case "updateStuId":
+			successMessage = "정보가 수정되었습니다.";
+			break;
+		case "updateProfId":
+			successMessage = "정보가 수정되었습니다.";
+			break;
 		}
 
 		System.out.println(successMessage);

@@ -310,7 +310,6 @@ public class UimsMenu {
 			System.out.println("=========================== 마이페이지 ===========================");
 			System.out.println("1. 조회");
 			System.out.println("2. 수정");
-			System.out.println("3. 탈퇴");
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
@@ -326,9 +325,6 @@ public class UimsMenu {
 			case 2:
 				updateProfId(inputProfNo());
 				break;
-			case 3:
-				con.deleteProfId(inputProfNo());
-				return;
 			case 9:
 				System.out.println("이전 메뉴로 돌아갑니다.");
 				return;
@@ -342,11 +338,20 @@ public class UimsMenu {
 	}
 
 
-	private void updateProfId(Map<String, String> inputProfNo) {
-		// TODO Auto-generated method stub
-		
-	}
+	private void updateProfId(Map<String, String> parameter) {
 
+		System.out.println("수정할 비밀번호를 입력하세요");
+		parameter.put("profPwd", sc.nextLine());
+		System.out.println("수정할 주소를 입력하세요");
+		parameter.put("address", sc.nextLine());
+		System.out.println("수정할 전화번호를 입력하세요");
+		parameter.put("profTelNo", sc.nextLine());
+		System.out.println("수정할 이메일을 입력하세요");
+		parameter.put("email", sc.nextLine());
+
+		con.updateProfId(parameter);
+	}
+	
 	// 수강신청 메뉴
 	public void enrollMenu() {
 
