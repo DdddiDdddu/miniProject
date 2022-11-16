@@ -153,7 +153,7 @@ public class UimsMenu {
 
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 마이페이지");
-			System.out.println("2. 수강신청 메뉴");
+			System.out.println("2. 수강신청");
 			System.out.println("3. 학점조회");
 			System.out.println("4. 강의평가");
 			System.out.println("5. 로그아웃");

@@ -8,9 +8,8 @@ import java.util.Map;
 import com.hello.uims.model.DTO.EnrollmentDTO;
 import com.hello.uims.model.DTO.GradeDTO;
 import com.hello.uims.model.DTO.LectureDTO;
-import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.StudentDTO;
-import com.hello.uims.model.DTO.TimeTableDTO;
+import com.hello.uims.model.DTO.LectureJugDTO;
 import com.hello.uims.model.DTO.ProfessorDTO;
 
 public interface UimsMapper {
@@ -22,7 +21,7 @@ public interface UimsMapper {
 	int enroll(Map<String, String> parameter);
 	
 	// 강의시간 조회
-	ArrayList<TimeTableDTO> timeTable(Map<String, String> parameter);
+	ArrayList<LectureDTO> timeTable(Map<String, String> parameter);
 
 	// 수강신청 내역
 	ArrayList<LectureDTO> selectEnroll(Map<String, String> parameter);
