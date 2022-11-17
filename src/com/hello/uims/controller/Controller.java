@@ -299,12 +299,16 @@ public class Controller {
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 
 		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
-
+		try {
 		if (list != null && !list.isEmpty())
 			printResult.printStudent(list);
 
 		else
 			printResult.printErrorMessage("selectBystudentNo");
+		} catch(Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 	}
 
 
@@ -375,56 +379,87 @@ public class Controller {
 	public void inputJudgement(Map<String, String> parameter) {
 		
 	
-		if (LectureJugService.inputJudgement(parameter))
-			printResult.printSuccessMessage("inputJudgement");
-		else
-			printResult.printErrorMessage("inputJudgement");
-			
+		try {
+			if (LectureJugService.inputJudgement(parameter))
+				printResult.printSuccessMessage("inputJudgement");
+			else
+				printResult.printErrorMessage("inputJudgement");
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
 		}
+			
+	}
 		
 	
 
 	public void modifyJudgement(Map<String, String> parameter) {
 		
-		if (LectureJugService.modifyJudgement(parameter))
-			printResult.printSuccessMessage("modifyJudgement");
-		else
-			printResult.printErrorMessage("modifyJudgement");
+		try {
+			if (LectureJugService.modifyJudgement(parameter))
+				printResult.printSuccessMessage("modifyJudgement");
+			else
+				printResult.printErrorMessage("modifyJudgement");
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 			
 	}
 
 	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
 
-		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgement(parameter);
+		ArrayList<LectureJugDTO> list = null;
+		try {
+			list = LectureJugService.selectJudgement(parameter);
+			
+			if (list != null && !list.isEmpty())
+				printResult.printJudgement(list);
+			else
+				printResult.printErrorMessage("selectJudgement");
+		} catch (Exception e) {
 
-		if (list != null && !list.isEmpty())
-			printResult.printJudgement(list);
-		else
-			printResult.printErrorMessage("selectJudgement");
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 		return list;
 
 	}
 
 	// 교수 : 자기 교수번호에 맞는 강의만 조회
 	public ArrayList<LectureJugDTO> selectJudmentProf(Map<String, String> inputProfNo) {
+		ArrayList<LectureJugDTO> list = null;
+		try {
+			list = LectureJugService.selectJudgementProf(inputProfNo);
+			
 
-		ArrayList<LectureJugDTO> list = LectureJugService.selectJudgementProf(inputProfNo);
+			if (list != null && !list.isEmpty())
+				printResult.printJudgementProf(list);
+			else
+				printResult.printErrorMessage("selectJudgementProf");
 
-		if (list != null && !list.isEmpty())
-			printResult.printJudgementProf(list);
-		else
-			printResult.printErrorMessage("selectJudgementProf");
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 
 		return (list != null && !list.isEmpty()) ? list : null;
-
 	}
 	//학생 : 강의 평가 삭제
 	public void deleteJudgement(Map<String, String> parameter) {
 		
-			if (LectureJugService.deleteJudgement(parameter))
-				printResult.printSuccessMessage("deleteJudgement");
-			else
-				printResult.printErrorMessage("deleteJudgement");
+			try {
+				if (LectureJugService.deleteJudgement(parameter))
+					printResult.printSuccessMessage("deleteJudgement");
+				else
+					printResult.printErrorMessage("deleteJudgement");
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+				printResult.printErrorMessage("error");
+			}
 		
 	}
 
