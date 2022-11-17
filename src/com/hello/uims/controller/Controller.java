@@ -73,16 +73,25 @@ public class Controller {
 
 	public void insertScores(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> list;
+		ArrayList<GradeDTO> list = null;
+		ArrayList<EnrollmentDTO> list2 = null;
+
 		try {
 			list = gradeService.selectGradeCheck(parameter);
+			list2 = gradeService.selectStudentList(parameter);
 
-			if (list != null && !list.isEmpty()) {
-				printResult.printErrorMessage("insertScores");
+			if (list2 != null && !list2.isEmpty()) {
+				if (list != null && !list.isEmpty()) {
+					printResult.printErrorMessage("insertScores");
+				} else {
+					if (gradeService.insertScores(parameter)) {
+						printResult.printSuccessMessage("insertScores");
+					}
+				}
 			} else {
-				if (gradeService.insertScores(parameter))
-					printResult.printSuccessMessage("insertScores");
+				printResult.printErrorMessage("insertScores2");
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
@@ -111,7 +120,8 @@ public class Controller {
 	}
 
 	public void updateFinGrade(Map<String, String> parameter) {
-
+		
+		System.out.println("학점 부여중...");
 		try {
 			ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
 			ArrayList<GradeDTO> list2 = new ArrayList<>();

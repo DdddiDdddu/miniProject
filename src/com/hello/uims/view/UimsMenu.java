@@ -415,6 +415,7 @@ public class UimsMenu {
 
 		do {
 			con.selectByProfNo(parameter);
+
 			System.out.println("================================ 학점 관리 ================================");
 			System.out.println("1. 학점 조회");
 			System.out.println("2. 학점 부여");
@@ -458,10 +459,16 @@ public class UimsMenu {
 		String assScore;
 		String midScore;
 		String finScore;
+
+		if (parameter.get("studentNo") != null && !parameter.get("studentNo").isEmpty()) {
+			parameter.remove("studentNo");
+		}
+
 		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
 
 		int index1 = 0;
 		int size = enroll.size();
+
 		while (index1 < size) {
 			System.out.println("================================ 수강생 목록 ================================");
 			for (int i = 0; i < size; i++) {

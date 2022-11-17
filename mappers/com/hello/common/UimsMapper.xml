@@ -366,6 +366,9 @@
 		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
 	 	   AND B.PROF_NO = #{ profNo }
+	 	   <if test = "studentNo != null">
+	 	   AND A.STUDENT_NO = #{ studentNo }
+	 	   </if>
 	 	 ORDER BY A.STUDENT_NO
 	</select>
 	<insert id="insertScores" parameterType="hashmap">
