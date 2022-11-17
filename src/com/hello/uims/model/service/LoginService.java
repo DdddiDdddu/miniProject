@@ -2,6 +2,7 @@ package com.hello.uims.model.service;
 
 import static com.hello.common.Template.getSqlSession;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -81,4 +82,36 @@ public class LoginService {
 		
 		return (result > 0)? true : false;
 	}
+
+	public ProfessorDTO selectProfId(HashMap<String, String> parameter) {
+		
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+
+		ProfessorDTO professor = mapper.selectProfId(parameter);
+
+		sqlSession.close();
+
+		return professor;
+		
+	}
+
+	public boolean updateProfId(Map<String, String> parameter) {
+		
+		SqlSession sqlSession = getSqlSession();
+		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
+
+		int result = mapper.updateProfId(parameter);
+
+		if (result > 0)
+			sqlSession.commit();
+		else
+			sqlSession.rollback();
+
+		sqlSession.close();
+
+		return (result > 0) ? true : false;
+	}
+
+
 }
