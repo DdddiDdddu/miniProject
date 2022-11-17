@@ -28,12 +28,15 @@ public class PrintResult {
 		case "deleteGrade":
 			successMessage = "학점 삭제에 성공하셨습니다.";
 			break;
+			
+		// 수강신청 파트
 		case "enrollSuccess":
 			successMessage = "수강신청 성공";
 			break;
 		case "deleteEnroll":
 			successMessage = "수강신청 취소 성공";
-			break;
+			break; // 수강신청 파트 끝
+			
 		case "insertStudent":
 			successMessage = "회원가입이 되었습니다.";
 			break;
@@ -140,8 +143,13 @@ public class PrintResult {
 		case "deleteGrade":
 			errorMessage = "수강중인 학생이 아닙니다.";
 			break;
+			
+		// 수강신청 파트
 		case "enrollFail":
 			errorMessage = "수강신청 실패";
+			break;
+		case "selectEnroll":
+			errorMessage = "수강신청한 강의가 없습니다.";
 			break;
 		case "totalCreditOver":
 			errorMessage = "수강신청 실패 : 수강학점 초과";
@@ -152,12 +160,19 @@ public class PrintResult {
 		case "duplication":
 			errorMessage = "수강신청 실패 : 이미 수강신청한 강의";
 			break;
-		case "selectLecture":
-			errorMessage = "수강신청한 강의가 없습니다.";
+		case "incorrectInput":
+			errorMessage = "수강신청 실패 : 강의코드 오타";
+			break;
+		case "selectAllLecture":
+			errorMessage = "강의목록 조회 실패 : 데이터가 존재하지 않습니다";
 			break;
 		case "deleteEnroll":
 			errorMessage = "수강신청 취소 실패";
 			break;
+		case "searchLectureByLectureNameOrProfName":
+			errorMessage = "검색결과가 존재하지 않습니다.";
+			break; // 수강신청 파트 끝
+			
 		case "modifyJudgement" :
 			errorMessage = "강의 평가 수정 실패.";
 			break;

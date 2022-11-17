@@ -30,7 +30,7 @@ public class EnrollService {
 	}
 
 	// 수강신청
-	public String enroll(Map<String, String> parameter) {
+	public String enroll(Map<String, String> parameter) throws Exception {
 
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
@@ -154,4 +154,18 @@ public class EnrollService {
 
 		return (result > 0) ? true : false;
 	}
+	
+	// 강의목록 검색
+	public ArrayList<LectureDTO> searchLectureByLectureNameOrProfName(Map<String, String> criteria) {
+		
+		sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(UimsMapper.class);
+
+		ArrayList<LectureDTO> lectureList = mapper.searchLectureByLectureNameOrProfName(criteria);
+
+		sqlSession.close();
+
+		return lectureList;
+	}
+	
 }
