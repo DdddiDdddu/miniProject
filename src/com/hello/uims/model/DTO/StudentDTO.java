@@ -114,10 +114,7 @@ public class StudentDTO {
 	}
 
 	public String toString() {
-		return "[studentNo=" + studentNo + ", deptCode=" + deptCode + ", studentId=" + studentId + ", studentPwd="
-				+ studentPwd + ", studentName=" + studentName + ", address=" + address + ", studentTelNo="
-				+ studentTelNo + ", email=" + email + ", enrollDate=" + enrollDate + ", email=" + email + ", status="
-				+ status + "]";
-
+		return studentNo + "  " + deptCode + "    " + studentId + "   " + studentPwd + " " + studentName + "  " + address
+				+ "  " + studentTelNo + "  " + email + "  " + enrollDate + "  " + status;
 	}
 }

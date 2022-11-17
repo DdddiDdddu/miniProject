@@ -32,7 +32,7 @@ public class DepartmentDTO {
 	}
 
 	public String toString() {
-		return "[deptCode=" + deptCode + ", deptName=" + deptName + "]";
+		return deptCode + "  " + deptName;
 	}
 
 }
