@@ -125,6 +125,9 @@ public class PrintResult {
 		case "insertScores":
 			errorMessage = "이미 점수를 부여한 학생입니다.";
 			break;
+		case "insertScores2" :
+			errorMessage = "수강중인 학생이 아닙니다.";
+			break;
 		case "updateFinGrade":
 			errorMessage = "학점 부여 실패";
 			break;
