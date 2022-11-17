@@ -710,7 +710,7 @@ public class UimsMenu {
 			switch (menu) {
 
 			case "1":
-				updateJudge(parameter);
+				insertJudge(parameter);
 				break;
 			case "2":
 				modifyJudge(parameter);
@@ -730,7 +730,7 @@ public class UimsMenu {
 		} while (true);
 	}
 
-	private void updateJudge(Map<String, String> parameter) {
+	private void insertJudge(Map<String, String> parameter) {
 		System.out.println("=========================================================================");
 		System.out.print("강의 평가할 교수의 ");
 		parameter.put("profNo", inputProfNo().get("profNo"));
