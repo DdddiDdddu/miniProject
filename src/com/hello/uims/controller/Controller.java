@@ -1,6 +1,5 @@
 package com.hello.uims.controller;
 
-//import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -42,7 +41,6 @@ public class Controller {
 		ArrayList<GradeDTO> list;
 		try {
 			list = gradeService.selectGradeCheck(parameter);
-
 			if (list != null && !list.isEmpty())
 				printResult.printGrade(list);
 			else
@@ -191,16 +189,16 @@ public class Controller {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
 
-		if (lectureList != null && !lectureList.isEmpty())
+		if (lectureList != null)
 			printResult.printLecture(lectureList);
 		else
-			printResult.printErrorMessage("selectAllLecture");
+			printResult.printErrorMessage("selectLecture");
 	}
 
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
-		// 수강신청 결과별 출력메세지
+		// 수강신청 결과별 출력메세지 
 		try {
 			switch (enrollService.enroll(parameter)) {
 			case "enrollSuccess":
@@ -218,13 +216,11 @@ public class Controller {
 			case "duplication":
 				printResult.printErrorMessage("duplication");
 				break;
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
 		}
-
 	}
 
 	// 수강신청 내역
@@ -232,7 +228,7 @@ public class Controller {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectEnroll(parameter);
 
-		if (lectureList != null && !lectureList.isEmpty())
+		if (lectureList != null)
 			printResult.printLecture(lectureList);
 		else
 			printResult.printErrorMessage("selectEnroll");
@@ -250,20 +246,6 @@ public class Controller {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
 		}
-	}
-
-	// 강의목록 검색
-	public void searchLectureByLectureNameOrProfName(Map<String, String> criteria) {
-
-		ArrayList<LectureDTO> lectureList;
-
-		lectureList = enrollService.searchLectureByLectureNameOrProfName(criteria);
-
-		if (lectureList != null && !lectureList.isEmpty())
-			printResult.printLecture(lectureList);
-		else
-			printResult.printErrorMessage("searchLectureByLectureNameOrProfName");
-
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
@@ -325,13 +307,7 @@ public class Controller {
 			printResult.printErrorMessage("selectBystudentNo");
 	}
 
-	public void inputJudgement(Map<String, String> parameter) {
-		if (LectureJugService.inputJudgement(parameter))
-			printResult.printSuccessMessage("inputJudgement");
 
-		else
-			printResult.printErrorMessage("inputJudgement");
-	}
 
 	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
@@ -357,6 +333,17 @@ public class Controller {
 
 	public void insertStudent(HashMap<String, String> infoMap) {
 
+//		String studentId = infoMap.get("studentId");
+//		String studentPwd = infoMap.get("studentPwd");
+//		String studentName = infoMap.get("studentName");
+//		String studentTelNo = infoMap.get("studentTelNo");
+//		
+//		StudentDTO stu = new StudentDTO();
+//		stu.setStudentId(studentId);
+//		stu.setStudentPwd(studentPwd);
+//		stu.setStudentName(studentName);
+//		stu.setStudentTelNo(studentTelNo);
+
 		if (signUpService.insertStudent(infoMap)) {
 			printResult.printSuccessMessage("insertStudent");
 		} else {
@@ -364,7 +351,18 @@ public class Controller {
 		}
 	}
 
-	public void insertProfessor(HashMap<String, String> infoMap) {
+  public void insertProfessor(HashMap<String, String> infoMap) {
+
+//		int profNo = Integer.parseInt(infoMap.get("profNo"));
+//		String profPwd = infoMap.get("profPwd");
+//		String profName = infoMap.get("profName");
+//		String profTelNo = infoMap.get("profTelNo");
+//	
+//		ProfessorDTO pro = new ProfessorDTO();
+//		pro.setProfNo(profNo);
+//		pro.setProfPwd(profPwd);
+//		pro.setProfName(profName);
+//		pro.setProfTelNo(profTelNo);
 
 		if (signUpService.insertProfessor(infoMap)) {
 			printResult.printSuccessMessage("insertProfessor");
@@ -373,14 +371,26 @@ public class Controller {
 		}
 
 	}
+  	
+	public void inputJudgement(Map<String, String> parameter) {
+		
+	
+		if (LectureJugService.inputJudgement(parameter))
+			printResult.printSuccessMessage("inputJudgement");
+		else
+			printResult.printErrorMessage("inputJudgement");
+			
+		}
+		
+	
 
 	public void modifyJudgement(Map<String, String> parameter) {
-
+		
 		if (LectureJugService.modifyJudgement(parameter))
 			printResult.printSuccessMessage("modifyJudgement");
 		else
 			printResult.printErrorMessage("modifyJudgement");
-
+			
 	}
 
 	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
@@ -408,13 +418,14 @@ public class Controller {
 		return (list != null && !list.isEmpty()) ? list : null;
 
 	}
-
+	//학생 : 강의 평가 삭제
 	public void deleteJudgement(Map<String, String> parameter) {
-
-		if (LectureJugService.deleteJudgement(parameter))
-			printResult.printSuccessMessage("deleteJudgement");
-		else
-			printResult.printErrorMessage("deleteJudgement");
+		
+			if (LectureJugService.deleteJudgement(parameter))
+				printResult.printSuccessMessage("deleteJudgement");
+			else
+				printResult.printErrorMessage("deleteJudgement");
+		
 	}
 
 	public void selectStuId(Map<String, String> parameter) {
@@ -422,7 +433,7 @@ public class Controller {
 		StudentDTO student = loginService.selectStuId(parameter);
 		ArrayList<StudentDTO> list = new ArrayList<>();
 		list.add(student);
-
+		
 		if (student != null)
 			printResult.printStudent(list);
 		else
@@ -431,16 +442,16 @@ public class Controller {
 	}
 
 	public void updateStuId(Map<String, String> parameter) {
-
+		
 		if (loginService.updateStuId(parameter))
 			printResult.printSuccessMessage("updateStudId");
 		else
 			printResult.printErrorMessage("updateStuId");
-
+		
 	}
 
 	public void deleteStuId(Map<String, String> parameter) {
-
+		
 		if (loginService.deleteStuId(parameter))
 			printResult.printSuccessMessage("deleteStuId");
 		else

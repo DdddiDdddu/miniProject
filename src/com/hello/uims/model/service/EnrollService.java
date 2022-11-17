@@ -47,7 +47,7 @@ public class EnrollService {
 		
 		// 강의 중복 여부
 		for (int i = 0; i < lectureList.size() - 1; i++) {
-			System.out.println("인덱스" + lectureList.get(i).getLectureNo());
+//			System.out.println("인덱스" + lectureList.get(i).getLectureNo()); 테스트
 			if (lectureList.get(i).getLectureNo() == Integer.parseInt(parameter.get("lectureNo"))) {
 				duplication = true;
 			}
