@@ -354,7 +354,7 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			String menu = sc.nextLine();
+			String menu = sc.nextLine(); 
 
 			switch (menu) {
 			case "1":
@@ -425,8 +425,6 @@ public class UimsMenu {
 
 	private void manageGrade(Map<String, String> parameter) { // 교수 학점 관리 메뉴
 
-		int no;
-
 		do {
 			con.selectByProfNo(parameter);
 			System.out.println("================================ 학점 관리 ================================");
@@ -438,31 +436,30 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			no = sc.nextInt();
-			sc.nextLine();
+			String menu = sc.nextLine(); 
 
-			switch (no) {
-			case 1:
+			switch (menu) {
+			case "1":
 				parameter.remove("lectureNo");
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 				con.selectGrade(parameter);
 				break;
-			case 2:
+			case "2":
 				parameter.remove("lectureNo");
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 				insertScores(parameter);
 				break;
-			case 3:
+			case "3":
 				parameter.remove("lectureNo");
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 				updateGrade(parameter);
 				break;
-			case 4:
+			case "4":
 				parameter.remove("lectureNo");
 				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 				deleteGrade(parameter);
 				break;
-			case 9:
+			case "9":
 				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -703,8 +700,6 @@ public class UimsMenu {
 	private void lectureJug(Map<String, String> parameter) {
 
 		do {
-
-			int no;
 			con.selectByStudentNo(parameter);
 
 			System.out.println("================================ 강의평가 =================================");
@@ -716,25 +711,24 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 
 			System.out.println("메뉴 선택 : ");
+			
+			String menu = sc.nextLine(); 
 
-			no = sc.nextInt();
-			sc.nextLine();
+			switch (menu) {
 
-			switch (no) {
-
-			case 1:
+			case "1":
 				updateJudge(parameter);
 				break;
-			case 2:
+			case "2":
 				modifyJudge(parameter);
 				break;
-			case 3:
+			case "3":
 				deleteJudge(parameter);
 				break;
-			case 4:
+			case "4":
 				showJudge(parameter);
 				break;
-			case 9:
+			case "9":
 				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
