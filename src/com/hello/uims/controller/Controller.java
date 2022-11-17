@@ -1,5 +1,6 @@
 package com.hello.uims.controller;
 
+import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -152,33 +153,39 @@ public class Controller {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
 
-		if (lectureList != null)
+		if (lectureList != null && !lectureList.isEmpty())
 			printResult.printLecture(lectureList);
 		else
-			printResult.printErrorMessage("selectLecture");
+			printResult.printErrorMessage("selectAllLecture");
 	}
 
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
-		// 수강신청 결과별 출력메세지 
-		switch (enrollService.enroll(parameter)) {
-		case "enrollSuccess":
-			printResult.printSuccessMessage("enrollSuccess");
-			break;
-		case "totalCreditOver":
-			printResult.printErrorMessage("totalCreditOver");
-			break;
-		case "enrollFail":
-			printResult.printErrorMessage("enrollFail");
-			break;
-		case "timeDuplication":
-			printResult.printErrorMessage("timeDuplication");
-			break;
-		case "duplication":
-			printResult.printErrorMessage("duplication");
-			break;
+		// 수강신청 결과별 출력메세지
+		try {
+			switch (enrollService.enroll(parameter)) {
+			case "enrollSuccess":
+				printResult.printSuccessMessage("enrollSuccess");
+				break;
+			case "totalCreditOver":
+				printResult.printErrorMessage("totalCreditOver");
+				break;
+			case "enrollFail":
+				printResult.printErrorMessage("enrollFail");
+				break;
+			case "timeDuplication":
+				printResult.printErrorMessage("timeDuplication");
+				break;
+			case "duplication":
+				printResult.printErrorMessage("duplication");
+				break;
+
+			}
+		} catch (Exception e) {
+			printResult.printErrorMessage("incorrectInput");
 		}
+
 	}
 
 	// 수강신청 내역
@@ -186,7 +193,7 @@ public class Controller {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectEnroll(parameter);
 
-		if (lectureList != null)
+		if (lectureList != null && !lectureList.isEmpty())
 			printResult.printLecture(lectureList);
 		else
 			printResult.printErrorMessage("selectEnroll");
@@ -199,6 +206,20 @@ public class Controller {
 			printResult.printSuccessMessage("deleteEnroll");
 		else
 			printResult.printErrorMessage("deleteEnroll");
+	}
+
+	// 강의목록 검색
+	public void searchLectureByLectureNameOrProfName(Map<String, String> criteria) {
+
+		ArrayList<LectureDTO> lectureList;
+
+		lectureList = enrollService.searchLectureByLectureNameOrProfName(criteria);
+
+		if (lectureList != null && !lectureList.isEmpty())
+			printResult.printLecture(lectureList);
+		else
+			printResult.printErrorMessage("searchLectureByLectureNameOrProfName");
+
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
@@ -292,7 +313,7 @@ public class Controller {
 		}
 	}
 
-  public void insertProfessor(HashMap<String, String> infoMap) {
+	public void insertProfessor(HashMap<String, String> infoMap) {
 
 //		int profNo = Integer.parseInt(infoMap.get("profNo"));
 //		String profPwd = infoMap.get("profPwd");
@@ -361,7 +382,7 @@ public class Controller {
 		StudentDTO student = loginService.selectStuId(parameter);
 		ArrayList<StudentDTO> list = new ArrayList<>();
 		list.add(student);
-		
+
 		if (student != null)
 			printResult.printStudent(list);
 		else
@@ -370,16 +391,16 @@ public class Controller {
 	}
 
 	public void updateStuId(Map<String, String> parameter) {
-		
+
 		if (loginService.updateStuId(parameter))
 			printResult.printSuccessMessage("updateStudId");
 		else
 			printResult.printErrorMessage("updateStuId");
-		
+
 	}
 
 	public void deleteStuId(Map<String, String> parameter) {
-		
+
 		if (loginService.deleteStuId(parameter))
 			printResult.printSuccessMessage("deleteStuId");
 		else

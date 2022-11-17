@@ -248,6 +248,35 @@
 		WHERE 1 = 1
 		AND A.STUDENT_NO = #{ studentNo }
 	</select>
+	<!-- 강의목록 검색 -->
+	<select id="searchLectureByLectureNameOrProfName" parameterType="hashmap"
+		resultMap="lectureResultMap">
+		SELECT
+			A.DEPT_CODE,
+			A.LECTURE_NO,
+			A.PROF_NO,
+			B.PROF_NAME,
+			A.LECTURE_NAME,
+			A.CREDIT,
+			A.CURR_NO,
+			A.FULL_NO,
+			A.DAY,
+			A.TIME
+		FROM LECTURE A
+		JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
+		WHERE 1 = 1
+			<if test="lectureNameValue != null">
+				<bind name="lectureNamePattern"
+					value="'%' + _parameter.get('lectureNameValue') + '%'" />
+				AND A.LECTURE_NAME LIKE #{ lectureNamePattern }
+			</if>
+			<if test="profNameValue != null">
+				<bind name="profNamePattern"
+					value="'%' + _parameter.get('profNameValue') + '%'" />
+				AND B.PROF_NAME LIKE #{ profNamePattern }
+			</if>
+		ORDER BY LECTURE_NO
+	</select>
 	<select id="selectGradeCheck" parameterType="hashmap" resultMap="gradeResultMap">
 		SELECT
 			   A.LECTURE_NAME,

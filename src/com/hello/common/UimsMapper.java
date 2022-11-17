@@ -28,6 +28,9 @@ public interface UimsMapper {
 
 	// 수강신청 취소
 	int deleteEnroll(Map<String, String> parameter);
+	
+	// 강의목록 검색
+	ArrayList<LectureDTO> searchLectureByLectureNameOrProfName(Map<String, String> criteria);
 
 	// 학점 부여
 	int insertGrade(Map<String, String> parameter);

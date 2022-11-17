@@ -12,8 +12,5 @@ public class Application {
 		
 		//menu.stuMainMenu();
 		
-		// 수강신청 테스트 지우지마세요 ㅠ
-//		menu.enrollMenu();
-		
 	}
 }
