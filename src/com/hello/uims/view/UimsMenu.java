@@ -20,28 +20,25 @@ public class UimsMenu {
 	public void initialMenu() {
 
 		do {
-			int no;
-
 			System.out.println("============================ 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원가입");
 			System.out.println("9. 프로그램 종료");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
+			
+			String menu = sc.nextLine();
 
-			no = sc.nextInt();
-			sc.nextLine();
-
-			switch (no) {
-			case 1:
+			switch (menu) {
+			case "1":
 				login();
 				break;
 
-			case 2:
+			case "2":
 				signUp();
 				break;
 
-			case 9:
+			case "9":
 				System.out.print("프로그램을 종료하시겠습니까? (y/n) : ");
 				if ('y' == sc.nextLine().toLowerCase().charAt(0)) {
 					sc.close();
@@ -67,11 +64,10 @@ public class UimsMenu {
 		System.out.println("=========================");
 		System.out.print("메뉴 선택 : ");
 
-		int no = sc.nextInt();
-		sc.nextLine();
+		String menu = sc.nextLine();
 
-		switch (no) {
-		case 1:
+		switch (menu) {
+		case "1":
 			while (true) {
 				StudentDTO student = con.selectLoginStudent(inputStuId());
 
@@ -88,7 +84,7 @@ public class UimsMenu {
 			}
 			break;
 
-		case 2:
+		case "2":
 			while (true) {
 				ProfessorDTO professor = con.selectLoginProfessor(inputProId());
 
@@ -135,11 +131,10 @@ public class UimsMenu {
 		System.out.println("=========================");
 		System.out.print("메뉴 선택 : ");
 
-		int no = sc.nextInt();
-		sc.nextLine();
+		String menu = sc.nextLine();
 
-		switch (no) {
-		case 1:
+		switch (menu) {
+		case "1":
 
 			HashMap<String, String> infoStuMap = new HashMap<>();
 
@@ -155,7 +150,7 @@ public class UimsMenu {
 
 			con.insertStudent(infoStuMap);
 			break;
-		case 2:
+		case "2":
 
 			HashMap<String, String> infoProMap = new HashMap<>();
 
@@ -180,8 +175,6 @@ public class UimsMenu {
 		sm.put("studentNo", String.valueOf(student.getStudentNo()));
 
 		do {
-			int no;
-
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 마이페이지");
 			System.out.println("2. 수강신청 메뉴");
@@ -191,23 +184,22 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			no = sc.nextInt();
-			sc.nextLine();
+			String menu = sc.nextLine();
 
-			switch (no) {
-			case 1:
+			switch (menu) {
+			case "1":
 				myPage();
 				break;
-			case 2:
+			case "2":
 				enrollMenu(sm);
 				break;
-			case 3:
+			case "3":
 				con.selectGradeCheck(sm);
 				break;
-			case 4:
+			case "4":
 				lectureJug(sm);
 				break;
-			case 5:
+			case "5":
 				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -228,21 +220,19 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			int no;
-			no = sc.nextInt();
-			sc.nextLine();
+			String menu = sc.nextLine();
 
-			switch (no) {
-			case 1:
+			switch (menu) {
+			case "1":
 				con.selectStuId(inputStuId());
 				break;
-			case 2:
+			case "2":
 				updateStuId(inputStudentNo());
 				break;
-			case 3:
+			case "3":
 				con.deleteStuId(inputStudentNo());
 				return;
-			case 9:
+			case "9":
 				System.out.println("이전 메뉴로 돌아갑니다.");
 				return;
 			default:
@@ -273,8 +263,6 @@ public class UimsMenu {
 		pm.put("profNo", String.valueOf(professor.getProfNo()));
 
 		do {
-			int no;
-
 			System.out.println("=========================== 학사 통합 관리 시스템 ===========================");
 			System.out.println("1. 지수형");
 			System.out.println("2. 학점관리");
@@ -283,20 +271,19 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			no = sc.nextInt();
-			sc.nextLine();
+			String menu = sc.nextLine();
 
-			switch (no) {
-			case 1:
+			switch (menu) {
+			case "1":
 //				con.myPage();
 				break;
-			case 2:
+			case "2":
 				manageGrade(pm);
 				break;
-			case 3:
+			case "3":
 				viewJudgement(pm);
 				break;
-			case 9:
+			case "9":
 				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
@@ -309,8 +296,6 @@ public class UimsMenu {
 	public void enrollMenu(HashMap<String, String> sm) {
 
 		do {
-			int no;
-
 			System.out.println("================================ 수강신청 =================================");
 			System.out.println("1. 강의목록 조회");
 			System.out.println("2. 수강신청");
@@ -321,28 +306,25 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-//			SQLIntegrityConstraintViolationException 에러 처리하기 
+			String menu = sc.nextLine();
 
-			no = sc.nextInt();
-			sc.nextLine();
-
-			switch (no) {
-			case 1:
+			switch (menu) {
+			case "1":
 				con.selectAllLecture(); // 강의목록 조회
 				break;
-			case 2:
+			case "2":
 				con.enroll(inputLectureNo(sm)); // 수강신청
 				break;
-			case 3:
+			case "3":
 				con.selectEnroll(sm); // 수강신청 내역
 				break;
-			case 4:
+			case "4":
 				con.deleteEnroll(inputLectureNo(sm)); // 수강신청 취소
 				break;
-			case 5:
+			case "5":
 				con.searchLectureByLectureNameOrProfName(inputSearchCriteriaMap()); // 강의목록 검색
 				break;
-			case 9:
+			case "9":
 				return;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
