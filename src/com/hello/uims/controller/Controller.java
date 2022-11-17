@@ -186,21 +186,28 @@ public class Controller {
 
 	// 강의목록 조회
 	public void selectAllLecture() {
+		
+		try {
+			ArrayList<LectureDTO> lectureList;
 
-		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
-
-		if (lectureList != null && !lectureList.isEmpty())
-			printResult.printLecture(lectureList);
-		else
-			printResult.printErrorMessage("selectLecture");
+			lectureList = enrollService.selectAllLecture();
+			
+			if (lectureList != null && !lectureList.isEmpty())
+				printResult.printLecture(lectureList);
+			else
+				printResult.printErrorMessage("selectLecture");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 	}
 
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
-		// 수강신청 결과별 출력메세지
 		try {
-			switch (enrollService.enroll(parameter)) {
+			switch (enrollService.enroll(parameter)) { // 수강신청 결과별 출력메세지
 			case "enrollSuccess":
 				printResult.printSuccessMessage("enrollSuccess");
 				break;
@@ -226,12 +233,20 @@ public class Controller {
 	// 수강신청 내역
 	public void selectEnroll(Map<String, String> parameter) {
 
-		ArrayList<LectureDTO> lectureList = enrollService.selectEnroll(parameter);
+		try {
+			ArrayList<LectureDTO> lectureList;
 
-		if (lectureList != null && !lectureList.isEmpty())
-			printResult.printLecture(lectureList);
-		else
-			printResult.printErrorMessage("selectEnroll");
+			lectureList = enrollService.selectEnroll(parameter);
+			
+			if (lectureList != null && !lectureList.isEmpty())
+				printResult.printLecture(lectureList);
+			else
+				printResult.printErrorMessage("selectEnroll");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 	}
 
 	// 수강신청 취소
@@ -251,15 +266,20 @@ public class Controller {
 	// 강의목록 검색
 	public void searchLectureByLectureNameOrProfName(Map<String, String> criteria) {
 
-		ArrayList<LectureDTO> lectureList;
+		try {
+			ArrayList<LectureDTO> lectureList;
 
-		lectureList = enrollService.searchLectureByLectureNameOrProfName(criteria);
-
-		if (lectureList != null && !lectureList.isEmpty())
-			printResult.printLecture(lectureList);
-		else
-			printResult.printErrorMessage("searchLectureByLectureNameOrProfName");
-
+			lectureList = enrollService.searchLectureByLectureNameOrProfName(criteria);
+			
+			if (lectureList != null && !lectureList.isEmpty())
+				printResult.printLecture(lectureList);
+			else
+				printResult.printErrorMessage("searchLectureByLectureNameOrProfName");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
