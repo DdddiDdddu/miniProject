@@ -17,8 +17,8 @@ public class LectureDTO {
 
 	}
 
-	public LectureDTO(String deptCode, int lectureNo, int profNo, String profName, String lectureName, char credit, int currNo,
-			int fullNo, String day, String time) {
+	public LectureDTO(String deptCode, int lectureNo, int profNo, String profName, String lectureName, char credit,
+			int currNo, int fullNo, String day, String time) {
 		super();
 		this.deptCode = deptCode;
 		this.lectureNo = lectureNo;
@@ -47,7 +47,7 @@ public class LectureDTO {
 	public void setDeptCode(String deptCode) {
 		this.deptCode = deptCode;
 	}
-	
+
 	public String getProfName() {
 		return profName;
 	}
@@ -111,11 +111,10 @@ public class LectureDTO {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
+
 	public String toString() {
-		return "[deptCode=" + deptCode + ", lectureNo=" + lectureNo + ", profName=" + profName + ", profNo=" + profNo + ", lectureName="
-				+ lectureName + ", credit=" + credit + ", currNo=" + currNo + ", fullNo=" + fullNo + ", day=" + day
-				+ ", time=" + time + "]";
+		return deptCode + "    " + lectureNo + "    " + profName + "  " + profNo + "      " + lectureName + "  " + credit + "          ("
+				+ currNo + " / " + fullNo + ")     " + day + "     " + time;
 	}
-	
+
 }

@@ -26,7 +26,7 @@ public class UimsMenu {
 			System.out.println("9. 프로그램 종료");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
-			
+
 			String menu = sc.nextLine();
 
 			switch (menu) {
@@ -92,6 +92,9 @@ public class UimsMenu {
 				}
 			}
 			break;
+		default:
+			System.out.println("잘못 입력하셨습니다.");
+			break;
 		}
 	}
 
@@ -154,6 +157,8 @@ public class UimsMenu {
 
 			con.insertProfessor(infoProMap);
 			break;
+		default:
+			System.out.println("잘못 입력하셨습니다.");
 		}
 	}
 
@@ -173,7 +178,6 @@ public class UimsMenu {
 			System.out.print("메뉴 선택 : ");
 
 			String menu = sc.nextLine();
-
 
 			switch (menu) {
 			case "1":
@@ -338,7 +342,7 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			String menu = sc.nextLine(); 
+			String menu = sc.nextLine();
 
 			switch (menu) {
 			case "1":
@@ -411,6 +415,7 @@ public class UimsMenu {
 
 		do {
 			con.selectByProfNo(parameter);
+
 			System.out.println("================================ 학점 관리 ================================");
 			System.out.println("1. 학점 조회");
 			System.out.println("2. 학점 부여");
@@ -420,7 +425,7 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			String menu = sc.nextLine(); 
+			String menu = sc.nextLine();
 
 			switch (menu) {
 			case "1":
@@ -454,21 +459,27 @@ public class UimsMenu {
 		String assScore;
 		String midScore;
 		String finScore;
+
+		if (parameter.get("studentNo") != null && !parameter.get("studentNo").isEmpty()) {
+			parameter.remove("studentNo");
+		}
+
 		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
-		
+
 		int index1 = 0;
 		int size = enroll.size();
+
 		while (index1 < size) {
 			System.out.println("================================ 수강생 목록 ================================");
 			for (int i = 0; i < size; i++) {
 				if (parameter.containsKey("studentNo")) {
 					if (Integer.parseInt(parameter.get("studentNo")) != enroll.get(i).getStudentNo()) {
-						System.out.println(enroll.get(i).getStudentNo());
+						System.out.println("학번 : " + enroll.get(i).getStudentNo());
 					} else {
-						System.out.println("<여기까지 입력 완료>");
+						System.out.println(" < 여기까지 입력 완료 > ");
 					}
 				} else {
-					System.out.println(enroll.get(i).getStudentNo());
+					System.out.println("학번 : " + enroll.get(i).getStudentNo());
 				}
 			}
 			System.out.println("=========================================================================");
@@ -693,8 +704,8 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 
 			System.out.println("메뉴 선택 : ");
-			
-			String menu = sc.nextLine(); 
+
+			String menu = sc.nextLine();
 
 			switch (menu) {
 

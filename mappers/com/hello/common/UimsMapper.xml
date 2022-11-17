@@ -277,19 +277,19 @@
 	<select id="searchLectureByLectureNameOrProfName" parameterType="hashmap"
 		resultMap="lectureResultMap">
 		SELECT
-			A.DEPT_CODE,
-			A.LECTURE_NO,
-			A.PROF_NO,
-			B.PROF_NAME,
-			A.LECTURE_NAME,
-			A.CREDIT,
-			A.CURR_NO,
-			A.FULL_NO,
-			A.DAY,
-			A.TIME
-		FROM LECTURE A
-		JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
-		WHERE 1 = 1
+			   A.DEPT_CODE,
+			   A.LECTURE_NO,
+			   A.PROF_NO,
+			   B.PROF_NAME,
+			   A.LECTURE_NAME,
+			   A.CREDIT,
+			   A.CURR_NO,
+			   A.FULL_NO,
+			   A.DAY,
+			   A.TIME
+		  FROM LECTURE A
+		  JOIN PROFESSOR B ON A.PROF_NO = B.PROF_NO
+		 WHERE 1 = 1
 			<if test="lectureNameValue != null">
 				<bind name="lectureNamePattern"
 					value="'%' + _parameter.get('lectureNameValue') + '%'" />
@@ -366,6 +366,9 @@
 		  JOIN LECTURE B ON A.LECTURE_NO = B.LECTURE_NO
 	 	 WHERE B.LECTURE_NO = #{ lectureNo }
 	 	   AND B.PROF_NO = #{ profNo }
+	 	   <if test = "studentNo != null">
+	 	   AND A.STUDENT_NO = #{ studentNo }
+	 	   </if>
 	 	 ORDER BY A.STUDENT_NO
 	</select>
 	<insert id="insertScores" parameterType="hashmap">

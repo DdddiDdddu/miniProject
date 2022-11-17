@@ -38,113 +38,150 @@ public class Controller {
 
 	public void selectGradeCheck(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(parameter);
-
-		if (list != null && !list.isEmpty())
-			printResult.printGrade(list);
-
-		else
-			printResult.printErrorMessage("gradeCheck");
+		ArrayList<GradeDTO> list;
+		try {
+			list = gradeService.selectGradeCheck(parameter);
+			if (list != null && !list.isEmpty())
+				printResult.printGrade(list);
+			else
+				printResult.printErrorMessage("gradeCheck");
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 
 	}
 
 	public void selectByProfNo(Map<String, String> parameter) {
 
-		ArrayList<LectureDTO> list = gradeService.selectByProfNo(parameter);
+		try {
+			ArrayList<LectureDTO> list = gradeService.selectByProfNo(parameter);
 
-		if (list != null && !list.isEmpty())
-			printResult.printLecture(list);
+			if (list != null && !list.isEmpty())
+				printResult.printLecture(list);
 
-		else
-			printResult.printErrorMessage("selectByProfNo");
+			else
+				printResult.printErrorMessage("selectByProfNo");
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 
 	}
 
 	public void insertScores(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> list = gradeService.selectGradeCheck(parameter);
+		ArrayList<GradeDTO> list = null;
+		ArrayList<EnrollmentDTO> list2 = null;
 
-		if (list != null && !list.isEmpty()) {
-			printResult.printErrorMessage("insertScores");
-		} else {
-			if (gradeService.insertScores(parameter))
-				printResult.printSuccessMessage("insertScores");
+		try {
+			list = gradeService.selectGradeCheck(parameter);
+			list2 = gradeService.selectStudentList(parameter);
+
+			if (list2 != null && !list2.isEmpty()) {
+				if (list != null && !list.isEmpty()) {
+					printResult.printErrorMessage("insertScores");
+				} else {
+					if (gradeService.insertScores(parameter)) {
+						printResult.printSuccessMessage("insertScores");
+					}
+				}
+			} else {
+				printResult.printErrorMessage("insertScores2");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
 		}
 
 	}
 
 	public ArrayList<EnrollmentDTO> selectStudentList(Map<String, String> parameter) {
 
-		ArrayList<EnrollmentDTO> list = gradeService.selectStudentList(parameter);
+		ArrayList<EnrollmentDTO> list = null;
+		try {
+			list = gradeService.selectStudentList(parameter);
 
-		if (list != null && !list.isEmpty())
-			printResult.printSuccessMessage("selectStudentList");
-		else
-			printResult.printErrorMessage("selectStudentList");
+			if (list != null && !list.isEmpty())
+				printResult.printSuccessMessage("selectStudentList");
+			else
+				printResult.printErrorMessage("selectStudentList");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 
 		return list;
 
 	}
 
 	public void updateFinGrade(Map<String, String> parameter) {
+		
+		System.out.println("학점 부여중...");
+		try {
+			ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
+			ArrayList<GradeDTO> list2 = new ArrayList<>();
+			GradeDTO grade;
+			int totScore = 0;
+			int result = 0;
 
-		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
-		ArrayList<GradeDTO> list2 = new ArrayList<>();
-		GradeDTO grade;
-		int totScore = 0;
-		int result = 0;
-
-		for (int i = 0; i < list.size(); i++) {
-			grade = new GradeDTO();
-			totScore = list.get(i).getAttScore() + list.get(i).getAssScore() + list.get(i).getMidScore()
-					+ list.get(i).getFinScore();
-			grade.setAttScore(list.get(i).getAttScore());
-			grade.setAssScore(totScore);
-			grade.setStudentNo(list.get(i).getStudentNo());
-			list2.add(grade);
-		}
-
-		list2.sort(new Comparator<GradeDTO>() {
-			@Override
-			public int compare(GradeDTO o1, GradeDTO o2) {
-
-				return o1.getAssScore() >= o2.getAssScore() ? -1 : 1;
+			for (int i = 0; i < list.size(); i++) {
+				grade = new GradeDTO();
+				totScore = list.get(i).getAttScore() + list.get(i).getAssScore() + list.get(i).getMidScore()
+						+ list.get(i).getFinScore();
+				grade.setAttScore(list.get(i).getAttScore());
+				grade.setAssScore(totScore);
+				grade.setStudentNo(list.get(i).getStudentNo());
+				list2.add(grade);
 			}
-		});
 
-		for (int i = 0; i < list2.size(); i++) {
+			list2.sort(new Comparator<GradeDTO>() {
+				@Override
+				public int compare(GradeDTO o1, GradeDTO o2) {
 
-			parameter.put("studentNo", Integer.toString(list2.get(i).getStudentNo()));
-			if (list2.get(i).getAttScore() < 7) {
-				parameter.put("grade", "F");
-			} else if (i <= list2.size() * 0.1) {
-				parameter.put("grade", "A+");
-			} else if (i <= list2.size() * 0.2) {
-				parameter.put("grade", "A");
-			} else if (i <= list2.size() * 0.3) {
-				parameter.put("grade", "B+");
-			} else if (i <= list2.size() * 0.4) {
-				parameter.put("grade", "B");
-			} else if (i <= list2.size() * 0.5) {
-				parameter.put("grade", "C+");
-			} else if (i <= list2.size() * 0.6) {
-				parameter.put("grade", "C");
-			} else if (i <= list2.size() * 0.7) {
-				parameter.put("grade", "D+");
+					return o1.getAssScore() >= o2.getAssScore() ? -1 : 1;
+				}
+			});
+
+			for (int i = 0; i < list2.size(); i++) {
+
+				parameter.put("studentNo", Integer.toString(list2.get(i).getStudentNo()));
+				if (list2.get(i).getAttScore() < 7) {
+					parameter.put("grade", "F");
+				} else if (i <= list2.size() * 0.1) {
+					parameter.put("grade", "A+");
+				} else if (i <= list2.size() * 0.2) {
+					parameter.put("grade", "A");
+				} else if (i <= list2.size() * 0.3) {
+					parameter.put("grade", "B+");
+				} else if (i <= list2.size() * 0.4) {
+					parameter.put("grade", "B");
+				} else if (i <= list2.size() * 0.5) {
+					parameter.put("grade", "C+");
+				} else if (i <= list2.size() * 0.6) {
+					parameter.put("grade", "C");
+				} else if (i <= list2.size() * 0.7) {
+					parameter.put("grade", "D+");
+				} else {
+					parameter.put("grade", "D");
+				}
+
+				if (gradeService.updateFinGrade(parameter)) {
+					result++;
+				}
+			}
+			if (result == list2.size()) {
+				printResult.printSuccessMessage("updateFinGrade");
 			} else {
-				parameter.put("grade", "D");
+				printResult.printErrorMessage("updateFinGrade");
 			}
-
-			if (gradeService.updateFinGrade(parameter)) {
-				result++;
-			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			printResult.printErrorMessage("error");
 		}
 
-		if (result == list2.size()) {
-			printResult.printSuccessMessage("updateFinGrade");
-		} else {
-			printResult.printErrorMessage("updateFinGrade");
-		}
 	}
 
 	// 강의목록 조회
@@ -182,6 +219,7 @@ public class Controller {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			printResult.printErrorMessage("error");
 		}
 	}
 
@@ -199,38 +237,61 @@ public class Controller {
 	// 수강신청 취소
 	public void deleteEnroll(Map<String, String> parameter) {
 
-		if (enrollService.deleteEnroll(parameter))
-			printResult.printSuccessMessage("deleteEnroll");
-		else
-			printResult.printErrorMessage("deleteEnroll");
+		try {
+			if (enrollService.deleteEnroll(parameter))
+				printResult.printSuccessMessage("deleteEnroll");
+			else
+				printResult.printErrorMessage("deleteEnroll");
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
+		ArrayList<GradeDTO> list = null;
 
-		if (list != null && !list.isEmpty())
-			printResult.printGrade(list);
-		else
-			printResult.printErrorMessage("selectGrade");
+		try {
+			list = gradeService.selectGrade(parameter);
+
+			if (list != null && !list.isEmpty())
+				printResult.printGrade(list);
+			else
+				printResult.printErrorMessage("selectGrade");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 
 		return (list != null && !list.isEmpty()) ? list : null;
 	}
 
 	public void updateGrade(Map<String, String> parameter) {
 
-		if (gradeService.updateGrade(parameter))
-			printResult.printSuccessMessage("updateGrade");
-		else
-			printResult.printErrorMessage("updateGrade");
+		try {
+			if (gradeService.updateGrade(parameter))
+				printResult.printSuccessMessage("updateGrade");
+			else
+				printResult.printErrorMessage("updateGrade");
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 	}
 
 	public void deleteGrade(Map<String, String> parameter) {
 
-		if (gradeService.deleteGrade(parameter))
-			printResult.printSuccessMessage("deleteGrade");
-		else
-			printResult.printErrorMessage("deleteGrade");
+		try {
+			if (gradeService.deleteGrade(parameter))
+				printResult.printSuccessMessage("deleteGrade");
+			else
+				printResult.printErrorMessage("deleteGrade");
+		} catch (Exception e) {
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
 	}
 
 	public void selectByStudentNo(Map<String, String> parameter) {
@@ -396,6 +457,27 @@ public class Controller {
 		else
 			printResult.printErrorMessage("deleteStuId");
 
+	}
+
+	public void selectProfId(HashMap<String, String> parameter) {
+
+		ProfessorDTO professor = loginService.selectProfId(parameter);
+		ArrayList<ProfessorDTO> list = new ArrayList<>();
+		list.add(professor);
+
+		if (professor != null)
+			printResult.printProfessor(list);
+		else
+			printResult.printErrorMessage("selectProfId");
+
+	}
+
+	public void updateProfId(Map<String, String> parameter) {
+
+		if (loginService.updateProfId(parameter))
+			printResult.printSuccessMessage("updateProfId");
+		else
+			printResult.printErrorMessage("updateProfId");
 	}
 
 }

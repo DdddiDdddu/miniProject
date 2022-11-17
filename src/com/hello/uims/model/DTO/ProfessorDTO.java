@@ -114,8 +114,7 @@ public class ProfessorDTO {
 	}
 
 	public String toString() {
-		return "[profNo=" + profNo + ", deptCode=" + deptCode + ", profId=" + profId + ", profPwd=" + profPwd
-				+ ", profName=" + profName + ", address=" + address + ", profTelNo=" + profTelNo + ", email=" + email
-				+ ", enrollDate=" + enrollDate + ", status=" + status + "]";
+		return profNo + "      " + deptCode + "    " + profId + " " + profPwd + " " + profName + "  " + address + "  "
+				+ profTelNo + "  " + email + "  " + enrollDate + "  " + status;
 	}
 }

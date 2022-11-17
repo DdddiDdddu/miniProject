@@ -139,7 +139,7 @@ public class EnrollService {
 	}
 
 	// 수강신청 취소
-	public boolean deleteEnroll(Map<String, String> parameter) {
+	public boolean deleteEnroll(Map<String, String> parameter) throws Exception {
 
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
