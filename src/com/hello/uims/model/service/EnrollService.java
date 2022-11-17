@@ -17,7 +17,7 @@ public class EnrollService {
 	UimsMapper mapper;
 
 	// 강의목록 조회
-	public ArrayList<LectureDTO> selectAllLecture() {
+	public ArrayList<LectureDTO> selectAllLecture() throws Exception {
 
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
@@ -126,7 +126,7 @@ public class EnrollService {
 	}
 
 	// 수강신청 내역
-	public ArrayList<LectureDTO> selectEnroll(Map<String, String> parameter) {
+	public ArrayList<LectureDTO> selectEnroll(Map<String, String> parameter) throws Exception {
 
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
@@ -156,7 +156,7 @@ public class EnrollService {
 	}
 
 	// 강의목록 검색
-	public ArrayList<LectureDTO> searchLectureByLectureNameOrProfName(Map<String, String> criteria) {
+	public ArrayList<LectureDTO> searchLectureByLectureNameOrProfName(Map<String, String> criteria) throws Exception {
 
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
