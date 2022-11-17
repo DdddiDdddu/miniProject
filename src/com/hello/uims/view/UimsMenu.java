@@ -222,8 +222,13 @@ public class UimsMenu {
 				updateStuId(sm);
 				break;
 			case "3":
-				con.deleteStuId(sm);
-				return;
+				System.out.println("정말 탈퇴하시겠습니까? (y/n)");
+				if('y' == sc.nextLine().toLowerCase().charAt(0)) {
+					con.deleteStuId(sm);
+					return;
+				} else {
+					break;
+				}
 			case "9":
 				System.out.println("이전 메뉴로 돌아갑니다.");
 				return;
@@ -299,7 +304,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-//				con.selectProfId(pm);
+				con.selectProfId(pm);
 				break;
 			case 2:
 				updateProfId(pm);
@@ -325,7 +330,7 @@ public class UimsMenu {
 		System.out.println("수정할 이메일을 입력하세요");
 		parameter.put("email", sc.nextLine());
 
-//		con.updateProfId(parameter);
+		con.updateProfId(parameter);
 	}
 
 	// 수강신청 메뉴
