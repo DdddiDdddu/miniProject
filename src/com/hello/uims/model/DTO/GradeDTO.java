@@ -120,7 +120,7 @@ public class GradeDTO {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-
+ 
 	public String toString() {
 		return lectureName + "  " + profName + "  " + studentNo + "  " + studentName + "  " + attScore + "  " + assScore
 				+ "  " + midScore + "  " + finScore + "  " + grade;

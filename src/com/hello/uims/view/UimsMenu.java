@@ -51,10 +51,10 @@ public class UimsMenu {
 
 	public void login() {
 
-		System.out.println("=============로그인============");
+		System.out.println("================================= 로그인 =================================");
 		System.out.println("학생입니까? 1번");
 		System.out.println("교수입니까? 2번");
-		System.out.println("=========================");
+		System.out.println("=========================================================================");
 		System.out.print("메뉴 선택 : ");
 
 		String menu = sc.nextLine();
@@ -118,10 +118,10 @@ public class UimsMenu {
 
 	private void signUp() {
 		// 지수형 회원가입 파트
-		System.out.println("=============회원가입============");
+		System.out.println("================================= 회원가입 ================================");
 		System.out.println("학생입니까? 1번");
 		System.out.println("교수입니까? 2번");
-		System.out.println("=========================");
+		System.out.println("=========================================================================");
 		System.out.print("메뉴 선택 : ");
 
 		String menu = sc.nextLine();
@@ -130,7 +130,7 @@ public class UimsMenu {
 		case "1":
 			HashMap<String, String> infoStuMap = new HashMap<>();
 
-			System.out.println("===============================회원가입===================================");
+			System.out.println("================================= 회원가입 ================================");
 			System.out.println("아이디를 설정하세요");
 			infoStuMap.put("studentId", sc.nextLine());
 			System.out.println("비밀번호를 설정하세요(특수문자 제외)");
@@ -145,7 +145,7 @@ public class UimsMenu {
 		case "2":
 			HashMap<String, String> infoProMap = new HashMap<>();
 
-			System.out.println("===============================회원가입===================================");
+			System.out.println("================================= 회원가입 ================================");
 			System.out.println("아이디를 설정하세요");
 			infoProMap.put("profId", sc.nextLine());
 			System.out.println("비밀번호를 설정하세요(특수문자 제외)");

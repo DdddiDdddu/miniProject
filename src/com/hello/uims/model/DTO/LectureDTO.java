@@ -113,7 +113,7 @@ public class LectureDTO {
 	}
 
 	public String toString() {
-		return deptCode + "    " + lectureNo + "    " + profName + "  " + profNo + "      " + lectureName + "  " + credit + "          ("
+		return deptCode + "    " + lectureNo + "    " + profName + "  " + profNo + "      " + lectureName + "  " + credit + "        ("
 				+ currNo + " / " + fullNo + ")     " + day + "     " + time;
 	}
 

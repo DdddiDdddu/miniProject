@@ -117,7 +117,7 @@ public class PrintResult {
 			errorMessage = "강의중인 강의가 없습니다.";
 			break;
 		case "insertScores":
-			errorMessage = "이미 점수를 부여한 학생입니다.";
+			errorMessage = "이미 점수를 부여한 학생입니다."; 
 			break;
 		case "insertScores2":
 			errorMessage = "수강중인 학생이 아닙니다.";
