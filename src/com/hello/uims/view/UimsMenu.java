@@ -295,7 +295,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				con.selectProfId(pm);
+//				con.selectProfId(pm);
 				break;
 			case 2:
 				updateProfId(pm);
@@ -321,7 +321,7 @@ public class UimsMenu {
 		System.out.println("수정할 이메일을 입력하세요");
 		parameter.put("email", sc.nextLine());
 
-		con.updateProfId(parameter);
+//		con.updateProfId(parameter);
 	}
 
 	// 수강신청 메뉴
@@ -354,7 +354,7 @@ public class UimsMenu {
 				con.deleteEnroll(inputLectureNo(sm)); // 수강신청 취소
 				break;
 			case "5":
-				con.searchLectureByLectureNameOrProfName(inputSearchCriteriaMap()); // 강의목록 검색
+//				con.searchLectureByLectureNameOrProfName(inputSearchCriteriaMap()); // 강의목록 검색
 				break;
 			case "9":
 				return;
@@ -726,19 +726,66 @@ public class UimsMenu {
 		System.out.println("=========================================================================");
 		System.out.print("강의 평가할 ");
 		parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
+		
+		
+		
+		
+		int score1, score2, score3, score4, score5 = 0;
 		double avg = 0.0;
-
+		
 		System.out.println("질문에 알맞게 점수를 입력해주세요");
-		System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
-		int score1 = sc.nextInt();
-		System.out.println("강의내용은 해당영역의 이론과 지식을 적절히 담고 있는가? (1 ~ 5점으로 입력해주세요)");
-		int score2 = sc.nextInt();
-		System.out.println("담당교수는 학생들의 이해도를 높이기 위하여 최선을 다하였는가? (1 ~ 5점으로 입력해주세요)");
-		int score3 = sc.nextInt();
-		System.out.println("담당교수는 열성적이고 성실하게 강의에 임하였는가? (1 ~ 5점으로 입력해주세요)");
-		int score4 = sc.nextInt();
-		System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
-		int score5 = sc.nextInt();
+		while(true) {
+			System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
+			score1 = sc.nextInt();
+			if(score1 <= 0 || score1 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			
+			System.out.println("강의내용은 해당영역의 이론과 지식을 적절히 담고 있는가? (1 ~ 5점으로 입력해주세요)");
+			score2 = sc.nextInt();
+			if(score2 <= 0 || score2 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			System.out.println("담당교수는 학생들의 이해도를 높이기 위하여 최선을 다하였는가? (1 ~ 5점으로 입력해주세요)");
+			score3 = sc.nextInt();
+			if(score3 <= 0 || score3 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			System.out.println("담당교수는 열성적이고 성실하게 강의에 임하였는가? (1 ~ 5점으로 입력해주세요)");
+			score4 = sc.nextInt();
+			if(score4 <= 0 || score4 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
+			score5 = sc.nextInt();
+			if(score5 <= 0 || score5 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+			
 		sc.nextLine();
 
 		avg = (double) (score1 + score2 + score3 + score4 + score5) / 5;
@@ -757,31 +804,72 @@ public class UimsMenu {
 
 	private void modifyJudge(Map<String, String> parameter) {
 		double avg = 0.0;
+		int score1, score2, score3, score4, score5 = 0;
 		while (true) {
 
 			ArrayList<LectureJugDTO> list = con.selectJudgement(parameter);
 			if (list != null && !list.isEmpty()) {
 				System.out.println("=========================================================================");
 				System.out.print("강의 평가 수정할 ");
-				parameter.put("judgementNo", inputJudgemnetNo().get("judgementNo"));
+				parameter.put("lectureNo", inputLectureNo().get("lectureNo"));
 			} else {
-				System.out.println("옳지 않은 강의 평가 번호 입니다 다시 입력해주세요.");
-
-			}
-			break;
+				break;
+			} break;
+			
 		}
 
 		System.out.println("질문에 알맞게 점수를 입력해주세요");
-		System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
-		int score1 = sc.nextInt();
-		System.out.println("강의내용은 해당영역의 이론과 지식을 적절히 담고 있는가? (1 ~ 5점으로 입력해주세요)");
-		int score2 = sc.nextInt();
-		System.out.println("담당교수는 학생들의 이해도를 높이기 위하여 최선을 다하였는가? (1 ~ 5점으로 입력해주세요)");
-		int score3 = sc.nextInt();
-		System.out.println("담당교수는 열성적이고 성실하게 강의에 임하였는가? (1 ~ 5점으로 입력해주세요)");
-		int score4 = sc.nextInt();
-		System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
-		int score5 = sc.nextInt();
+		while(true) {
+			System.out.println("강의 목표와 강의내용이 강좌명과 부합하는가? (1 ~ 5점으로 입력해주세요)");
+			score1 = sc.nextInt();
+			if(score1 <= 0 || score1 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			System.out.println("강의내용은 해당영역의 이론과 지식을 적절히 담고 있는가? (1 ~ 5점으로 입력해주세요)");
+			score2 = sc.nextInt();
+			if(score2 <= 0 || score2 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			System.out.println("담당교수는 학생들의 이해도를 높이기 위하여 최선을 다하였는가? (1 ~ 5점으로 입력해주세요)");
+			score3 = sc.nextInt();
+			if(score3 <= 0 || score3 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			System.out.println("담당교수는 열성적이고 성실하게 강의에 임하였는가? (1 ~ 5점으로 입력해주세요)");
+			score4 = sc.nextInt();
+			if(score4 <= 0 || score4 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+		while(true) {
+			System.out.println("학업평가는 강의내용이 적절히 반영되어 과목의 이해정도를 잘 평가하였 는가? (1 ~ 5점으로 입력해주세요)");
+			score5 = sc.nextInt();
+			if(score5 <= 0 || score5 >= 6) {
+				System.out.println("1 ~ 5점으로 다시 입력해주세요");
+			}
+			else {
+				break;
+			}
+		}
+			
 		sc.nextLine();
 
 		avg = (double) (score1 + score2 + score3 + score4 + score5) / 5;
@@ -808,13 +896,12 @@ public class UimsMenu {
 				parameter.put("judgementNo", inputJudgemnetNo().get("judgementNo"));
 			} else {
 				break;
-			}
-
+				}
 			con.deleteJudgement(parameter);
-
+			
 			break;
-
-		}
+			}
+		
 	}
 
 	private void showJudge(Map<String, String> parameter) {

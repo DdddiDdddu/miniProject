@@ -40,6 +40,9 @@ public class PrintResult {
 		case "insertStudent":
 			successMessage = "회원가입이 되었습니다.";
 			break;
+		case "inputJudgement" :
+			successMessage = "강의 평가 등록에 성공하셨습니다.";
+			break;
 		case "modifyJudgement" :
 			successMessage = "강의 평가 수정에 성공하셨습니다.";
 			break;
@@ -172,9 +175,14 @@ public class PrintResult {
 		case "searchLectureByLectureNameOrProfName":
 			errorMessage = "검색결과가 존재하지 않습니다.";
 			break; // 수강신청 파트 끝
-			
+		
+		//강의 신청 파트 시작
+		
+		case "inputJudgement" :
+			errorMessage = "강의 평가 등록 실패(이미 등록 된 강의 평가 입니다.)";
+			break;
 		case "modifyJudgement" :
-			errorMessage = "강의 평가 수정 실패.";
+			errorMessage = "강의 평가 수정 실패(해당 강의번호로 등록한 강의 평가가 없습니다.)";
 			break;
 		case "selectBystudentNo" :
 			errorMessage = "수강중인 강의가 없습니다.";
@@ -182,9 +190,10 @@ public class PrintResult {
 		case "selectJudgement" :
 			errorMessage = "평가한 강의 평가가 없습니다.";
 			break;
-		case "deleteJudgement" : 
-			errorMessage = "강의 평가 삭제 실패.";
-			break;
+		case "deleteJudgement" :
+			errorMessage = "강의 평가 삭제 실패(해당 강의번호로 등록한 강의 평가가 없습니다,)";
+			break;// 강의평가 파트 끝
+			
 		case "insertStudent":
 			errorMessage = "회원가입이 실패 했습니다";
 			break;

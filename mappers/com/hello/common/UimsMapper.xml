@@ -452,7 +452,7 @@
 		   SET STU_JUG_SCORE= #{ stuJugScore },
 		   STU_ONE_JUG = #{ stuOneJug }
 		 WHERE STUDENT_NO = #{ studentNo }
-		   AND JUDGEMENT_NO = #{ judgementNo }
+		   AND LECTURE_NO = #{ lectureNo }
 	</update>
 	<!-- 학생 : 강의 평가 목록 조회 -->
 	<select id="selectJudgement" parameterType="hashmap"
