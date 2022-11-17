@@ -44,7 +44,7 @@ public class EnrollService {
 
 		// 수강신청 내역
 		ArrayList<LectureDTO> lectureList = mapper.selectEnroll(parameter);
-		
+
 		// 강의 중복 여부
 		for (int i = 0; i < lectureList.size() - 1; i++) {
 //			System.out.println("인덱스" + lectureList.get(i).getLectureNo()); 테스트
@@ -96,8 +96,14 @@ public class EnrollService {
 		if (enrollResult > 0 && !duplication && !timeDuplication && totalCredit <= 18) {
 			sqlSession.commit();
 			sqlSession.close();
-			
+
 			return "enrollSuccess";
+
+		} else if (totalCredit > 18) {
+			sqlSession.rollback();
+			sqlSession.close();
+
+			return "totalCreditOver";
 
 		} else if (duplication) {
 			sqlSession.rollback();
@@ -110,12 +116,6 @@ public class EnrollService {
 			sqlSession.close();
 
 			return "timeDuplication";
-
-		} else if (totalCredit > 18) {
-			sqlSession.rollback();
-			sqlSession.close();
-
-			return "totalCreditOver";
 
 		} else {
 			sqlSession.rollback();
@@ -154,10 +154,10 @@ public class EnrollService {
 
 		return (result > 0) ? true : false;
 	}
-	
+
 	// 강의목록 검색
 	public ArrayList<LectureDTO> searchLectureByLectureNameOrProfName(Map<String, String> criteria) {
-		
+
 		sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(UimsMapper.class);
 
@@ -167,5 +167,5 @@ public class EnrollService {
 
 		return lectureList;
 	}
-	
+
 }

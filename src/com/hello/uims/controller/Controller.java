@@ -189,7 +189,7 @@ public class Controller {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectAllLecture();
 
-		if (lectureList != null)
+		if (lectureList != null && !lectureList.isEmpty())
 			printResult.printLecture(lectureList);
 		else
 			printResult.printErrorMessage("selectLecture");
@@ -228,7 +228,7 @@ public class Controller {
 
 		ArrayList<LectureDTO> lectureList = enrollService.selectEnroll(parameter);
 
-		if (lectureList != null)
+		if (lectureList != null && !lectureList.isEmpty())
 			printResult.printLecture(lectureList);
 		else
 			printResult.printErrorMessage("selectEnroll");
