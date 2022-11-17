@@ -21,21 +21,18 @@ import com.hello.uims.view.PrintResult;
 public class Controller {
 
 	private PrintResult printResult = new PrintResult();
-	// private final EnrollService enrollService;
 	private GradeService gradeService = new GradeService();
-	// private final LectureJugService lectureJugService;
-	private final EnrollService enrollService;
-	// private final LectureJugService lectureJugService;
-	private final LoginService loginService;
+	private EnrollService enrollService = new EnrollService();
+	private LoginService loginService = new LoginService();
 	private SignUpService signUpService = new SignUpService();
-
+	private LectureJugService lectureJugService = new LectureJugService();
+	
+	// Controller 기본 생성자
 	public Controller() {
-		enrollService = new EnrollService();
-		loginService = new LoginService();
-		// lectureJugService = new LectureJugService()
 
 	}
-
+	
+	// 학점 조회
 	public void selectGradeCheck(Map<String, String> parameter) {
 
 		ArrayList<GradeDTO> list;
@@ -51,7 +48,8 @@ public class Controller {
 		}
 
 	}
-
+	
+	// 교수 번호로 강의목록 조회
 	public void selectByProfNo(Map<String, String> parameter) {
 
 		try {
@@ -68,7 +66,8 @@ public class Controller {
 		}
 
 	}
-
+	
+	// 학점 입력
 	public void insertScores(Map<String, String> parameter) {
 
 		ArrayList<GradeDTO> list = null;
@@ -96,7 +95,8 @@ public class Controller {
 		}
 
 	}
-
+	
+	// 수강중인 학생 목록 조회
 	public ArrayList<EnrollmentDTO> selectStudentList(Map<String, String> parameter) {
 
 		ArrayList<EnrollmentDTO> list = null;
@@ -116,7 +116,8 @@ public class Controller {
 		return list;
 
 	}
-
+	
+	// 학점 A~D, F 수정으로 입력
 	public void updateFinGrade(Map<String, String> parameter) {
 
 		System.out.println("학점 부여중...");
@@ -281,7 +282,8 @@ public class Controller {
 			printResult.printErrorMessage("error");
 		}
 	}
-
+	
+	// 학점 조회
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
 
 		ArrayList<GradeDTO> list = null;
@@ -301,7 +303,8 @@ public class Controller {
 
 		return (list != null && !list.isEmpty()) ? list : null;
 	}
-
+	
+	// 학점 수정
 	public void updateGrade(Map<String, String> parameter) {
 
 		try {
@@ -314,7 +317,8 @@ public class Controller {
 			printResult.printErrorMessage("error");
 		}
 	}
-
+	
+	// 학점 삭제
 	public void deleteGrade(Map<String, String> parameter) {
 
 		try {
@@ -327,12 +331,13 @@ public class Controller {
 			printResult.printErrorMessage("error");
 		}
 	}
-
+	
+	// 학번으로 학생 목록 조회
 	public void selectByStudentNo(Map<String, String> parameter) {
 
 		int studentNo = Integer.parseInt(parameter.get("studentNo"));
 
-		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
+		ArrayList<StudentDTO> list = lectureJugService.selectByStudentNo(studentNo);
 		try {
 			if (list != null && !list.isEmpty())
 				printResult.printStudent(list);
@@ -344,7 +349,8 @@ public class Controller {
 			printResult.printErrorMessage("error");
 		}
 	}
-
+	
+	// 로그인용 학생 조회
 	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
 		StudentDTO student = loginService.selectLoginStudent(parameter);
@@ -355,7 +361,8 @@ public class Controller {
 
 		return student;
 	}
-
+	
+	// 로그인용 교수 조회
 	public ProfessorDTO selectLoginProfessor(Map<String, String> parameter) {
 
 		ProfessorDTO professor = loginService.selectLoginProfessor(parameter);
@@ -366,7 +373,8 @@ public class Controller {
 
 		return professor;
 	}
-
+	
+	// 회원가입용 학생 입력
 	public void insertStudent(HashMap<String, String> infoMap) {
 
 		if (signUpService.insertStudent(infoMap)) {
@@ -375,7 +383,8 @@ public class Controller {
 			printResult.printErrorMessage("insertStudent");
 		}
 	}
-
+	
+	// 회원가입용 교수 입력
 	public void insertProfessor(HashMap<String, String> infoMap) {
 
 		if (signUpService.insertProfessor(infoMap)) {
@@ -385,11 +394,12 @@ public class Controller {
 		}
 
 	}
-
+	
+	// 강의평가 입력
 	public void inputJudgement(Map<String, String> parameter) {
 
 		try {
-			if (LectureJugService.inputJudgement(parameter))
+			if (lectureJugService.inputJudgement(parameter))
 				printResult.printSuccessMessage("inputJudgement");
 			else
 				printResult.printErrorMessage("inputJudgement");
@@ -399,11 +409,12 @@ public class Controller {
 		}
 
 	}
-
+	
+	// 강의평가 수정
 	public void modifyJudgement(Map<String, String> parameter) {
 
 		try {
-			if (LectureJugService.modifyJudgement(parameter))
+			if (lectureJugService.modifyJudgement(parameter))
 				printResult.printSuccessMessage("modifyJudgement");
 			else
 				printResult.printErrorMessage("modifyJudgement");
@@ -414,12 +425,14 @@ public class Controller {
 		}
 
 	}
-
+	
+	// 강의평가 조회
 	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
 
 		ArrayList<LectureJugDTO> list = null;
+		
 		try {
-			list = LectureJugService.selectJudgement(parameter);
+			list = lectureJugService.selectJudgement(parameter);
 
 			if (list != null && !list.isEmpty())
 				printResult.printJudgement(list);
@@ -436,9 +449,11 @@ public class Controller {
 
 	// 교수 : 자기 교수번호에 맞는 강의만 조회
 	public ArrayList<LectureJugDTO> selectJudmentProf(Map<String, String> inputProfNo) {
+		
 		ArrayList<LectureJugDTO> list = null;
+		
 		try {
-			list = LectureJugService.selectJudgementProf(inputProfNo);
+			list = lectureJugService.selectJudgementProf(inputProfNo);
 
 			if (list != null && !list.isEmpty())
 				printResult.printJudgementProf(list);
@@ -458,7 +473,7 @@ public class Controller {
 	public void deleteJudgement(Map<String, String> parameter) {
 
 		try {
-			if (LectureJugService.deleteJudgement(parameter))
+			if (lectureJugService.deleteJudgement(parameter))
 				printResult.printSuccessMessage("deleteJudgement");
 			else
 				printResult.printErrorMessage("deleteJudgement");
@@ -469,7 +484,8 @@ public class Controller {
 		}
 
 	}
-
+	
+	// 마이페이지용 학생 조회
 	public void selectStuId(Map<String, String> parameter) {
 
 		StudentDTO student = loginService.selectStuId(parameter);
@@ -482,7 +498,8 @@ public class Controller {
 			printResult.printErrorMessage("selectStuId");
 
 	}
-
+	
+	// 학생 개인정보 수정
 	public void updateStuId(Map<String, String> parameter) {
 
 		if (loginService.updateStuId(parameter))
@@ -491,7 +508,8 @@ public class Controller {
 			printResult.printErrorMessage("updateStuId");
 
 	}
-
+	
+	// 학생 삭제
 	public void deleteStuId(Map<String, String> parameter) {
 
 		if (loginService.deleteStuId(parameter))
@@ -500,7 +518,8 @@ public class Controller {
 			printResult.printErrorMessage("deleteStuId");
 
 	}
- 
+	
+	// 마이페이지용 교수 조회
 	public void selectProfId(HashMap<String, String> parameter) {
 
 		ProfessorDTO professor = loginService.selectProfId(parameter);
@@ -513,13 +532,15 @@ public class Controller {
 			printResult.printErrorMessage("selectProfId");
 
 	}
-
+	
+	// 교수 개인정보 수정
 	public void updateProfId(Map<String, String> parameter) {
 
 		if (loginService.updateProfId(parameter))
 			printResult.printSuccessMessage("updateProfId");
 		else
 			printResult.printErrorMessage("updateProfId");
+		
 	}
 
 }

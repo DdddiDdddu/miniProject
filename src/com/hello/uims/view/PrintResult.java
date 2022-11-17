@@ -10,12 +10,84 @@ import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
 public class PrintResult {
+	
+	// 학생 목록 출력
+	public void printStudent(ArrayList<StudentDTO> list) {
+		
+		System.out.println("================================ 학생 목록 ================================");
+		System.out.println("학생번호    학과코드 아이디     비밀번호 이름   주소   전화번호       이메일  입학일        재학상태");
+		for (StudentDTO student : list)
+			System.out.println(student);
+	}
+	
+	// 교수 목록 출력
+	public void printProfessor(ArrayList<ProfessorDTO> list) {
 
+		System.out.println("================================ 교수 목록 ================================");
+		System.out.println("교수번호 학과코드 아이디   비밀번호 이름   주소\t       전화번호       이메일           입사일 재직상태");
+		for (ProfessorDTO professor : list)
+			System.out.println(professor);
+		
+	}
+	
+	// 강의 목록 출력
+	public void printLecture(List<LectureDTO> list) {
+
+		System.out.println("================================ 강의 목록 ================================");
+		System.out.println("학과코드 강의번호  교수명  교수번호  강의명        수강학점  (수강인원/정원인원) 요일    시간");
+		for (LectureDTO lecture : list)
+			System.out.println(lecture);
+	}
+
+	// 학점 목록 출력
+	public void printGrade(List<GradeDTO> list) {
+
+		System.out.println("================================ 학점 목록 ================================");
+		System.out.println("강의명     교수명  학번       학생명 출석 과제 중간 기말 학점");
+		for (GradeDTO grade : list)
+			System.out.println(grade);
+	}
+
+	// 강의평가 출력
+	public void printJudgement(List<LectureJugDTO> list) {
+		
+		System.out.println("================================ 강의 평가 목록 ================================");
+		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
+
+		for (LectureJugDTO lectureJug : list)
+			System.out.println(lectureJug);
+	}
+	
+	// 교수용 강의평가 출력?
+	public void printJudgementProf(ArrayList<LectureJugDTO> list) {
+
+		System.out.println("================================ 강의 평가 목록 ================================");
+		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
+		for (LectureJugDTO lectureJug : list)
+			System.out.println(lectureJug);
+
+		System.out.println("강의 평가 조회가 완료됐습니다. 통합관리시스템으로 넘어갑니다.");
+
+	}
+	
+	// 성공 메시지 출력
 	public void printSuccessMessage(String successCode) {
 
 		String successMessage = "";
 
 		switch (successCode) {
+		// 지수형 - 로그인, 회원가입 파트
+		case "insertStudent":
+			successMessage = "회원가입이 되었습니다.";
+			break;
+		case "updateStuId":
+			successMessage = "정보가 수정되었습니다.";
+			break;
+		case "updateProfId":
+			successMessage = "정보가 수정되었습니다.";
+			break;
+			
+		// 오승재 - 학점 관리 파트
 		case "insertScores":
 			successMessage = "점수 입력에 성공하셨습니다.";
 			break;
@@ -29,18 +101,15 @@ public class PrintResult {
 			successMessage = "학점 삭제에 성공하셨습니다.";
 			break;
 
-		// 수강신청 파트
+		// 김수용 - 수강신청 파트
 		case "enrollSuccess":
 			successMessage = "수강신청 성공";
 			break;
 		case "deleteEnroll":
 			successMessage = "수강신청 취소 성공";
-			break; // 수강신청 파트 끝
+			break; 
 
-		case "insertStudent":
-			successMessage = "회원가입이 되었습니다.";
-			break;
-
+		// 이수용 - 강의평가 파트
 		case "inputJudgement" :
 			successMessage = "강의 평가 등록에 성공하셨습니다.";
 			break;
@@ -53,67 +122,29 @@ public class PrintResult {
 		case "insertProfessor":
 			successMessage = "회원가입이 되었습니다.";
 			break;
-		case "updateStuId":
-			successMessage = "정보가 수정되었습니다.";
-			break;
-		case "updateProfId":
-			successMessage = "정보가 수정되었습니다.";
-			break;
 		}
 
 		System.out.println(successMessage);
 	}
-
-	public void printGrade(List<GradeDTO> list) {
-
-		System.out.println("================================ 학점 목록 ================================");
-		System.out.println("강의명     교수명  학번       학생명 출석 과제 중간 기말 학점");
-		for (GradeDTO grade : list)
-			System.out.println(grade);
-	}
-
-	public void printLecture(List<LectureDTO> list) {
-
-		System.out.println("================================ 강의 목록 ================================");
-		System.out.println("학과코드 강의번호  교수명  교수번호  강의명        수강학점  (수강인원/정원인원) 요일    시간");
-		for (LectureDTO lecture : list)
-			System.out.println(lecture);
-	}
-
-	public void printJudgement(List<LectureJugDTO> list) {
-		System.out.println("================================ 강의 평가 목록 ================================");
-		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
-
-		for (LectureJugDTO lectureJug : list)
-			System.out.println(lectureJug);
-	}
-
-	public void printStudent(ArrayList<StudentDTO> list) {
-		System.out.println("================================ 학생 목록 ================================");
-		System.out.println("학생번호    학과코드 아이디     비밀번호 이름   주소   전화번호       이메일  입학일        재학상태");
-		for (StudentDTO student : list)
-			System.out.println(student);
-	}
-
-	public void printJudgementProf(ArrayList<LectureJugDTO> list) {
-
-		System.out.println("================================ 강의 평가 목록 ================================");
-		System.out.println("강의평가번호\t강의번호\t  교수번호\t    학번\t    평가점수\t   한줄평가");
-		for (LectureJugDTO lectureJug : list)
-			System.out.println(lectureJug);
-
-		System.out.println("강의 평가 조회가 완료됐습니다. 통합관리시스템으로 넘어갑니다.");
-
-	}
-
+	
+	// 실패 메시지 출력
 	public void printErrorMessage(String errorCode) {// 각 메소드에서 호출시케이스마다 추가하면서 하자
 
 		String errorMessage = "";
 
 		switch (errorCode) {
+		// 지수형 - 로그인, 회원가입
 		case "selectLogin":
 			errorMessage = "없는 아이디입니다.";
 			break;
+		case "insertStudent":
+			errorMessage = "회원가입이 실패 했습니다";
+			break;
+		case "insertProfessor":
+			errorMessage = "회원가입이 실패 했습니다";
+			break;
+			
+		// 오승재 - 학점 관리 파트
 		case "gradeCheck":
 			errorMessage = "수강중인 강의가 없거나 학점 조회 기간이 아닙니다.";
 			break;
@@ -142,7 +173,7 @@ public class PrintResult {
 			errorMessage = "수강중인 학생이 아닙니다.";
 			break;
 
-		// 수강신청 파트
+		// 김수용 - 수강신청 파트
 		case "enrollFail":
 			errorMessage = "수강신청 실패";
 			break;
@@ -168,8 +199,7 @@ public class PrintResult {
 			errorMessage = "검색결과가 존재하지 않습니다.";
 			break; // 수강신청 파트 끝
 
-		//강의 신청 파트 시작
-		
+		// 이종호 - 강의평가 파트 
 		case "inputJudgement" :
 			errorMessage = "강의 평가 등록 실패(이미 등록 된 강의 평가 입니다.)";
 			break;
@@ -182,35 +212,21 @@ public class PrintResult {
 		case "selectJudgement":
 			errorMessage = "평가한 강의 평가가 없습니다.";
 			break;
-
 		case "deleteJudgement" :
 			errorMessage = "강의 평가 삭제 실패(해당 강의번호로 등록한 강의 평가가 없습니다,)";
 			break;// 강의평가 파트 끝
-	
-		case "insertStudent":
-			errorMessage = "회원가입이 실패 했습니다";
-			break;
-		case "insertProfessor":
-			errorMessage = "회원가입이 실패 했습니다";
-			break;
 		case "selectJudgementProf":
 			errorMessage = "평가된 강의 평가가 없습니다.";
 			break;
+			
+		// Exception 처리용 메시지
 		case "error":
 			errorMessage = "시스템 에러 발생, 관리자에게 문의하세요.";
 			break;
 		}
+		
 		System.out.println("========================================================================");
 		System.out.println(errorMessage);
-	}
-
-	public void printProfessor(ArrayList<ProfessorDTO> list) {
-
-		System.out.println("================================ 교수 목록 ================================");
-		System.out.println("교수번호 학과코드 아이디   비밀번호 이름   주소\t       전화번호       이메일           입사일 재직상태");
-		for (ProfessorDTO professor : list)
-			System.out.println(professor);
 		
 	}
-
 }

@@ -17,7 +17,7 @@ public class LectureJugService {
 	}
 	
 	//강의 평가 작성
-	public static boolean inputJudgement(Map<String, String> parameter) throws Exception{
+	public boolean inputJudgement(Map<String, String> parameter) throws Exception{
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 		boolean jugplication = false;
@@ -41,8 +41,8 @@ public class LectureJugService {
 		return (result > 0 && !jugplication) ? true : false;
 	}
 	
-	
-	public static ArrayList<StudentDTO> selectByStudentNo(int studentNo) {
+	// 학번으로 학생 조회
+	public ArrayList<StudentDTO> selectByStudentNo(int studentNo) {
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 		
@@ -52,8 +52,9 @@ public class LectureJugService {
 		
 		return list;
 	}
-
-	public static ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo) throws Exception {
+	
+	// 교수 번호로 평가 조회
+	public ArrayList<LectureJugDTO> selectJudgementProf(Map<String, String> inputProfNo) throws Exception {
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 		
@@ -64,8 +65,8 @@ public class LectureJugService {
 		return list;
 	}
 
-
-	public static boolean modifyJudgement(Map<String, String> parameter) throws Exception {
+	// 강의평가 수정
+	public boolean modifyJudgement(Map<String, String> parameter) throws Exception {
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 		boolean jugplication = false;
@@ -89,8 +90,8 @@ public class LectureJugService {
 		return (result > 0 && !jugplication) ? true : false;
 	}
 
-
-	public static ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) throws Exception{
+	// 강의평가 조회
+	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) throws Exception{
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 
@@ -100,8 +101,9 @@ public class LectureJugService {
 
 		return list;
 	}
-
-	public static boolean deleteJudgement(Map<String, String> parameter) throws Exception{
+	
+	// 강의평가 삭제
+	public boolean deleteJudgement(Map<String, String> parameter) throws Exception{
 		SqlSession sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
 		boolean jugplication = false;
@@ -124,6 +126,4 @@ public class LectureJugService {
 		
 		return (result > 0 && !jugplication) ? true : false;
 	}
-
-
 }
