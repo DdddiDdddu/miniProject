@@ -118,7 +118,7 @@ public class Controller {
 	}
 
 	public void updateFinGrade(Map<String, String> parameter) {
-		
+
 		System.out.println("학점 부여중...");
 		try {
 			ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
@@ -198,7 +198,7 @@ public class Controller {
 	// 수강신청
 	public void enroll(Map<String, String> parameter) {
 
-		// 수강신청 결과별 출력메세지 
+		// 수강신청 결과별 출력메세지
 		try {
 			switch (enrollService.enroll(parameter)) {
 			case "enrollSuccess":
@@ -246,6 +246,20 @@ public class Controller {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
 		}
+	}
+
+	// 강의목록 검색
+	public void searchLectureByLectureNameOrProfName(Map<String, String> criteria) {
+
+		ArrayList<LectureDTO> lectureList;
+
+		lectureList = enrollService.searchLectureByLectureNameOrProfName(criteria);
+
+		if (lectureList != null && !lectureList.isEmpty())
+			printResult.printLecture(lectureList);
+		else
+			printResult.printErrorMessage("searchLectureByLectureNameOrProfName");
+
 	}
 
 	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
@@ -300,18 +314,16 @@ public class Controller {
 
 		ArrayList<StudentDTO> list = LectureJugService.selectByStudentNo(studentNo);
 		try {
-		if (list != null && !list.isEmpty())
-			printResult.printStudent(list);
+			if (list != null && !list.isEmpty())
+				printResult.printStudent(list);
 
-		else
-			printResult.printErrorMessage("selectBystudentNo");
-		} catch(Exception e) {
+			else
+				printResult.printErrorMessage("selectBystudentNo");
+		} catch (Exception e) {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
 		}
 	}
-
-
 
 	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
@@ -355,7 +367,7 @@ public class Controller {
 		}
 	}
 
-  public void insertProfessor(HashMap<String, String> infoMap) {
+	public void insertProfessor(HashMap<String, String> infoMap) {
 
 //		int profNo = Integer.parseInt(infoMap.get("profNo"));
 //		String profPwd = infoMap.get("profPwd");
@@ -375,10 +387,9 @@ public class Controller {
 		}
 
 	}
-  	
+
 	public void inputJudgement(Map<String, String> parameter) {
-		
-	
+
 		try {
 			if (LectureJugService.inputJudgement(parameter))
 				printResult.printSuccessMessage("inputJudgement");
@@ -388,24 +399,22 @@ public class Controller {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
 		}
-			
+
 	}
-		
-	
 
 	public void modifyJudgement(Map<String, String> parameter) {
-		
+
 		try {
 			if (LectureJugService.modifyJudgement(parameter))
 				printResult.printSuccessMessage("modifyJudgement");
 			else
 				printResult.printErrorMessage("modifyJudgement");
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
 		}
-			
+
 	}
 
 	public ArrayList<LectureJugDTO> selectJudgement(Map<String, String> parameter) {
@@ -413,7 +422,7 @@ public class Controller {
 		ArrayList<LectureJugDTO> list = null;
 		try {
 			list = LectureJugService.selectJudgement(parameter);
-			
+
 			if (list != null && !list.isEmpty())
 				printResult.printJudgement(list);
 			else
@@ -432,7 +441,6 @@ public class Controller {
 		ArrayList<LectureJugDTO> list = null;
 		try {
 			list = LectureJugService.selectJudgementProf(inputProfNo);
-			
 
 			if (list != null && !list.isEmpty())
 				printResult.printJudgementProf(list);
@@ -447,20 +455,21 @@ public class Controller {
 
 		return (list != null && !list.isEmpty()) ? list : null;
 	}
-	//학생 : 강의 평가 삭제
+
+	// 학생 : 강의 평가 삭제
 	public void deleteJudgement(Map<String, String> parameter) {
-		
-			try {
-				if (LectureJugService.deleteJudgement(parameter))
-					printResult.printSuccessMessage("deleteJudgement");
-				else
-					printResult.printErrorMessage("deleteJudgement");
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				printResult.printErrorMessage("error");
-			}
-		
+
+		try {
+			if (LectureJugService.deleteJudgement(parameter))
+				printResult.printSuccessMessage("deleteJudgement");
+			else
+				printResult.printErrorMessage("deleteJudgement");
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			printResult.printErrorMessage("error");
+		}
+
 	}
 
 	public void selectStuId(Map<String, String> parameter) {
@@ -468,7 +477,7 @@ public class Controller {
 		StudentDTO student = loginService.selectStuId(parameter);
 		ArrayList<StudentDTO> list = new ArrayList<>();
 		list.add(student);
-		
+
 		if (student != null)
 			printResult.printStudent(list);
 		else
@@ -477,16 +486,16 @@ public class Controller {
 	}
 
 	public void updateStuId(Map<String, String> parameter) {
-		
+
 		if (loginService.updateStuId(parameter))
 			printResult.printSuccessMessage("updateStudId");
 		else
 			printResult.printErrorMessage("updateStuId");
-		
+
 	}
 
 	public void deleteStuId(Map<String, String> parameter) {
-		
+
 		if (loginService.deleteStuId(parameter))
 			printResult.printSuccessMessage("deleteStuId");
 		else
