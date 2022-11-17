@@ -1,5 +1,7 @@
 package com.hello.uims.model.DTO;
 
+import java.util.Arrays;
+
 public class LectureDTO {
 
 	private String deptCode; // 학과 코드
@@ -113,8 +115,17 @@ public class LectureDTO {
 	}
 
 	public String toString() {
-		return deptCode + "    " + lectureNo + "    " + profName + "  " + profNo + "      " + lectureName + "  " + credit + "        ("
-				+ currNo + " / " + fullNo + ")     " + day + "     " + time;
+		return deptCode + "    " + lectureNo + "    " + profName + "  " + profNo + "      " + rpad(lectureName, 10, ' ')
+				+ "  " + credit + "        (" + currNo + " / " + fullNo + ")     " + day + "     " + time;
+	}
+
+	public static String rpad(String str, int length, char fillChar) {
+		if (str.length() > length)
+			return str;
+		char[] chars = new char[length];
+		Arrays.fill(chars, fillChar);
+		System.arraycopy(str.toCharArray(), 0, chars, 0, str.length());
+		return new String(chars);
 	}
 
 }
