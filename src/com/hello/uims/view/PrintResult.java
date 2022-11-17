@@ -75,7 +75,7 @@ public class PrintResult {
 	public void printLecture(List<LectureDTO> list) {
 
 		System.out.println("================================ 강의 목록 ================================");
-		System.out.println("학과코드 강의번호 교수명  교수번호 강의명        수강학점  (수강인원/정원인원) 요일    시간");
+		System.out.println("학과코드 강의번호  교수명  교수번호  강의명        수강학점  (수강인원/정원인원) 요일    시간");
 		for (LectureDTO lecture : list)
 			System.out.println(lecture);
 	}
