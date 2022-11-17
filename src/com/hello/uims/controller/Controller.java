@@ -56,16 +56,14 @@ public class Controller {
 
 	public void selectByProfNo(Map<String, String> parameter) {
 
-		ArrayList<LectureDTO> list;
 		try {
-			list = gradeService.selectByProfNo(parameter);
+			ArrayList<LectureDTO> list = gradeService.selectByProfNo(parameter);
 
 			if (list != null && !list.isEmpty())
 				printResult.printLecture(list);
 
 			else
 				printResult.printErrorMessage("selectByProfNo");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
@@ -114,11 +112,8 @@ public class Controller {
 
 	public void updateFinGrade(Map<String, String> parameter) {
 
-		ArrayList<GradeDTO> list;
-
 		try {
-			list = gradeService.selectGrade(parameter);
-
+			ArrayList<GradeDTO> list = gradeService.selectGrade(parameter);
 			ArrayList<GradeDTO> list2 = new ArrayList<>();
 			GradeDTO grade;
 			int totScore = 0;
@@ -168,16 +163,17 @@ public class Controller {
 				if (gradeService.updateFinGrade(parameter)) {
 					result++;
 				}
-				if (result == list2.size()) {
-					printResult.printSuccessMessage("updateFinGrade");
-				} else {
-					printResult.printErrorMessage("updateFinGrade");
-				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			if (result == list2.size()) {
+				printResult.printSuccessMessage("updateFinGrade");
+			} else {
+				printResult.printErrorMessage("updateFinGrade");
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
 			printResult.printErrorMessage("error");
 		}
+
 	}
 
 	// 강의목록 조회
@@ -216,7 +212,7 @@ public class Controller {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			printResult.printErrorMessage("incorrectInput");
+			printResult.printErrorMessage("error");
 		}
 
 	}
@@ -240,7 +236,6 @@ public class Controller {
 				printResult.printSuccessMessage("deleteEnroll");
 			else
 				printResult.printErrorMessage("deleteEnroll");
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			printResult.printErrorMessage("error");
