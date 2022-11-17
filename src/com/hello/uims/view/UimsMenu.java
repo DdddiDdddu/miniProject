@@ -467,12 +467,12 @@ public class UimsMenu {
 			for (int i = 0; i < size; i++) {
 				if (parameter.containsKey("studentNo")) {
 					if (Integer.parseInt(parameter.get("studentNo")) != enroll.get(i).getStudentNo()) {
-						System.out.println(enroll.get(i).getStudentNo());
+						System.out.println("학번 : " + enroll.get(i).getStudentNo());
 					} else {
-						System.out.println("<여기까지 입력 완료>");
+						System.out.println(" < 여기까지 입력 완료 > ");
 					}
 				} else {
-					System.out.println(enroll.get(i).getStudentNo());
+					System.out.println("학번 : " + enroll.get(i).getStudentNo());
 				}
 			}
 			System.out.println("=========================================================================");

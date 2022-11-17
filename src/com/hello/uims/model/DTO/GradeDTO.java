@@ -123,7 +123,7 @@ public class GradeDTO {
 
 	public String toString() {
 		return lectureName + "  " + profName + "  " + studentNo + "  " + studentName + "  " + attScore + "  " + assScore
-				+ "  " + midScore + "  " + finScore + "  " + grade;
+				+ "   " + midScore + "  " + finScore + "   " + grade;
 	}
 
 }

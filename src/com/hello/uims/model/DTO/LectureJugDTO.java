@@ -1,17 +1,16 @@
 package com.hello.uims.model.DTO;
 
 public class LectureJugDTO {
-	
-	private int judgementNo; //강의평가 번호
+
+	private int judgementNo; // 강의평가 번호
 	private int lectureNo; // 강의 번호
-	private int studentNo; //학생번호
+	private int studentNo; // 학생번호
 	private int profNo; // 교수 번호
-	private int stuJugScore; //학생 만족도 점수
-	private String stuOneJug; //학생 한줄평가
-	
+	private int stuJugScore; // 학생 만족도 점수
+	private String stuOneJug; // 학생 한줄평가
+
 	public LectureJugDTO() {
-	
-		
+
 	}
 
 	public LectureJugDTO(int judgementNo, int lectureNo, int studentNo, int profNo, int stuJugScore, String stuOneJug) {
@@ -73,9 +72,7 @@ public class LectureJugDTO {
 	}
 
 	public String toString() {
-		return judgementNo + "                " + lectureNo + "        " + profNo + "      " + 
-				studentNo + "     " + stuJugScore + "        " +stuOneJug;
+		return judgementNo + "                " + lectureNo + "        " + profNo + "      " + studentNo + "     "
+				+ stuJugScore + "        " + stuOneJug;
 	}
-	
-	
 }
