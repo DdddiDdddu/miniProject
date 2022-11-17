@@ -358,7 +358,7 @@ public class UimsMenu {
 				con.deleteEnroll(inputLectureNo(sm)); // 수강신청 취소
 				break;
 			case "5":
-//				con.searchLectureByLectureNameOrProfName(inputSearchCriteriaMap()); // 강의목록 검색
+				con.searchLectureByLectureNameOrProfName(inputSearchCriteriaMap()); // 강의목록 검색
 				break;
 			case "9":
 				return;
