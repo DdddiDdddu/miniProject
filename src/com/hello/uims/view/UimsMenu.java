@@ -698,7 +698,7 @@ public class UimsMenu {
 	private void lectureJug(Map<String, String> parameter) {
 
 		do {
-			con.selectByStudentNo(parameter);
+			con.selectEnroll(parameter);
 
 			System.out.println("================================ 강의평가 =================================");
 			System.out.println("1. 교수 강의 평가");
