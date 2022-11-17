@@ -26,7 +26,7 @@ public class UimsMenu {
 			System.out.println("9. 프로그램 종료");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
-			
+
 			String menu = sc.nextLine();
 
 			switch (menu) {
@@ -92,6 +92,9 @@ public class UimsMenu {
 				}
 			}
 			break;
+		default:
+			System.out.println("잘못 입력하셨습니다.");
+			break;
 		}
 	}
 
@@ -154,6 +157,8 @@ public class UimsMenu {
 
 			con.insertProfessor(infoProMap);
 			break;
+		default:
+			System.out.println("잘못 입력하셨습니다.");
 		}
 	}
 
@@ -173,7 +178,6 @@ public class UimsMenu {
 			System.out.print("메뉴 선택 : ");
 
 			String menu = sc.nextLine();
-
 
 			switch (menu) {
 			case "1":
@@ -338,7 +342,7 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			String menu = sc.nextLine(); 
+			String menu = sc.nextLine();
 
 			switch (menu) {
 			case "1":
@@ -420,7 +424,7 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
 
-			String menu = sc.nextLine(); 
+			String menu = sc.nextLine();
 
 			switch (menu) {
 			case "1":
@@ -455,7 +459,7 @@ public class UimsMenu {
 		String midScore;
 		String finScore;
 		ArrayList<EnrollmentDTO> enroll = con.selectStudentList(parameter);
-		
+
 		int index1 = 0;
 		int size = enroll.size();
 		while (index1 < size) {
@@ -693,8 +697,8 @@ public class UimsMenu {
 			System.out.println("=========================================================================");
 
 			System.out.println("메뉴 선택 : ");
-			
-			String menu = sc.nextLine(); 
+
+			String menu = sc.nextLine();
 
 			switch (menu) {
 

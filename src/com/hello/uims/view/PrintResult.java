@@ -160,9 +160,6 @@ public class PrintResult {
 		case "duplication":
 			errorMessage = "수강신청 실패 : 이미 수강신청한 강의";
 			break;
-		case "incorrectInput":
-			errorMessage = "수강신청 실패 : 강의코드 오타";
-			break;
 		case "selectAllLecture":
 			errorMessage = "강의목록 조회 실패 : 데이터가 존재하지 않습니다";
 			break;
@@ -194,11 +191,14 @@ public class PrintResult {
 		case "selectJudgementProf" :
 			errorMessage = "평가된 강의 평가가 없습니다.";
 			break;
+		case "error":
+			errorMessage = "시스템 에러 발생, 관리자에게 문의하세요.";
+			break;
 		}
 		System.out.println("========================================================================");
 		System.out.println(errorMessage);
 	}
-
+	
 //	public void printLogStu(StudentDTO id) {
 //		System.out.println(id);
 //	}
