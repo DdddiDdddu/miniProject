@@ -10,7 +10,5 @@ public class Application {
 		
 		menu.initialMenu(); // 체크할 것들에 주석으로 '확인' 달아놓기! - 수용
 		
-		//menu.stuMainMenu();
-		
 	}
 }
