@@ -9,11 +9,12 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 public class Template {
-
+	
+	// remix 혼용방식 사용
 	private static String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static String URL = "jdbc:oracle:thin:@localhost:1521:xe"; // 자르 가져와서 쓸거면 이걸로
-	private static String USER = "mini"; // db만들걸로 아디 비번 변경하기 // 확인
-	private static String PASSWORD = "mini"; // 확인
+	private static String URL = "jdbc:oracle:thin:@localhost:1521:xe"; 
+	private static String USER = "mini";
+	private static String PASSWORD = "mini"; 
 	private static SqlSessionFactory sqlSessionFactory;
 
 	public static SqlSession getSqlSession() {
@@ -30,9 +31,6 @@ public class Template {
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
 			
 		}
-		
 		return sqlSessionFactory.openSession(false);
-		
 	}
-
 }

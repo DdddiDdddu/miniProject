@@ -9,7 +9,8 @@ import com.hello.common.UimsMapper;
 
 
 public class SignUpService {
-
+	
+	// 학생 입력
 	public boolean insertStudent(HashMap<String, String> infoMap) {
 		
 		SqlSession sqlSession = getSqlSession();
@@ -26,7 +27,8 @@ public class SignUpService {
 		sqlSession.close();
 		return (result > 0)? true : false;
 	}
-
+	
+	// 교수 입력
 	public boolean insertProfessor(HashMap<String, String> infoMap) {
 		
 		SqlSession sqlSession = getSqlSession();
@@ -42,7 +44,5 @@ public class SignUpService {
 		
 		sqlSession.close();
 		return (result > 0)? true : false;
-    
 	}
-  
 }

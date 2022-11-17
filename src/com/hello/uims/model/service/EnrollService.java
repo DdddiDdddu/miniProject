@@ -47,7 +47,6 @@ public class EnrollService {
 
 		// 강의 중복 여부
 		for (int i = 0; i < lectureList.size() - 1; i++) {
-//			System.out.println("인덱스" + lectureList.get(i).getLectureNo()); 테스트
 			if (lectureList.get(i).getLectureNo() == Integer.parseInt(parameter.get("lectureNo"))) {
 				duplication = true;
 			}
@@ -63,15 +62,6 @@ public class EnrollService {
 		// 강의시간 중복 여부, 수강가능 학점 카운트
 		for (TimeTableDTO time : timeList) {
 
-			// 테스트
-//			System.out.println(time.getEnrollId());
-//			System.out.println(time.getStudentNo());
-//			System.out.println(time.getLectureNo());
-//			System.out.println(time.getDay());
-//			System.out.println(time.getFirstClass());
-//			System.out.println(time.getSecondClass());
-//			System.out.println(time.getCredit());
-
 			if (timeTables[time.getDay()][time.getFirstClass()] == 0)
 				timeTables[time.getDay()][time.getFirstClass()] = time.getLectureNo();
 			else
@@ -86,12 +76,6 @@ public class EnrollService {
 			totalCredit += time.getCredit();
 
 		}
-
-		// 테스트
-//		System.out.println("수강신청 결과" + enrollResult);
-//		System.out.println("강의 중복여부" + duplication);
-//		System.out.println("시간 중복여부" + timeDuplication);
-//		System.out.println("수강학점" + totalCredit);
 
 		if (enrollResult > 0 && !duplication && !timeDuplication && totalCredit <= 18) {
 			sqlSession.commit();
@@ -167,5 +151,4 @@ public class EnrollService {
 
 		return lectureList;
 	}
-
 }
