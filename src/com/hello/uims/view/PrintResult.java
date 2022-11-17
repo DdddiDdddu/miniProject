@@ -204,10 +204,10 @@ public class PrintResult {
 	public void printProfessor(ArrayList<ProfessorDTO> list) {
 
 		System.out.println("================================ 교수 목록 ================================");
-		System.out.println("교수번호 학과코드 아이디   비밀번호 이름   주소\t       전화번호       이메일             입사일 재직상태");
+		System.out.println("교수번호 학과코드 아이디   비밀번호 이름   주소\t       전화번호       이메일           입사일 재직상태");
 		for (ProfessorDTO professor : list)
 			System.out.println(professor);
-
+		
 	}
 
 }
