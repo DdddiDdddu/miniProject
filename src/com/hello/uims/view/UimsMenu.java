@@ -199,7 +199,7 @@ public class UimsMenu {
 				myPageStudent(sm);
 				break;
 			case 2:
-				enrollMenu();
+				enrollMenu(sm);
 				break;
 			case 3:
 				con.selectGradeCheck(sm);
@@ -353,20 +353,22 @@ public class UimsMenu {
 	}
 	
 	// 수강신청 메뉴
-	public void enrollMenu() {
+	public void enrollMenu(HashMap<String, String> sm) {
 
 		do {
 			int no;
 
 			System.out.println("================================ 수강신청 =================================");
 			System.out.println("1. 강의목록 조회");
-			System.out.println("2. 강의목록 검색");
-			System.out.println("3. 수강신청");
-			System.out.println("4. 수강신청 내역");
-			System.out.println("5. 수강신청 취소");
+			System.out.println("2. 수강신청");
+			System.out.println("3. 수강신청 내역");
+			System.out.println("4. 수강신청 취소");
+			System.out.println("5. 강의목록 검색");
 			System.out.println("9. 돌아가기");
 			System.out.println("=========================================================================");
 			System.out.print("메뉴 선택 : ");
+
+//			SQLIntegrityConstraintViolationException 에러 처리하기 
 
 			no = sc.nextInt();
 			sc.nextLine();
@@ -376,16 +378,16 @@ public class UimsMenu {
 				con.selectAllLecture(); // 강의목록 조회
 				break;
 			case 2:
-//				con.selectSearch(); // 검색기능 추가
+				con.enroll(inputLectureNo(sm)); // 수강신청
 				break;
 			case 3:
-				con.enroll(inputEnroll()); // 수강신청
+				con.selectEnroll(sm); // 수강신청 내역
 				break;
 			case 4:
-				con.selectEnroll(inputStudentNo()); // 수강신청 내역
+				con.deleteEnroll(inputLectureNo(sm)); // 수강신청 취소
 				break;
 			case 5:
-				con.deleteEnroll(inputEnroll()); // 수강신청 취소
+				con.searchLectureByLectureNameOrProfName(inputSearchCriteriaMap()); // 강의목록 검색
 				break;
 			case 9:
 				return;
@@ -396,13 +398,41 @@ public class UimsMenu {
 		} while (true);
 	}
 
+	// 강의목록 검색 분류 입력
+	private Map<String, String> inputSearchCriteriaMap() {
+
+		Map<String, String> criteria = new HashMap<>();
+
+		while (true) {
+			System.out.println("검색할 조건을 입력하세요(lectureName or profName) : ");
+			String condition = sc.nextLine();
+
+			if ("lectureName".equals(condition)) {
+
+				System.out.print("검색할 강의명을 입력하세요 : ");
+				String lectureNameValue = sc.nextLine();
+
+				criteria.put("lectureNameValue", lectureNameValue);
+				break;
+
+			} else if ("profName".equals(condition)) {
+
+				System.out.print("검색할 교수명을 입력하세요 : ");
+				String profNameValue = sc.nextLine();
+
+				criteria.put("profNameValue", profNameValue);
+				break;
+
+			} else {
+				System.out.println("잘못입력하셨습니다.");
+			}
+		}
+
+		return criteria;
+	}
+
 	// 학번 강의코드 입력
-	public Map<String, String> inputEnroll() {
-
-		Map<String, String> parameter = new HashMap<>();
-
-		System.out.print("학번을 입력해주세요 : ");
-		parameter.put("studentNo", sc.nextLine());
+	public Map<String, String> inputLectureNo(HashMap<String, String> parameter) {
 
 		System.out.print("강의코드를 입력해주세요 : ");
 		parameter.put("lectureNo", sc.nextLine());
