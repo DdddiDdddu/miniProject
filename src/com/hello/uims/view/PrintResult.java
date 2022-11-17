@@ -204,14 +204,6 @@ public class PrintResult {
 		System.out.println(errorMessage);
 	}
 
-//	public void printLogStu(StudentDTO id) {
-//		System.out.println(id);
-//	}
-//
-//	public void printErrorLogStu(String string) {
-//
-//	}
-
 	public void printProfessor(ArrayList<ProfessorDTO> list) {
 
 		System.out.println("================================ 교수 목록 ================================");
