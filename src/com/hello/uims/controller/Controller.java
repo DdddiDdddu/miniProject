@@ -43,7 +43,6 @@ public class Controller {
 
 		if (list != null && !list.isEmpty())
 			printResult.printGrade(list);
-
 		else
 			printResult.printErrorMessage("gradeCheck");
 
@@ -295,17 +294,6 @@ public class Controller {
 
 	public void insertStudent(HashMap<String, String> infoMap) {
 
-//		String studentId = infoMap.get("studentId");
-//		String studentPwd = infoMap.get("studentPwd");
-//		String studentName = infoMap.get("studentName");
-//		String studentTelNo = infoMap.get("studentTelNo");
-//		
-//		StudentDTO stu = new StudentDTO();
-//		stu.setStudentId(studentId);
-//		stu.setStudentPwd(studentPwd);
-//		stu.setStudentName(studentName);
-//		stu.setStudentTelNo(studentTelNo);
-
 		if (signUpService.insertStudent(infoMap)) {
 			printResult.printSuccessMessage("insertStudent");
 		} else {
@@ -314,17 +302,6 @@ public class Controller {
 	}
 
 	public void insertProfessor(HashMap<String, String> infoMap) {
-
-//		int profNo = Integer.parseInt(infoMap.get("profNo"));
-//		String profPwd = infoMap.get("profPwd");
-//		String profName = infoMap.get("profName");
-//		String profTelNo = infoMap.get("profTelNo");
-//	
-//		ProfessorDTO pro = new ProfessorDTO();
-//		pro.setProfNo(profNo);
-//		pro.setProfPwd(profPwd);
-//		pro.setProfName(profName);
-//		pro.setProfTelNo(profTelNo);
 
 		if (signUpService.insertProfessor(infoMap)) {
 			printResult.printSuccessMessage("insertProfessor");
@@ -407,5 +384,27 @@ public class Controller {
 			printResult.printErrorMessage("deleteStuId");
 
 	}
+
+	public void selectProfId(HashMap<String, String> parameter) {
+		
+		ProfessorDTO professor = loginService.selectProfId(parameter);
+		ArrayList<ProfessorDTO> list = new ArrayList<>();
+		list.add(professor);
+		
+		if (professor != null)
+			printResult.printProfessor(list);
+		else
+			printResult.printErrorMessage("selectProfId");
+		
+	}
+
+	public void updateProfId(Map<String, String> parameter) {
+		
+		if (loginService.updateProfId(parameter))
+			printResult.printSuccessMessage("updateProfId");
+		else
+			printResult.printErrorMessage("updateProfId");
+	}
+
 
 }
