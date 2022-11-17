@@ -162,7 +162,7 @@
 			   ENROLL_DATE,
 			   STATUS
 		  FROM STUDENT
-		 WHERE STUDENT_ID = #{ studentId }  
+		 WHERE STUDENT_NO = #{ studentNo }  
 	</select>
 	<!-- 학생정보 수정 -->
 	<update id = "updateStuId" parameterType="hashmap">
@@ -193,7 +193,7 @@
 			   EMAIL,
 			   STATUS
 		  FROM PROFESSOR
-		 WHERE PROF_ID = #{ profId }
+		 WHERE PROF_NO = #{ profNo }
 	</select>
 	<!-- 교수정보 수정 -->
 	<update id = "updateProfId" parameterType="hashmap">

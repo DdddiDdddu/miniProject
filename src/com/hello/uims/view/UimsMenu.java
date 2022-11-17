@@ -196,7 +196,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				myPageStudent();
+				myPageStudent(sm);
 				break;
 			case 2:
 				enrollMenu();
@@ -218,7 +218,7 @@ public class UimsMenu {
 
 	}
 
-	private void myPageStudent() {
+	private void myPageStudent(HashMap<String, String> sm) {
 		while (true) {
 			System.out.println("=========================== 마이페이지 ===========================");
 			System.out.println("1. 조회");
@@ -234,13 +234,13 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				con.selectStuId(inputStuId());
+				con.selectStuId(sm);
 				break;
 			case 2:
-				updateStuId(inputStudentNo());
+				updateStuId(sm);
 				break;
 			case 3:
-				con.deleteStuId(inputStudentNo());
+				con.deleteStuId(sm);
 				return;
 			case 9:
 				System.out.println("이전 메뉴로 돌아갑니다.");
@@ -288,7 +288,7 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				myPageProfessor();
+				myPageProfessor(pm);
 				break;
 			case 2:
 				manageGrade(pm);
@@ -305,7 +305,7 @@ public class UimsMenu {
 		} while (true);
 	}
 	
-	private void myPageProfessor() {
+	private void myPageProfessor(HashMap<String, String> pm) {
 		while (true) {
 			System.out.println("=========================== 마이페이지 ===========================");
 			System.out.println("1. 조회");
@@ -320,10 +320,10 @@ public class UimsMenu {
 
 			switch (no) {
 			case 1:
-				con.selectProfId(inputProfId());
+				con.selectProfId(pm);
 				break;
 			case 2:
-				updateProfId(inputProfNo());
+				updateProfId(pm);
 				break;
 			case 9:
 				System.out.println("이전 메뉴로 돌아갑니다.");
