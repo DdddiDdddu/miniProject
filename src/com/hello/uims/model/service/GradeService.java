@@ -21,7 +21,7 @@ public class GradeService {
 	}
 
 	// 학생 : 학점 조회
-	public ArrayList<GradeDTO> selectGradeCheck(Map<String, String> parameter) {
+	public ArrayList<GradeDTO> selectGradeCheck(Map<String, String> parameter) throws Exception {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -33,7 +33,7 @@ public class GradeService {
 	}
 
 	// 교수 : 자기가 강의중인 강의 목록 조회
-	public ArrayList<LectureDTO> selectByProfNo(Map<String, String> parameter) {
+	public ArrayList<LectureDTO> selectByProfNo(Map<String, String> parameter) throws Exception {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -45,7 +45,7 @@ public class GradeService {
 	}
 
 	// 교수 : 강의 수강중인 학생 목록 조회
-	public ArrayList<EnrollmentDTO> selectStudentList(Map<String, String> parameter) {
+	public ArrayList<EnrollmentDTO> selectStudentList(Map<String, String> parameter) throws Exception {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -57,7 +57,7 @@ public class GradeService {
 	}
 
 	// 교수 : 학생 점수
-	public boolean insertScores(Map<String, String> parameter) {
+	public boolean insertScores(Map<String, String> parameter) throws Exception {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -71,7 +71,7 @@ public class GradeService {
 		return (result > 0) ? true : false;
 	}
 
-	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) {
+	public ArrayList<GradeDTO> selectGrade(Map<String, String> parameter) throws Exception {
 		
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -83,7 +83,7 @@ public class GradeService {
 		return list;
 	}
 
-	public boolean updateFinGrade(Map<String, String> parameter) {
+	public boolean updateFinGrade(Map<String, String> parameter) throws Exception  {
 
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -97,7 +97,7 @@ public class GradeService {
 		return (result > 0) ? true : false;
 	}
 
-	public boolean updateGrade(Map<String, String> parameter) {
+	public boolean updateGrade(Map<String, String> parameter) throws Exception {
 		
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
@@ -111,7 +111,7 @@ public class GradeService {
 		return (result > 0) ? true : false;
 	}
 
-	public boolean deleteGrade(Map<String, String> parameter) {
+	public boolean deleteGrade(Map<String, String> parameter) throws Exception {
 		
 		sqlSession = getSqlSession();
 		UimsMapper mapper = sqlSession.getMapper(UimsMapper.class);
