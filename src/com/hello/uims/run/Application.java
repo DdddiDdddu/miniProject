@@ -8,6 +8,7 @@ public class Application {
 
 		UimsMenu menu = new UimsMenu();
 		
+		// 초기 화면
 		menu.initialMenu();
 		
 	}

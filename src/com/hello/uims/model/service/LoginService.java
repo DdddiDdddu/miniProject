@@ -12,7 +12,8 @@ import com.hello.uims.model.DTO.ProfessorDTO;
 import com.hello.uims.model.DTO.StudentDTO;
 
 public class LoginService {
-
+	
+	// 학생 로그인용 조회
 	public StudentDTO selectLoginStudent(Map<String, String> parameter) {
 
 		SqlSession sqlSession = getSqlSession();
@@ -24,7 +25,8 @@ public class LoginService {
 
 		return student;
 	}
-
+	
+	// 교수 로그인용 조회
 	public ProfessorDTO selectLoginProfessor(Map<String, String> parameter) {
 
 		SqlSession sqlSession = getSqlSession();
@@ -36,7 +38,8 @@ public class LoginService {
 
 		return professor;
 	}
-
+	
+	// 학생 조회
 	public StudentDTO selectStuId(Map<String, String> parameter) {
 
 		SqlSession sqlSession = getSqlSession();
@@ -48,7 +51,8 @@ public class LoginService {
 
 		return student;
 	}
-
+	
+	// 학생 수정
 	public boolean updateStuId(Map<String, String> parameter) {
 
 		SqlSession sqlSession = getSqlSession();
@@ -65,7 +69,8 @@ public class LoginService {
 
 		return (result > 0) ? true : false;
 	}
-
+	
+	// 학생 삭제
 	public boolean deleteStuId(Map<String, String> parameter) {
 		
 		SqlSession sqlSession = getSqlSession();
@@ -82,7 +87,8 @@ public class LoginService {
 		
 		return (result > 0)? true : false;
 	}
-
+	
+	// 교수 조회
 	public ProfessorDTO selectProfId(HashMap<String, String> parameter) {
 		
 		SqlSession sqlSession = getSqlSession();
@@ -95,7 +101,8 @@ public class LoginService {
 		return professor;
 		
 	}
-
+	
+	// 교수 수정
 	public boolean updateProfId(Map<String, String> parameter) {
 		
 		SqlSession sqlSession = getSqlSession();
@@ -112,6 +119,4 @@ public class LoginService {
 
 		return (result > 0) ? true : false;
 	}
-
-
 }
