@@ -489,7 +489,7 @@ public class UimsMenu {
 				}
 			}
 			System.out.println("=========================================================================");
-			System.out.print("학점을 입력할 학생의 ");
+			System.out.print("순서대로 학점을 입력할 학생의 ");
 			parameter.put("studentNo", inputStudentNo().get("studentNo"));
 			System.out.println("=========================================================================");
 			while (true) {
