@@ -387,7 +387,7 @@ public class Controller {
 	// 회원가입용 교수 입력
 	public void insertProfessor(HashMap<String, String> infoMap) {
 
-		if (signUpService.insertProfessor(infoMap)) {
+if (signUpService.insertProfessor(infoMap)) {
 			printResult.printSuccessMessage("insertProfessor");
 		} else {
 			printResult.printErrorMessage("insertProfessor");
