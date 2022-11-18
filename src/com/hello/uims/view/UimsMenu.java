@@ -42,6 +42,7 @@ public class UimsMenu {
 					sc.close();
 					return;
 				}
+				break;
 			default:
 				System.out.println("잘못 입력하셨습니다.");
 				break;
