@@ -349,16 +349,6 @@ public class Controller {
 
 	public void insertStudent(HashMap<String, String> infoMap) {
 
-//		String studentId = infoMap.get("studentId");
-//		String studentPwd = infoMap.get("studentPwd");
-//		String studentName = infoMap.get("studentName");
-//		String studentTelNo = infoMap.get("studentTelNo");
-//		
-//		StudentDTO stu = new StudentDTO();
-//		stu.setStudentId(studentId);
-//		stu.setStudentPwd(studentPwd);
-//		stu.setStudentName(studentName);
-//		stu.setStudentTelNo(studentTelNo);
 
 		if (signUpService.insertStudent(infoMap)) {
 			printResult.printSuccessMessage("insertStudent");
@@ -369,16 +359,6 @@ public class Controller {
 
 	public void insertProfessor(HashMap<String, String> infoMap) {
 
-//		int profNo = Integer.parseInt(infoMap.get("profNo"));
-//		String profPwd = infoMap.get("profPwd");
-//		String profName = infoMap.get("profName");
-//		String profTelNo = infoMap.get("profTelNo");
-//	
-//		ProfessorDTO pro = new ProfessorDTO();
-//		pro.setProfNo(profNo);
-//		pro.setProfPwd(profPwd);
-//		pro.setProfName(profName);
-//		pro.setProfTelNo(profTelNo);
 
 		if (signUpService.insertProfessor(infoMap)) {
 			printResult.printSuccessMessage("insertProfessor");
