@@ -878,8 +878,6 @@ public class UimsMenu {
 		while (true) {
 			con.selectByProfNo(inputProfNo);
 			System.out.println("=========================================================================");
-			System.out.println("강의 평가 조회 하고 싶은 ");
-			inputProfNo.put("lectureNo", inputLectureNo().get("lectureNo"));
 
 			con.selectJudmentProf(inputProfNo);
 
